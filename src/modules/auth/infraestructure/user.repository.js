@@ -1,44 +1,52 @@
-const pool = require('../../../config/data/database/database');
+const User = require('../infraestructure/repository/models/User');
 
 class UserRepository {
     async findByEmail(email) {
         try {
-            const connection = await pool.getConnection();
-            const [users] = await connection.execute(
-                'SELECT * FROM usuarios WHERE email = ?',
-                [email]
-            );
-            return users[0] || null;
+            return await User.findOne({ email });
         } catch (error) {
-            throw new Error('Error al buscar usuario por email');
+            console.error('Error en UserRepository.findByEmail:', error);
+            throw error;
         }
     }
 
     async findById(id) {
         try {
-            const connection = await pool.getConnection();
-            const [users] = await connection.execute(
-                'SELECT * FROM usuarios WHERE id = ?',
-                [id]
-            );
-            return users[0] || null;
+            return await User.findById(id);
         } catch (error) {
-            throw new Error('Error al buscar usuario por ID');
+            console.error('Error en UserRepository.findById:', error);
+            throw error;
         }
     }
 
     async create(userData) {
         try {
-            const connection = await pool.getConnection();
-            const [result] = await connection.execute(
-                'INSERT INTO usuarios (email, password, nombre) VALUES (?, ?, ?)',
-                [userData.email, userData.password, userData.nombre]
-            );
-            return { id: result.insertId, ...userData };
+            const user = new User(userData);
+            await user.save();
+            return user;
         } catch (error) {
-            throw new Error('Error al crear usuario');
+            console.error('Error en UserRepository.create:', error);
+            throw error;
+        }
+    }
+
+    async update(id, userData) {
+        try {
+            return await User.findByIdAndUpdate(id, userData, { new: true });
+        } catch (error) {
+            console.error('Error en UserRepository.update:', error);
+            throw error;
+        }
+    }
+
+    async delete(id) {
+        try {
+            return await User.findByIdAndDelete(id);
+        } catch (error) {
+            console.error('Error en UserRepository.delete:', error);
+            throw error;
         }
     }
 }
 
-module.exports = new UserRepository(); 
+module.exports = new UserRepository();

@@ -1,4 +1,4 @@
-const User = require('../repository/models/User');
+const UserRepository = require('../infraestructure/user.repository');
 const bcrypt = require('bcrypt');
 
 class AuthService {
@@ -6,7 +6,7 @@ class AuthService {
         console.log('🔍 AuthService - login - Iniciando proceso de login');
         try {
             console.log('📧 AuthService - login - Buscando usuario:', email);
-            const user = await User.findOne({ email });
+            const user = await UserRepository.findByEmail(email);
             
             if (!user) {
                 console.log('❌ AuthService - login - Usuario no encontrado');
@@ -40,7 +40,7 @@ class AuthService {
         console.log('🔍 AuthService - register - Iniciando proceso de registro');
         try {
             console.log('📧 AuthService - register - Verificando usuario existente:', email);
-            const existingUser = await User.findOne({ email });
+            const existingUser = await UserRepository.findByEmail(email);
             
             if (existingUser) {
                 console.log('❌ AuthService - register - Usuario ya existe');
@@ -51,13 +51,12 @@ class AuthService {
             const hashedPassword = await bcrypt.hash(password, 10);
             
             console.log('👤 AuthService - register - Creando nuevo usuario');
-            const user = new User({
+            const user = await UserRepository.create({
                 email,
                 password: hashedPassword,
                 nombre
             });
 
-            await user.save();
             console.log('✅ AuthService - register - Usuario creado exitosamente');
             
             return { 
@@ -78,7 +77,7 @@ class AuthService {
         console.log('🔍 AuthService - getUserProfile - Iniciando proceso de obtener perfil');
         try {
             console.log('👤 AuthService - getUserProfile - Buscando usuario:', userId);
-            const user = await User.findById(userId);
+            const user = await UserRepository.findById(userId);
             
             if (!user) {
                 console.log('❌ AuthService - getUserProfile - Usuario no encontrado');
