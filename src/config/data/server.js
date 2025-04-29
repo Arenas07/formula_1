@@ -1,52 +1,114 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const session = require('express-session');
 const cookieParser = require('cookie-parser');
-require('dotenv').config();
-
-// Importar rutas
-const authRoutes = require('../../modules/auth/auth.routes');
-const pilotosRoutes = require('../../modules/pilotos/pilotos.routes');
+const session = require('express-session');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+const path = require('path');
+const { testConnection } = require('./database/database');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 // Configuración de CORS
 const corsOptions = {
-    origin: 'http://localhost:3000', // URL de tu frontend
-    credentials: true, // Importante para permitir cookies
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    maxAge: 86400
 };
-
-// Middleware
 app.use(cors(corsOptions));
+
+// Middleware para parsear JSON
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({
-    secret: 'formula1_secret_key',
+    secret: process.env.SESSION_SECRET || 'formula1_secret',
     resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: process.env.NODE_ENV === 'production',
-        httpOnly: true,
+    saveUninitialized: true,
+    cookie: { 
+        secure: process.env.NODE_ENV === 'production', 
         maxAge: 24 * 60 * 60 * 1000 // 24 horas
     }
 }));
-app.use(express.static('public'));
 
-// Rutas
-app.use('/api/auth', authRoutes);
-app.use('/api/pilotos', pilotosRoutes);
+// Configuración de Swagger
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: process.env.SWAGGER_TITLE || 'API de Fórmula 1',
+            version: process.env.SWAGGER_VERSION || '1.0.0',
+            description: process.env.SWAGGER_DESCRIPTION || 'API para gestionar datos de Fórmula 1',
+        },
+        servers: [
+            {
+                url: `http://localhost:${port}`,
+                description: 'Servidor de desarrollo',
+            },
+        ],
+    },
+    apis: ['./src/modules/**/*.js'], // Ajusta esta ruta según tu estructura de proyecto
+};
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+// Importar rutas
+const authRoutes = require('../../modules/auth/auth.routes');
+app.use('/auth', authRoutes);
+
+// Ruta de prueba
+app.get('/', (req, res) => {
+    res.json({ message: 'API de Fórmula 1 funcionando correctamente' });
+});
+
+// Ruta de salud
+app.get('/health', async (req, res) => {
+    try {
+        const dbConnected = await testConnection();
+        res.status(200).json({ 
+            status: 'ok', 
+            database: dbConnected ? 'connected' : 'disconnected' 
+        });
+    } catch (error) {
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Error checking database connection' 
+        });
+    }
+});
 
 // Manejo de errores
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).json({ message: 'Error interno del servidor' });
+    res.status(500).json({ 
+        error: 'Algo salió mal!',
+        message: err.message 
+    });
 });
 
-// Iniciar servidor
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-}); 
+// Iniciar el servidor
+const startServer = async () => {
+    try {
+        // Probar conexión a la base de datos antes de iniciar el servidor
+        const dbConnected = await testConnection();
+        if (!dbConnected) {
+            console.error('No se pudo conectar a la base de datos. Deteniendo la aplicación.');
+            process.exit(1);
+        }
+
+        app.listen(port, () => {
+            console.log(`🚀 Servidor corriendo en http://localhost:${port}`);
+            console.log(`📄 Documentación de la API disponible en http://localhost:${port}/api-docs`);
+        });
+    } catch (error) {
+        console.error('Error al iniciar el servidor:', error);
+        process.exit(1);
+    }
+};
+
+startServer();
