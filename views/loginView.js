@@ -32,7 +32,8 @@ class Login extends HTMLElement{
                 left: 0;
                 width: 100vw;
                 height: 100vh;
-                background-color: #5c0000;
+                background: url("../src/icons/F1-Background.png") no-repeat center center;
+                background-size: cover;
                 z-index: 0;
                 overflow: hidden;
                 }
@@ -56,7 +57,7 @@ class Login extends HTMLElement{
             
             .wrapper{
                 width: 420px;
-                background: rgba(139, 0, 0, 0.8);
+                background: rgba(200, 50, 50, 0.5);
                 position: relative;
                 color: #fff;
                 padding: 30px 40px;
@@ -64,7 +65,7 @@ class Login extends HTMLElement{
                 transform: translateY(20px);
                 transition: opacity 0.6s ease, transform 0.6s ease;
                 border-radius: 10px;
-                box-shadow: 0 0 15px rgba(255, 85, 85, 0.57); /* Efecto de brillo rojo */
+                box-shadow: 0 0 15px rgba(255, 85, 85, 0.57); 
                 
             }
 
@@ -142,23 +143,46 @@ class Login extends HTMLElement{
                 text-decoration: underline;
             }
 
-            .img-max {
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(30%);
+                }
+            }
+
+            @keyframes slideInLeft {
+                from {
+                    opacity: 0;
+                    transform: translateX(-100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(-30%);
+                }
+            }
+
+            .img-right {
                 position: absolute;
                 bottom: 0; 
                 right: 0;
                 transform: translateX(30%); 
                 z-index: 2; 
                 height: 92vh;
-                
+                animation: slideInRight 1s ease-out forwards;
             }
-            
-            .img-car {
+
+            .img-left {
                 position: absolute;
-                bottom: -7%; 
+                bottom: 0px; 
                 left: 0;
+                transform: translateX(-30%); 
                 z-index: 2; 
-                height: 30vh;
-                
+                height: 90vh;
+                animation: slideInLeft 1s ease-out forwards;
             }
 
             </style>
@@ -179,8 +203,8 @@ class Login extends HTMLElement{
                 </div>
             </form>
         </div> 
-        <img src="../src/icons/Max-Verstappen.png" class="img-max">
-        <img src="../src/icons/redbull.png" class="img-car">
+        <img src="../src/icons/Max-Verstappen.png" class="img-right">
+        <img src="../src/icons/Sergio-perez.png" class="img-left">
         `
     }
 }
