@@ -1,10 +1,9 @@
-const mysql = require('mysql2/promise');
-const dbConfig = require('../../../config/database');
+const pool = require('../../../config/data/database/database');
 
 class UserRepository {
     async findByEmail(email) {
         try {
-            const connection = await mysql.createConnection(dbConfig);
+            const connection = await pool.getConnection();
             const [users] = await connection.execute(
                 'SELECT * FROM usuarios WHERE email = ?',
                 [email]
@@ -17,7 +16,7 @@ class UserRepository {
 
     async findById(id) {
         try {
-            const connection = await mysql.createConnection(dbConfig);
+            const connection = await pool.getConnection();
             const [users] = await connection.execute(
                 'SELECT * FROM usuarios WHERE id = ?',
                 [id]
@@ -30,7 +29,7 @@ class UserRepository {
 
     async create(userData) {
         try {
-            const connection = await mysql.createConnection(dbConfig);
+            const connection = await pool.getConnection();
             const [result] = await connection.execute(
                 'INSERT INTO usuarios (email, password, nombre) VALUES (?, ?, ?)',
                 [userData.email, userData.password, userData.nombre]

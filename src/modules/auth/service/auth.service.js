@@ -1,89 +1,99 @@
-const userRepository = require('../infraestructure/user.repository');
-const { comparePasswords, hashPassword } = require('../../utils/security/password');
+const User = require('../repository/models/User');
+const bcrypt = require('bcrypt');
 
 class AuthService {
     async login(email, password) {
+        console.log('🔍 AuthService - login - Iniciando proceso de login');
         try {
-            const user = await userRepository.findByEmail(email);
+            console.log('📧 AuthService - login - Buscando usuario:', email);
+            const user = await User.findOne({ email });
             
             if (!user) {
-                return {
-                    success: false,
-                    message: 'Usuario no encontrado'
-                };
+                console.log('❌ AuthService - login - Usuario no encontrado');
+                return { success: false, message: 'Usuario no encontrado' };
             }
 
-            const isValidPassword = await comparePasswords(password, user.password);
+            console.log('🔑 AuthService - login - Verificando contraseña');
+            const isPasswordValid = await bcrypt.compare(password, user.password);
             
-            if (!isValidPassword) {
-                return {
-                    success: false,
-                    message: 'Contraseña incorrecta'
-                };
+            if (!isPasswordValid) {
+                console.log('❌ AuthService - login - Contraseña incorrecta');
+                return { success: false, message: 'Contraseña incorrecta' };
             }
 
-            return {
-                success: true,
+            console.log('✅ AuthService - login - Login exitoso');
+            return { 
+                success: true, 
                 user: {
-                    id: user.id,
+                    id: user._id,
                     email: user.email,
                     nombre: user.nombre
                 }
             };
         } catch (error) {
-            throw new Error('Error en el proceso de autenticación');
+            console.error('💥 AuthService - login - Error:', error);
+            throw error;
         }
     }
 
     async register(email, password, nombre) {
+        console.log('🔍 AuthService - register - Iniciando proceso de registro');
         try {
-            // Verificar si el email ya existe
-            const existingUser = await userRepository.findByEmail(email);
+            console.log('📧 AuthService - register - Verificando usuario existente:', email);
+            const existingUser = await User.findOne({ email });
+            
             if (existingUser) {
-                return {
-                    success: false,
-                    message: 'El email ya está registrado'
-                };
+                console.log('❌ AuthService - register - Usuario ya existe');
+                return { success: false, message: 'El usuario ya existe' };
             }
 
-            // Hashear la contraseña
-            const hashedPassword = await hashPassword(password);
-
-            // Crear el usuario
-            const userData = {
+            console.log('🔑 AuthService - register - Encriptando contraseña');
+            const hashedPassword = await bcrypt.hash(password, 10);
+            
+            console.log('👤 AuthService - register - Creando nuevo usuario');
+            const user = new User({
                 email,
                 password: hashedPassword,
                 nombre
-            };
+            });
 
-            const newUser = await userRepository.create(userData);
-
-            return {
-                success: true,
+            await user.save();
+            console.log('✅ AuthService - register - Usuario creado exitosamente');
+            
+            return { 
+                success: true, 
                 user: {
-                    id: newUser.id,
-                    email: newUser.email,
-                    nombre: newUser.nombre
+                    id: user._id,
+                    email: user.email,
+                    nombre: user.nombre
                 }
             };
         } catch (error) {
-            throw new Error('Error en el proceso de registro');
+            console.error('💥 AuthService - register - Error:', error);
+            throw error;
         }
     }
 
     async getUserProfile(userId) {
+        console.log('🔍 AuthService - getUserProfile - Iniciando proceso de obtener perfil');
         try {
-            const user = await userRepository.findById(userId);
+            console.log('👤 AuthService - getUserProfile - Buscando usuario:', userId);
+            const user = await User.findById(userId);
+            
             if (!user) {
+                console.log('❌ AuthService - getUserProfile - Usuario no encontrado');
                 throw new Error('Usuario no encontrado');
             }
+
+            console.log('✅ AuthService - getUserProfile - Perfil obtenido');
             return {
-                id: user.id,
+                id: user._id,
                 email: user.email,
                 nombre: user.nombre
             };
         } catch (error) {
-            throw new Error('Error al obtener el perfil del usuario');
+            console.error('💥 AuthService - getUserProfile - Error:', error);
+            throw error;
         }
     }
 }
