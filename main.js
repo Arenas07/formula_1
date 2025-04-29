@@ -15,10 +15,14 @@ const progressInterval = setInterval(() => {
     if (progressWidth >= 100) {
         clearInterval(textInterval);
         clearInterval(progressInterval);
+        
         loadingText.textContent = "Carga completa";
+        loaderContainer.style.transition = "opacity 0.5s ease";
         loaderContainer.style.opacity = "0";
         setTimeout(() => {
             loaderContainer.style.display = "none";
+
+            window.location.href = "modules/loginView.html";
         }, 500); 
     }
-}, 100);
+}, 50);

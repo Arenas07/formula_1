@@ -11,7 +11,8 @@ body{
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #1a1a2e;
+    background: url("../src/icons/F1-Background.png") no-repeat center center;
+    background-size: cover;
     font-family: "IBM Plex Sans";
     overflow: hidden;
 }
