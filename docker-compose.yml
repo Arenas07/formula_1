@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: formula1-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=mysql
+      - DB_USER=formula1_user
+      - DB_PASSWORD=formula1_password
+      - DB_NAME=formula1_db
+      - DB_PORT=3306
+    depends_on:
+      - mysql
+    networks:
+      - formula1-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: formula1-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: formula1_db
+      MYSQL_USER: formula1_user
+      MYSQL_PASSWORD: formula1_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - formula1-network
+    restart: always
+
+networks:
+  formula1-network:
+    driver: bridge
+
+volumes:
+  mysql_data: 
