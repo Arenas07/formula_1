@@ -2,25 +2,28 @@
   "name": "formula1-web",
   "version": "1.0.0",
   "description": "Página web de Fórmula 1 usando Web Components y Node.js",
-  "main": "src/server.js",
+  "main": "src/config/data/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "build": "cp -r public/* dist/ && cp -r src/components/* dist/components/",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "start": "node src/config/data/server.js",
+    "dev": "nodemon src/config/data/server.js",
+    "init-db": "node src/config/data/database/initDB.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "mysql2": "^3.6.5",
-    "dotenv": "^16.3.1",
-    "cors": "^2.8.5",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "express-session": "^1.17.3",
-    "cookie-parser": "^1.4.6"
+    "express-validator": "^7.0.1",
+    "mongoose": "^8.0.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2",
-    "gh-pages": "^4.0.0"
+    "nodemon": "^3.0.2"
   }
 }
