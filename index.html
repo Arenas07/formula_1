@@ -1,19 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formula 1</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Fórmula 1 - Web Components</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .pilotos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="loader-container">
-        <img src="src/icons/formula-1-loading-screen.gif" alt="" class="loader-image">
-        <p class="loading-text"></p>
-        <div class="progress-bar">
-            <div class="progress"></div>
+    <div class="container">
+        <h1>Fórmula 1 - Temporada 2024</h1>
+        <div class="pilotos-grid" id="pilotos-container">
+            <!-- Los pilotos se cargarán dinámicamente aquí -->
         </div>
-    </div>    
-    <script src="main.js" type="module" defer></script>
+    </div>
+
+    <script src="src/components/PilotoCard.js"></script>
+    <script>
+        // Cargar datos de pilotos
+        async function cargarPilotos() {
+            try {
+                const response = await fetch('http://localhost:3000/api/pilotos');
+                const pilotos = await response.json();
+                
+                const container = document.getElementById('pilotos-container');
+                pilotos.forEach(piloto => {
+                    const card = document.createElement('piloto-card');
+                    card.setAttribute('nombre', piloto.nombre);
+                    card.setAttribute('equipo', piloto.equipo);
+                    card.setAttribute('numero', piloto.numero);
+                    card.setAttribute('pais', piloto.pais);
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error al cargar los pilotos:', error);
+            }
+        }
+
+        // Cargar pilotos cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', cargarPilotos);
+    </script>
 </body>
 </html>
