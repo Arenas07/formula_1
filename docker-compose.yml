@@ -1,42 +1,40 @@
-version: '3.8'
+version: "3.9"
 
 services:
-  app:
-    build: .
-    container_name: formula1-app
+  formula1-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - DB_HOST=mysql
-      - DB_USER=formula1_user
-      - DB_PASSWORD=formula1_password
-      - DB_NAME=formula1_db
-      - DB_PORT=3306
     depends_on:
-      - mysql
-    networks:
-      - formula1-network
-
-  mysql:
-    image: mysql:8.0
-    container_name: formula1-mysql
+      - formula1-mongodb
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: formula1_db
-      MYSQL_USER: formula1_user
-      MYSQL_PASSWORD: formula1_password
-    ports:
-      - "3306:3306"
+      - MONGODB_URI=mongodb://formula1_user:formula1_password@formula1-mongodb:27017/formula1_db?authSource=admin
+      - NODE_ENV=development
     volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - formula1-network
-    restart: always
+      - .:/home/app
+      - /home/app/node_modules
+    restart: on-failure
 
-networks:
-  formula1-network:
-    driver: bridge
+  formula1-mongodb:
+    image: mongo:latest
+    container_name: formula1-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=formula1_user
+      - MONGO_INITDB_ROOT_PASSWORD=formula1_password
+      - MONGO_INITDB_DATABASE=formula1_db
+    volumes:
+      - mongodb_data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    command: --auth
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
-  mysql_data: 
+  mongodb_data:
