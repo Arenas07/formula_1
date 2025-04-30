@@ -1,3 +1,4 @@
+import { AuthService } from "../services/login.service";
 class Login extends HTMLElement{
     constructor(){
         super()
@@ -37,14 +38,20 @@ class Login extends HTMLElement{
             <form action="">
                 <h1>${isLogin ? "Login" : "Registro"}</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="${isLogin ? "Username" : "Ingrese su nombre"}" required>
+                    <input type="text" placeholder="${isLogin ? "E-mail" : "Ingrese su E-mail"}" required>
+                    <i class='bx bx-envelope'></i>
+                </div>
+                ${isLogin ?  '' : `
+                <div class="input-box">
+                    <input type="text" placeholder="Nombre" required>
                     <i class="bx bx-user"></i>
                 </div>
+                `}
                 <div class="input-box">
                     <input type="password" placeholder="${isLogin ? "Password" : "Ingrese su contraseña"}" required>
                     <i class="bx bx-lock-alt"></i>
                 </div>
-                <button type="submit" class="btn">${isLogin ? "Login" : "Registrarse"}</button>
+                <button type="submit" class="btn" id="btn-login">${isLogin ? "Login" : "Registrarse"}</button>
                 <div class="register-user">
                     <p>${isLogin ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}<a href="#" id="toggle-mode">${isLogin ? " Registrar" : " Iniciar sesion"}  </a> </p>
                 </div>
@@ -67,6 +74,15 @@ class Login extends HTMLElement{
             requestAnimationFrame(() => {
                 this.shadowRoot.querySelector('.wrapper')?.classList.add('visible');
             });
+        });
+
+        this.shadowRoot.querySelector('#btn-login').addEventListener('click', (e)=>{
+            e.preventDefault();
+            const username = this.shadowRoot.querySelector('input[type="text"]').value;
+            const password = this.shadowRoot.querySelector('input[type="password"]').value;
+            console.log(username, password);
+            const authService = new AuthService();
+            authService.login(username, password);
         });
         
     }

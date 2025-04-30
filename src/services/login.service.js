@@ -1,5 +1,5 @@
 // services/auth.service.js
-class AuthService {
+export class AuthService {
     constructor() {
         this.API_BASE = import.meta.env.VITE_API_BASE_URL;
     }
