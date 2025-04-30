@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const equipoSchema = new mongoose.Schema({
+    id: {
+        type: Number,
+        required: true,
+        unique: true
+    },
     nombre: {
         type: String,
         required: true,
