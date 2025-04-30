@@ -5,24 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../design/css/home.css">
+    <script src="../utils/shared/navBarComponent.js" type="module" defer></script>
+    <script src="../utils/shared/footerRights.js" type="module" defer></script>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <img src="../src/icons/F1-text-logo.png" alt="">
-            <img src="../src/icons/F1-logo-background.webp" alt="">
-        </div>
-        <div class="header-menu">
-            <button id="init">Inicio</button>
-            <button id="circuits">Circuitos</button>
-            <button id="pilots">Pilotos</button>
-            <button id="vehicles">Vehiculos</button>
-            <button id="simulation">Simulacion</button>
-        </div>
-        <div class="header-exit">
-            <Button>Salir</button>
-        </div>
-    </header>
+    <custom-navbar></custom-navbar>
+
     <main>
         <div class="home-container">
             <div class="home-content">
@@ -30,21 +19,23 @@
                 <h2>SIENTE LA <span class="colored-p">VELOCIDAD</span></h2>
                 <h3>Toda la emocion de la formula 1</h3>
                 <div class="home-button">
-                    <button><a href="#">Ver ultima carrera   ></a></button>
+                    <button><a href="https://youtu.be/mXZJQHnKmy0?si=1-lP993vM84ioRjw">Ver ultima carrera   ></a></button>
                 </div>
             </div>
-            <iframe width="560" height="315"
-                src="https://www.youtube.com/embed/iwB0_lview4?autoplay=1&mute=1"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-            </iframe>
+            <div class="home-video">
+                <iframe width="560" height="315"
+                    src="https://www.youtube.com/embed/iwB0_lview4?autoplay=1&mute=1"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
 
             <section class="best-pilots">
                 <h2>Pilotos destacados</h2>
                 <div class="pilot-card">
-                    <img src="../src/icons/outstanding-pilot-1.webp" alt="">
+                    <img src="../icons/outstanding-pilot-1.webp" alt="">
                     <div>
                         <h3 class="pilot-name">Max Verstappen</h3>
                         <h3 class="pilot-team">Red bull racing</h3>
@@ -54,7 +45,7 @@
                     </div>
                 </div>
                 <div class="pilot-card">
-                    <img src="../src/icons/outstanding-pilot-2.jpg" alt="">
+                    <img src="../icons/outstanding-pilot-2.jpg" alt="">
                     <div>
                         <h3 class="pilot-name">Charles Leclerc</h3>
                         <h3 class="pilot-team">Ferrari</h3>
@@ -64,7 +55,7 @@
                     </div>
                 </div>
                 <div class="pilot-card">
-                    <img src="../src/icons/outstanding-pilot-3.jpg" alt="">
+                    <img src="../icons/outstanding-pilot-3.jpg" alt="">
                     <div>
                         <h3 class="pilot-name">Lando Norris</h3>
                         <h3 class="pilot-team">McLaren</h3>
@@ -76,16 +67,6 @@
             </section>
         </div>
     </main>
-    <footer>
-        <div class="footer copyright">
-            <box-icon name='copyright'></box-icon>
-            <p class="copyright">Derechos reservados al grupo A1 de Adrian 😉</p>
-        </div>
-        <div class="footer social-media">
-            <a href="https://www.instagram.com/f1/"><box-icon type='logo' name='instagram'></box-icon></a>
-            <a href="https://x.com/F1?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><box-icon name='twitter' type='logo' ></box-icon></a>
-            <a href="https://www.facebook.com/Formula1/?locale=es_LA"><box-icon type='logo' name='facebook-square'></box-icon></a>
-        </div>
-    </footer>
+    <custom-footer></custom-footer>
 </body>
 </html>
