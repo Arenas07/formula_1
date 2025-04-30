@@ -23,10 +23,13 @@ class footer extends HTMLElement {
         const footerScript = document.createElement("div");
 
         footerScript.innerHTML = `
-        <footer>
+        <footer id="footer">
             <div class="footer copyright">
-                <i class='bx bx-copyright'></i>
-                <p class="copyright">Derechos reservados al grupo A1 de Adrian 😉</p>
+                <div class="footer-logo">
+                    <i class='bx bx-copyright'></i>
+                    <p class="copyright">Derechos reservados al grupo A1 de Adrian 😉</p>
+                </div>
+                <p class="copyright">Culpable de dejarnos en equipo</p>
             </div>
             <div class="footer social-media">
                 <a href="https://www.instagram.com/f1/"><i class='bx bxl-instagram'></i></a>
