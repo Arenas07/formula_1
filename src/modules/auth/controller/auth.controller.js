@@ -12,6 +12,7 @@ class AuthController {
                 console.log('✅ AuthController - login - Login exitoso');
                 req.session.userId = result.user.id;
                 res.json({
+                    status: '200',
                     message: 'Login exitoso',
                     user: result.user
                 });
@@ -35,6 +36,7 @@ class AuthController {
             if (result.success) {
                 console.log('✅ AuthController - register - Registro exitoso');
                 res.status(201).json({
+                    status: '201',
                     message: 'Usuario registrado exitosamente',
                     user: result.user
                 });
