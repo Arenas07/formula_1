@@ -1,0 +1,146 @@
+@font-face {
+    font-family: "Form-bold";
+    src: url(../../fonts/Formula1/Formula1-Bold_web_0.ttf);
+}
+
+@font-face {
+    font-family: "Form-regular";
+    src: url(../../fonts/Formula1/Formula1-Regular_web_0.ttf);
+}
+@font-face {
+    font-family: "Form-wide";
+    src: url(../../fonts/Formula1/Formula1-Wide_web_0.ttf);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Form-regular";
+}
+
+header{
+    display: flex;
+    position: fixed;
+    top: 0;
+    background-color: #fff;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    width: 100vw;
+}
+
+.logo img{
+    width: 100px;
+    height: 50px;
+}
+.header-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-menu button{
+    background: none;
+    cursor: pointer;
+    border: none;
+    font-size: 1.2rem;
+}
+
+.header-menu button:hover{
+    transition: ease-in-out 0.3s;
+    color: #ff0000;
+}
+
+.header-exit button{
+    background: none;
+    cursor: pointer;
+    border: none;
+    font-size: 1.2rem;
+}
+
+.header-exit button:hover{
+    transition: ease-in-out 0.3s;
+    color: #ff0000;
+}
+
+main{
+    display: flex;
+    margin-top: 10rem;
+    width: 100vw;
+}
+
+.home-container{
+    width: 100%;
+
+}
+
+.home-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background: url(../icons/thumbnail-home.jpg) no-repeat center center;
+    background-size: cover;
+    height: 500px;
+    color: #fff;
+}
+
+.deco-actual-year{
+    background-color: #ff0000;
+    padding: 3px 10px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+h2{
+    font-size: 5rem;
+    color: #fff;
+    text-align: center;
+    font-family: "Form-bold";
+}
+
+.colored-p{
+    color: #ff0000;
+    font-family: "Form-bold";
+    
+}
+
+
+.home-button a{
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+.home-button a:hover{
+    transition: ease-in-out 0.3s;
+    color: #ff0000;
+}
+
+.home-button button{
+    font-size: 3rem;
+    background-color: #ff0000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.home-button button:hover{
+    transition: ease-in-out 0.3s;
+    background-color: #fff;
+}
+
+.home-video{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    background-color: black;
+}
