@@ -22,7 +22,7 @@ const progressInterval = setInterval(() => {
         setTimeout(() => {
             loaderContainer.style.display = "none";
 
-            window.location.href = "./src/modules/loginView.html";
+            window.location.href = "src/modules/login/loginView.html";
         }, 500); 
     }
 }, 50);
