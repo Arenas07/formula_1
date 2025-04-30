@@ -31,8 +31,8 @@ header{
 }
 
 .logo img{
-    width: 100px;
-    height: 50px;
+    width: 70px;
+    height: 30px;
 }
 .header-menu{
     display: flex;
@@ -67,7 +67,7 @@ header{
 
 main{
     display: flex;
-    margin-top: 10rem;
+    margin-top: 7rem;
     width: 100vw;
 }
 

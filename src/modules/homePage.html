@@ -6,24 +6,11 @@
     <title>Home</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../design/css/home.css">
+    <script src="../utils/shared/navBarComponent.js" type="module" defer></script>
+    <script src="../utils/shared/footerRights.js" type="module" defer></script>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <img src="../icons/F1-text-logo.png" alt="">
-            <img src="../icons/F1-logo-background.webp" alt="">
-        </div>
-        <div class="header-menu">
-            <a href=""><button id="init">Inicio</button></a>
-            <a href=""><button id="circuits">Circuitos</button></a>
-            <a href=""><button id="pilots">Pilotos</button></a>
-            <a href=""><button id="vehicles">Vehiculos</button></a>
-            <a href=""><button id="simulation">Simulacion</button></a>
-        </div>
-        <div class="header-exit">
-            <Button>Salir</button>
-        </div>
-    </header>
+    <custom-navbar></custom-navbar>
     <main>
         <div class="home-container">
             <div class="home-content">
@@ -31,7 +18,7 @@
                 <h2>SIENTE LA <span class="colored-p">VELOCIDAD</span></h2>
                 <h3>Toda la emocion de la formula 1</h3>
                 <div class="home-button">
-                    <button><a href="#">Ver ultima carrera   ></a></button>
+                    <button><a href="https://youtu.be/mXZJQHnKmy0?si=1-lP993vM84ioRjw">Ver ultima carrera   ></a></button>
                 </div>
             </div>
             <div class="home-video">
@@ -79,16 +66,6 @@
             </section>
         </div>
     </main>
-    <footer>
-        <div class="footer copyright">
-            <box-icon name='copyright'></box-icon>
-            <p class="copyright">Derechos reservados al grupo A1 de Adrian 😉</p>
-        </div>
-        <div class="footer social-media">
-            <a href="https://www.instagram.com/f1/"><box-icon type='logo' name='instagram'></box-icon></a>
-            <a href="https://x.com/F1?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"><box-icon name='twitter' type='logo' ></box-icon></a>
-            <a href="https://www.facebook.com/Formula1/?locale=es_LA"><box-icon type='logo' name='facebook-square'></box-icon></a>
-        </div>
-    </footer>
+    <custom-footer></custom-footer>
 </body>
 </html>
