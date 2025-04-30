@@ -1,8 +1,12 @@
+@font-face {
+    font-family: "Formula 1";
+    src: url("../fonts/Formula1/Formula1-Regular_web_0.ttf") format("truetype");
+}
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "IBM Plex Sans";
+    font-family: "Formula 1";
 }
 .background-decor {
     position: fixed;
@@ -10,7 +14,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url("../src/icons/F1-Background.png") no-repeat center center;
+    background: url("../icons/F1-Background.png") no-repeat center center;
     background-size: cover;
     z-index: 0;
     overflow: hidden;
@@ -30,7 +34,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-
+    overflow: hidden;
 }
 
 .wrapper{
