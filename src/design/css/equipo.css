@@ -1,0 +1,189 @@
+/* Reset y base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.list__teams {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    align-items: center;
+}
+
+
+.overall-information {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    margin: 0 auto;
+    width: auto;
+}
+
+
+  
+.overall-information {
+    width: auto; 
+  }
+  
+  
+.flip-box {
+    width: 300px; 
+    height: 400px;
+    perspective: 1000px;
+    cursor: pointer;
+    margin-bottom: 2rem;  
+}
+  
+  .flip-box-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+
+.flip-box.flipped .flip-box-inner {
+    transform: rotateY(180deg);
+}
+  
+  
+.flip-box-front,
+.flip-box-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0f4ff, #e3eeff);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+}
+  
+  
+.flip-box-front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+.title__information {
+    background-color: #2166f3;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+}
+  
+.fundation-year {
+    font-size: 0.8rem;
+    background-color: #2563eb;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 5px;
+}
+  
+  .info-container img {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    margin: 10px 0;
+}
+  
+  .info-container h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.drivers-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.drivers-name p {
+    display: inline-block;
+    background-color: #3b82f6;
+    color: white;
+    padding: 4px 10px;
+    margin: 5px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+  
+.drivers-name p:last-child {
+    background-color: #ef4444;
+}
+  
+.details {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #374151;
+    text-align: center;
+}
+  
+  
+.flip-box-back {
+    transform: rotateY(180deg);
+    overflow-y: auto;
+  }
+  
+.flip-box-back h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #1f2937;
+}
+  
+.section-top,
+.section-bottom {
+    margin-top: 20px;
+}
+  
+.section-top > div,
+.section-bottom > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+  
+.section-top i,
+.section-bottom i {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    color: #2563eb;
+}
+  
+.extra-information p,
+.second-container p {
+    font-size: 0.85rem;
+    color: #4b5563;
+}
+  
+.extra-information b,
+.second-container b {
+    font-size: 1rem;
+    color: #111827;
+}
+  
+::-webkit-scrollbar {
+    width: 6px;
+}
+  
+::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 0.3);
+    border-radius: 3px;
+}
+  
