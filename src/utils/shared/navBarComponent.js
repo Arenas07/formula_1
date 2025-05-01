@@ -12,7 +12,7 @@ class navBar extends HTMLElement {
     render() {
         const linkStyle = document.createElement("link");
         linkStyle.setAttribute("rel", "stylesheet");
-        linkStyle.setAttribute("href", "../design/css/home.css");
+        linkStyle.setAttribute("href", "../../../src/design/css/home.css");
         this.shadowRoot.appendChild(linkStyle);
 
         const nav = document.createElement("div");
@@ -20,8 +20,8 @@ class navBar extends HTMLElement {
         nav.innerHTML = `
             <header class="header">
                 <div class="logo">
-                    <img src="../icons/F1-text-logo.png" alt="">
-                    <img src="../icons/F1-logo-background.webp" alt="">
+                    <img src="../../../src/design/icons/F1-text-logo.png" alt="">
+                    <img src="../../../src/design/icons/F1-logo-background.webp" alt="">
                 </div>
                 <div class="header-menu">
                     <a href="../../modules/homePage.html"><button id="init">Inicio</button></a>

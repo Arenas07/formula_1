@@ -1,15 +1,15 @@
 @font-face {
     font-family: "Form-bold";
-    src: url(../../fonts/Formula1/Formula1-Bold_web_0.ttf);
+    src: url(../fonts/Formula1/Formula1-Bold_web_0.ttf);
 }
 
 @font-face {
     font-family: "Form-regular";
-    src: url(../../fonts/Formula1/Formula1-Regular_web_0.ttf);
+    src: url(../fonts/Formula1/Formula1-Regular_web_0.ttf);
 }
 @font-face {
     font-family: "Form-wide";
-    src: url(../../fonts/Formula1/Formula1-Wide_web_0.ttf);
+    src: url(../fonts/Formula1/Formula1-Wide_web_0.ttf);
 }
 
 *{
@@ -264,6 +264,7 @@ h2{
     align-items: center;
     justify-content: center;
     width: 100vw;
+    text-align: center;
 }
 
 .footer-logo{
@@ -302,7 +303,7 @@ h2{
 
 .footer-content .social-media i {
     font-size: 24px;
-    color: #fff;
+    color: red;
     transition: transform 0.3s, color 0.3s;
     cursor: pointer;
 }
