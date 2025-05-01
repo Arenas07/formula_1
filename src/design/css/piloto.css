@@ -1,11 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales del contenedor */
+.piloto-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    margin-top: 60px; /* Ajusta según el alto del navbar */
+}
+
+/* Contenedor del título */
+.tittle-container {
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 1rem;
+}
+
+.tittle-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    word-break: break-word;
+}
+
+.tittle-container p {
+    font-size: 1.1rem;
+    color: #666;
+    word-break: break-word;
+}
+
+/* Texto destacado */
+.pilotos-text {
+    color: #635c5c;
+    font-weight: bold;
+}
+
+.estrellas-text {
+    color: #b81711;
+    font-weight: bold;
+}
+
+/* Contenedor de tarjetas */
+.piloto-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 3rem;
+}
+
+/* Tarjeta tipo flip */
 .flip-box {
     background-color: transparent;
-    width: 300px;
-    height: 200px;
-    border: 1px solid #f1f1f1;
+    width: 100%;
+    max-width: 300px;
+    height: 400px;
     perspective: 1000px;
-    cursor: pointer;
-    margin: 20px;
+    margin: 0 auto;
+    flex: 1 1 300px;
 }
 
 .flip-box-inner {
@@ -15,13 +78,15 @@
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .flip-box.flip .flip-box-inner {
     transform: rotateY(180deg);
 }
 
-.flip-box-front, .flip-box-back {
+.flip-box-front,
+.flip-box-back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -31,12 +96,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 2rem;
+    border-radius: 10px;
+    box-sizing: border-box;
 }
 
 .flip-box-front {
-    background-color: #f8f8f8;
-    color: black;
+    background-color: #fff;
+    color: #333;
 }
 
 .flip-box-back {
@@ -46,11 +113,61 @@
 }
 
 .flip-box-back h2 {
-    margin-bottom: 10px;
-    font-size: 24px;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
 .flip-box-back p {
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.5;
-} 
+}
+
+/* Responsividad */
+@media (max-width: 1024px) {
+    .tittle-container h1 {
+        font-size: 2.2rem;
+    }
+
+    .flip-box {
+        height: 380px;
+    }
+}
+
+@media (max-width: 768px) {
+    .piloto-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .piloto-card {
+        gap: 1.5rem;
+    }
+
+    .tittle-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .flip-box {
+        max-width: 280px;
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tittle-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .tittle-container p {
+        font-size: 1rem;
+    }
+
+    .flip-box {
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+    }
+
+    .flip-box-inner {
+        height: 100%;
+    }
+}
