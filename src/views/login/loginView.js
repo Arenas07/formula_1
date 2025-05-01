@@ -92,7 +92,8 @@ class Login extends HTMLElement{
             authService.login(email, password)
                 .then(data => {
                     console.log('Login exitoso:', data);
-                    // Aquí puedes redirigir al usuario o mostrar un mensaje de éxito
+                    alert('Login exitoso. Bienvenido.');
+                    window.location.href = '../homePage.html';
                 })
                 .catch(error => {
                     console.error('Error en login:', error);
