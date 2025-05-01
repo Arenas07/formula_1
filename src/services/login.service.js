@@ -4,14 +4,14 @@ export class AuthService {
         this.API_BASE = import.meta.env.VITE_API_BASE_URL;
     }
 
-    async login(username, password) {
+    async login(email, password) {
         try {
             const response = await fetch(`${this.API_BASE}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ email, password })
             });
 
             if (!response.ok) {
