@@ -1,4 +1,3 @@
-
 class navBar extends HTMLElement {
     constructor() {
         super();
@@ -7,6 +6,7 @@ class navBar extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        this.initializeEventListeners();
     }
 
     render() {
@@ -28,16 +28,31 @@ class navBar extends HTMLElement {
                     <a href="../../modules/teams/teamView.html"><button id="teams">Equipos</button></a>
                     <a href="../../modules/circuits/circuitView.html"><button id="circuits">Circuitos</button></a>
                     <a href="../../modules/pilotos/pilotosView.html"><button id="pilots">Pilotos</button></a>
-                    <a href="../../modules/vehicles/vehicleView.html"><button id="vehicles">Vehículos</button></a>
+                    <a href="../../modules/vehicles/vehiclesView.html"><button id="vehicles">Vehículos</button></a>
                     <a href="../../modules/simulation/simulationView.html"><button id="simulation">Simulación</button></a>
                 </div>
                 <div class="header-exit">
-                    <button>Salir</button>
+                    <button id="exit">Salir</button>
                 </div>
             </header>
         `;
 
         this.shadowRoot.appendChild(nav);
+    }
+
+    initializeEventListeners() {
+        const exitButton = this.shadowRoot.getElementById("exit");
+        if (exitButton) {
+            exitButton.addEventListener("click", () => {
+                console.log("Cerrando sesión...");
+                localStorage.removeItem("auth_token");
+                localStorage.removeItem("user");
+                
+                window.location.href = "../../modules/login/loginView.html";
+            });
+        } else {
+            console.error("No se encontró el botón de salir");
+        }
     }
 }
 
