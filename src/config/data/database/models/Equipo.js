@@ -26,6 +26,34 @@ const equipoSchema = new mongoose.Schema({
     imagen: {
         type: String,
         required: true
+    },
+    fecha_fundacion: {
+        type: Number,
+        required: true
+    },
+    sede: {
+        type: String,
+        required: true
+    },
+    campeonatos: {
+        type: Number,
+        default: 0
+    },
+    victorias: {
+        type: Number,
+        default: 0
+    },
+    descripcion: {
+        type: String,
+        required: true
+    },
+    director: {
+        type: String,
+        required: true
+    },
+    presupuesto: {
+        type: Number,
+        required: true
     }
 });
 
