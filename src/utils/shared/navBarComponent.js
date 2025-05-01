@@ -25,10 +25,11 @@ class navBar extends HTMLElement {
                 </div>
                 <div class="header-menu">
                     <a href="../../modules/homePage.html"><button id="init">Inicio</button></a>
-                    <a href=""><button id="circuits">Circuitos</button></a>
-                    <a href=""><button id="pilots">Pilotos</button></a>
-                    <a href=""><button id="vehicles">Vehiculos</button></a>
-                    <a href=""><button id="simulation">Simulacion</button></a>
+                    <a href="../../modules/teams/teamView.html"><button id="teams">Equipos</button></a>
+                    <a href="../../modules/circuits/circuitView.html"><button id="circuits">Circuitos</button></a>
+                    <a href="../../modules/pilotos/pilotosView.html"><button id="pilots">Pilotos</button></a>
+                    <a href="../../modules/vehicles/vehicleView.html"><button id="vehicles">Vehículos</button></a>
+                    <a href="../../modules/simulation/simulationView.html"><button id="simulation">Simulación</button></a>
                 </div>
                 <div class="header-exit">
                     <button>Salir</button>
