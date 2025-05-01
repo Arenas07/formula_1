@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pilotos</title>
-    <link rel="stylesheet" href="../../design/css/piloto.css">
-    <script type="module" defer src="../../views/pilotos/pilotosView.js"></script>
+    <script type="module" src="../../views/pilotos/pilotosView.js"></script>
+    <script src="../../utils/shared/navBarComponent.js" type="module" defer></script>
+    <script src="../../utils/shared/footerRights.js" type="module" defer></script>
+    <link rel="stylesheet" href="../../design/css/body.css">
 </head>
 <body>
-    <div class="piloto-card" id="piloto-card"></div>
+    <custom-navbar></custom-navbar>
+    <pilotos-view></pilotos-view>
+    <custom-footer></custom-footer>
 </body>
 </html>

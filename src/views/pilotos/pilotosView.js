@@ -1,24 +1,38 @@
-const pilotoCard = document.getElementById("piloto-card");
-let template = "";
+import { pilotCard } from '../../components/pilotos/pilotCard.js';
+import { tittleContainer } from '../../components/pilotos/tittleContainer.js';
 
-template = `
-    <div class="flip-box">
-        <div class="flip-box-inner">
-            <div class="flip-box-front">
-                <img src="img_paris.jpg" alt="Paris" style="width:300px;height:200px">
+class PilotosView extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+    }
+
+    connectedCallback() {
+        this.render();
+        this.initializeComponents();
+    }
+
+    render() {
+        const template = `
+            <link rel="stylesheet" href="../../design/css/piloto.css">
+            <div class="piloto-container">
+                <div class="nav-bar"></div>
+                <div class="tittle-container"></div>
+                <div class="piloto-card" id="piloto-card"></div>
             </div>
-            <div class="flip-box-back">
-                <h2>Paris</h2>
-                <p>What an amazing city</p>
-            </div>
-        </div>
-    </div>
-`;
+        `;
+        
+        this.shadowRoot.innerHTML = template;
+    }
 
-pilotoCard.innerHTML = template;
+    initializeComponents() {
+        // Esperamos a que el Shadow DOM esté listo
+        requestAnimationFrame(() => {
+            tittleContainer(this.shadowRoot);
+            pilotCard(this.shadowRoot);
+        });
+    }
+}
 
-// Seleccionamos la tarjeta después de insertarla en el DOM
-const tarjeta = document.querySelector(".flip-box");
-tarjeta.addEventListener("click", () => {
-    tarjeta.classList.toggle("flip");
-});
+// Registrar el componente
+customElements.define('pilotos-view', PilotosView);
