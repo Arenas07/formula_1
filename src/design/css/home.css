@@ -1,15 +1,15 @@
 @font-face {
     font-family: "Form-bold";
-    src: url(../../fonts/Formula1/Formula1-Bold_web_0.ttf);
+    src: url(../fonts/Formula1/Formula1-Bold_web_0.ttf);
 }
 
 @font-face {
     font-family: "Form-regular";
-    src: url(../../fonts/Formula1/Formula1-Regular_web_0.ttf);
+    src: url(../fonts/Formula1/Formula1-Regular_web_0.ttf);
 }
 @font-face {
     font-family: "Form-wide";
-    src: url(../../fonts/Formula1/Formula1-Wide_web_0.ttf);
+    src: url(../fonts/Formula1/Formula1-Wide_web_0.ttf);
 }
 
 *{
@@ -173,7 +173,88 @@ h2{
     width: 100%;
     background-color: black;
 }
+/****************************************/
 
+.best-pilots{
+    margin: 50px 100px;
+    background-color: rgba(255, 255, 255, 0.945);
+    border: 1px solid #ff0000;
+    border-radius: 20px;
+
+}
+
+.best-pilots h2{
+    color: black;
+}
+.pilot-card {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.pilot-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 10px;
+}
+
+.pilot-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    color: white;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.carrousel {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: nowrap; 
+    overflow-x: auto; 
+    padding: 1rem;
+    width: 100%;
+}
+.pilot-card:hover{
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+.pilot-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    z-index: 1;
+    border-radius: 0 0 10px 10px;
+}
+
+
+.top{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    padding: 5px;
+    background-color: white;
+    color: #ff0000;
+    border-radius: 50%;
+    padding: 5px 10px;
+}
+
+
+/****************************************/
 #footer {
     background-color: #000;
     padding: 2rem 1rem;
@@ -183,6 +264,7 @@ h2{
     align-items: center;
     justify-content: center;
     width: 100vw;
+    text-align: center;
 }
 
 .footer-logo{
@@ -221,7 +303,7 @@ h2{
 
 .footer-content .social-media i {
     font-size: 24px;
-    color: #fff;
+    color: red;
     transition: transform 0.3s, color 0.3s;
     cursor: pointer;
 }
@@ -236,7 +318,7 @@ h2{
 }
 
 .bx {
-    color: #e10600; /* rojo estilo F1 */
+    color: #e10600; 
 }
 .bx {
     background-color: white;
