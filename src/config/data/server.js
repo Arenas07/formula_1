@@ -59,7 +59,18 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Importar rutas
 const authRoutes = require('../../modules/auth/auth.routes');
+const pilotoRoutes = require('../../modules/pilotos/piloto.routes');
+const equipoRoutes = require('../../modules/equipo/equipo.routes');
+const vehiculoRoutes = require('../../modules/vehiculo/vehiculo.routes');
+const circuitoRoutes = require('../../modules/circuito/circuito.routes');
+const usuarioRoutes = require('../../modules/usuario/infraestructure/routes/usuario.routes');
+
 app.use('/auth', authRoutes);
+app.use('/api', pilotoRoutes);
+app.use('/api', equipoRoutes);
+app.use('/api', vehiculoRoutes);
+app.use('/api', circuitoRoutes);
+app.use('/api/usuarios', usuarioRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
