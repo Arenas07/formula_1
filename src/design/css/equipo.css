@@ -4,38 +4,49 @@
     box-sizing: border-box;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     width: 100%;
     min-height: 500px;
-    background: url(/src/design/icons/equipos-de-elite.png) no-repeat center center;
-    object-fit: contain;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
+                url('/src/design/icons/circuitos-legendarios.png') no-repeat center center;
+    background-size: cover;
     margin-top: 8rem;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
+    position: relative;
+    text-align: center;
 }
 
 .container h1 {
-    text-align: center;
-    font-size: 4.3rem;
-    font-weight: bold;
+    font-size: clamp(2.5rem, 8vw, 4.3rem);
+    font-weight: 800;
     color: white;
-    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
 }
 
-.container span{
-    font-size: 4.3rem;
+.container span {
+    font-size: clamp(2.5rem, 8vw, 4.3rem);
     color: red;
-    text-align: center;
-    margin-bottom: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
 }
 
-.container p{
-    text-align: center;
-    font-size: 1.4rem;
+.container p {
+    font-size: clamp(1rem, 3vw, 1.4rem);
     color: white;
-    margin-bottom: 20px;
+    max-width: 800px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
 }
 
 .list__teams {
