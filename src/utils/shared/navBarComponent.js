@@ -12,7 +12,7 @@ class navBar extends HTMLElement {
     render() {
         const linkStyle = document.createElement("link");
         linkStyle.setAttribute("rel", "stylesheet");
-        linkStyle.setAttribute("href", "../../../src/design/css/home.css");
+        linkStyle.setAttribute("href", "/src/design/css/home.css");
         this.shadowRoot.appendChild(linkStyle);
 
         const nav = document.createElement("div");
@@ -20,16 +20,16 @@ class navBar extends HTMLElement {
         nav.innerHTML = `
             <header class="header">
                 <div class="logo">
-                    <img src="../../../src/design/icons/F1-text-logo.png" alt="">
-                    <img src="../../../src/design/icons/F1-logo-background.webp" alt="">
+                    <img src="/src/design/icons/F1-text-logo.png" alt="">
+                    <img src="/src/design/icons/F1-logo-background.webp" alt="">
                 </div>
                 <div class="header-menu">
-                    <a href="../../modules/homePage.html"><button id="init">Inicio</button></a>
-                    <a href="../../modules/teams/teamView.html"><button id="teams">Equipos</button></a>
-                    <a href="../../modules/circuits/circuitView.html"><button id="circuits">Circuitos</button></a>
-                    <a href="../../modules/pilotos/pilotosView.html"><button id="pilots">Pilotos</button></a>
-                    <a href="../../modules/vehicles/vehiclesView.html"><button id="vehicles">Vehículos</button></a>
-                    <a href="../../modules/simulation/simulationView.html"><button id="simulation">Simulación</button></a>
+                    <a href="/src/modules/homePage.html"><button id="init">Inicio</button></a>
+                    <a href="/src/modules/teams/teamView.html"><button id="teams">Equipos</button></a>
+                    <a href="/src/modules/circuits/circuitView.html"><button id="circuits">Circuitos</button></a>
+                    <a href="/src/modules/pilotos/pilotosView.html"><button id="pilots">Pilotos</button></a>
+                    <a href="/src/modules/vehicles/vehiclesView.html"><button id="vehicles">Vehículos</button></a>
+                    <a href="/src/modules/simulation/simulationView.html"><button id="simulation">Simulación</button></a>
                 </div>
                 <div class="header-exit">
                     <button id="exit">Salir</button>
@@ -47,8 +47,8 @@ class navBar extends HTMLElement {
                 console.log("Cerrando sesión...");
                 localStorage.removeItem("auth_token");
                 localStorage.removeItem("user");
-                
-                window.location.href = "../../modules/login/loginView.html";
+                localStorage.removeItem("token_id");
+                window.location.href = "/src/modules/login/loginView.html";
             });
         } else {
             console.error("No se encontró el botón de salir");

@@ -12,7 +12,7 @@ class footer extends HTMLElement {
     render() {
         const linkStyle = document.createElement("link");
         linkStyle.setAttribute("rel", "stylesheet");
-        linkStyle.setAttribute("href", "../../../src/design/css/home.css");
+        linkStyle.setAttribute("href", "/src/design/css/home.css");
         this.shadowRoot.appendChild(linkStyle);
 
         const linkIcons = document.createElement("link");
