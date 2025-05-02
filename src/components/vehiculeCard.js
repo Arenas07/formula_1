@@ -230,8 +230,9 @@ class VehicleList extends HTMLElement {
             padding: 2rem;
             min-height: 400px;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex: 1; 
+
+            flex-direction: column;
           }
           
           .cards-grid {
