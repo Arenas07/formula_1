@@ -1,4 +1,3 @@
-// services/auth.service.js
 export class AuthService {
     constructor() {
         this.API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -21,6 +20,7 @@ export class AuthService {
             const data = await response.json();
             localStorage.setItem('auth_token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
+            localStorage.setItem('token_id', data.token_id);
             return data;
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
