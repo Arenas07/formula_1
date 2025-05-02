@@ -10,7 +10,40 @@ main{
     flex: 1;
 }
 
-/* Tarjeta principal */
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 500px;
+  background: url(/src/design/icons/circuitos-legendarios.png) no-repeat center center;
+  object-fit: contain;
+  margin-top: 8rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.container h1 {
+  text-align: center;
+  font-size: 4.3rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.container span{
+  font-size: 4.3rem;
+  color: red;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container p{
+  text-align: center;
+  font-size: 1.4rem;
+  color: white;
+  margin-bottom: 20px;
+}
+
 .card {
     background: linear-gradient(to bottom, #e0e0e0, #2e2e2e);
     border-radius: 16px;
