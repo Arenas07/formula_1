@@ -25,4 +25,25 @@ export class PilotoService {
             throw error;
         }
     }
+
+    async getPilotoById(id) {
+        try {
+            const response = await fetch(`${this.API_BASE}/api/pilotos/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Error al obtener el piloto');
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error al obtener el piloto:', error);
+            throw error;
+        }
+    }
+    
 }
