@@ -41,10 +41,18 @@
     background-color: #e10600; 
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 body{
     overflow-x: hidden;
     background-color: #f0f2f5;
 }
+
 header{
     display: flex;
     position: fixed;
@@ -95,7 +103,9 @@ header{
 }
 
 main{
+    flex: 1;
     display: flex;
+    flex-direction: column;
     margin-top: 6.2rem;
     width: 100vw;
 }
