@@ -30,6 +30,10 @@ const vehiculoSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    imagen: {
+        type: String,
+        required: true
+    },
     pilotos: [{
         type: Number,
         ref: 'Piloto'
