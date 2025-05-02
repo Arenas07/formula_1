@@ -48,6 +48,10 @@ const circuitoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    imagen_destacada: {
+        type: String,
+        required: true
+    },
     trazado: {
         type: String,
         required: true

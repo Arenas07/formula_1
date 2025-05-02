@@ -1157,7 +1157,8 @@ const circuitos = [
             { temporada: 2022, piloto: 2 },
             { temporada: 2023, piloto: 1 }
         ],
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Monte_Carlo_Formula_1_track_map.svg",
+        imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
+        imagen_destacada: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
         trazado: "Circuito urbano",
         curvas: {
             total: 19,
@@ -1191,7 +1192,123 @@ const circuitos = [
             {
                 año: 2018,
                 suceso: "Daniel Ricciardo gana con problemas de potencia",
-                imagen: "https://example.com/ricciardo-monaco-2018.jpg"
+                imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg"
+            }
+        ]
+    },
+    {
+        id: 2,
+        nombre: "Circuito de Monaco",
+        pais: "Mónaco",
+        ciudad: "Montecarlo",
+        continente: "Europa",
+        longitud_km: 3.34,
+        vueltas: 78,
+        descripcion: "Uno de los circuitos más prestigiosos y difíciles del calendario, conocido por sus calles angostas y la falta de zonas de adelantamiento.",
+        record_vuelta: {
+            tiempo: "1:10.166",
+            piloto: "Lewis Hamilton",
+            año: 2019
+        },
+        ganadores: [
+            { temporada: 2021, piloto: 1 },
+            { temporada: 2022, piloto: 2 },
+            { temporada: 2023, piloto: 1 }
+        ],
+        imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
+        imagen_destacada: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
+        trazado: "Circuito urbano",
+        curvas: {
+            total: 19,
+            izquierda: 10,
+            derecha: 9
+        },
+        vueltas_carrera: 78,
+        distancia_carrera: 260.52,
+        zonas_drs: {
+            cantidad: 1,
+            ubicaciones: ["Túnel"]
+        },
+        primer_gp: 1950,
+        caracteristicas_tecnicas: {
+            dificultad: "alta",
+            evolucion_pista: "baja",
+            dificultad_adelantamiento: "alta",
+            desgaste_neumaticos: "bajo",
+            severidad_frenado: "alta",
+            clima_promedio: "soleado"
+        },
+        curvas_clave: [
+            {
+                nombre: "Casino Square",
+                descripcion: "Curva cerrada de 90 grados después de una bajada",
+                dificultad: "alta"
+            }
+        ],
+        historia: "El Gran Premio de Mónaco es uno de los eventos más prestigiosos del automovilismo mundial.",
+        momentos_memorables: [
+            {
+                año: 2018,
+                suceso: "Daniel Ricciardo gana con problemas de potencia",
+                imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg"
+            }
+        ]
+    },
+    {
+        id: 3,
+        nombre: "Circuito de Mónacoa",
+        pais: "Mónaco",
+        ciudad: "Montecarlo",
+        continente: "Europa",
+        longitud_km: 3.34,
+        vueltas: 78,
+        descripcion: "Uno de los circuitos más prestigiosos y difíciles del calendario, conocido por sus calles angostas y la falta de zonas de adelantamiento.",
+        record_vuelta: {
+            tiempo: "1:10.166",
+            piloto: "Lewis Hamilton",
+            año: 2019
+        },
+        ganadores: [
+            { temporada: 2021, piloto: 1 },
+            { temporada: 2022, piloto: 2 },
+            { temporada: 2023, piloto: 1 }
+        ],
+        imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
+        imagen_destacada: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
+        trazado: "Circuito urbano",
+        curvas: {
+            total: 19,
+            izquierda: 10,
+            derecha: 9
+        },
+        vueltas_carrera: 78,
+        distancia_carrera: 260.52,
+        zonas_drs: {
+            cantidad: 1,
+            ubicaciones: ["Túnel"]
+        },
+        primer_gp: 1950,
+        caracteristicas_tecnicas: {
+            dificultad: "alta",
+            evolucion_pista: "baja",
+            dificultad_adelantamiento: "alta",
+            desgaste_neumaticos: "bajo",
+            severidad_frenado: "alta",
+            clima_promedio: "soleado"
+        },
+        curvas_clave: [
+            {
+                nombre: "Casino Square",
+                descripcion: "Curva cerrada de 90 grados después de una bajada",
+                dificultad: "alta"
+            }
+        ],
+        historia: "El Gran Premio de Mónaco es uno de los eventos más prestigiosos del automovilismo mundial.",
+        momentos_memorables: [
+            {
+                año: 2018,
+                suceso: "Daniel Ricciardo gana con problemas de potencia",
+                imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg"
             }
         ]
     }
