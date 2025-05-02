@@ -3,3 +3,184 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+main{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Tarjeta principal */
+.card {
+    background: linear-gradient(to bottom, #e0e0e0, #2e2e2e);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 16px;
+    width: 100%;
+    max-width: 400px;
+    color: white;
+    transition: transform 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .upper-information {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .upper-information p {
+    background: #e53935;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
+  .difficulty {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: white;
+  }
+  
+  .name-information h2 {
+    font-weight: 700;
+    margin: 8px 0 0;
+  }
+  
+  .name-information h4 {
+    font-weight: 400;
+    color: #cccccc;
+    font-size: 0.9rem;
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #e0e0e0;
+  }
+  
+  /* Pop-up */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .popup-card {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    max-width: 920px;
+    width: 95%;
+    max-height: 90%;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    position: relative;
+    color: #333;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .popup-card h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .popup-card h4 {
+    color: #666;
+    margin: 4px 0 16px;
+  }
+  
+  .popup-card img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    margin: 16px 0;
+    border-radius: 12px;
+  }
+  
+  .extra-information {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  
+  .description {
+    flex: 2;
+  }
+  
+  .caracteristics {
+    flex: 1;
+    background: #f7f7f7;
+    padding: 12px 16px;
+    border-radius: 10px;
+  }
+  
+  .little-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .little-info p {
+    margin: 0;
+    color: #555;
+}
+
+.little-info b {
+    color: #222;
+}
+
+.loading, .no-data, .error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    color: #555;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ccc;
+    border-top: 4px solid #555;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    to {
+    transform: rotate(360deg);
+    }
+}

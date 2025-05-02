@@ -5,13 +5,13 @@ export class circuitsService{
 
     async getCircuitos(){
         try{
-            console.log(`Datos obtenidos de: ${this.API_BASE}/api/xxxxxxxxxxx`);
+            console.log(`Datos obtenidos de: ${this.API_BASE}/api/circuitos`);
             
             const config = {
                 method: "GET",
                 'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
             }
-            const response = await fetch(`${this.API_BASE}/api/xxxxxxxxxxxxxxx`, config)
+            const response = await fetch(`${this.API_BASE}/api/circuitos`, config)
 
             if (!response.ok) {
                 throw new Error(`Error al obtener los vehículos: ${response.status} ${response.statusText}`);
@@ -25,7 +25,6 @@ export class circuitsService{
         }
         catch(error){
             console.log(error);
-            
         }
     }
 }

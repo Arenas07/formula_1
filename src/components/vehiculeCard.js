@@ -96,8 +96,7 @@ class VehicleList extends HTMLElement {
           </div>
           <div class="principal-img">
             <img src="${vehicle.imagen || '../../design/images/default-vehicle.png'}" 
-                 alt="${vehicle.modelo || 'Vehículo'}"
-                 onerror="this.src='../../design/images/default-vehicle.png'">
+                alt="${vehicle.modelo || 'Vehículo'}"
           </div>
           <p class="more-info">Ver más <i class='bx bx-right-arrow-alt'></i></p>
         `;
@@ -118,13 +117,11 @@ class VehicleList extends HTMLElement {
   
     openPopup(vehicle) {
       const popup = this.shadowRoot.querySelector("#popup");
-      const popupImg = this.shadowRoot.querySelector("#popup-img");
       const popupTitle = this.shadowRoot.querySelector("#popup-title");
       const motorInfo = this.shadowRoot.querySelector("#motor-info");
       const dimensionInfo = this.shadowRoot.querySelector("#dimension-info");
   
       popupTitle.textContent = `${vehicle.modelo || 'Vehículo'} - ${vehicle.equipo || 'Equipo'}`;
-      popupImg.src = vehicle.imagen || '../../design/images/default-vehicle.png';
       
       motorInfo.innerHTML = `
         <div class="info-item">
