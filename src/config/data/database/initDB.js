@@ -714,6 +714,7 @@ const vehiculos = [
         velocidad_maxima_kmh: 360,
         aceleracion_0_100: 2.5,
         pilotos: [1, 2],
+        imagen: "https://media.formula1.com/image/upload/f_auto/q_auto/v1677244984/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Monaco_Circuit.png.transform/8col/image.png",
         dimensiones: {
             peso: 798,
             longitud: 5.2,
@@ -742,6 +743,108 @@ const vehiculos = [
                 nombre: "Sistema de enfriamiento mejorado",
                 descripcion: "Nuevo diseño de radiadores para mejor eficiencia térmica",
                 impacto: "Reducción de 5% en temperatura del motor"
+            }
+        ],
+        aerodinamica: {
+            tipo: "alta"
+        },
+        presion_neumaticos: {
+            tipo: "media",
+            presion: 1.8
+        },
+        neumaticos: {
+            tipo: "Pirelli P Zero"
+        }
+    },
+    {
+        id: 2,
+        equipo: "Mercedes-AMG Petronas",
+        modelo: "W15",
+        motor: "Mercedes",
+        potencia: 1000,
+        velocidad_maxima_kmh: 355,
+        aceleracion_0_100: 2.6,
+        pilotos: [3, 4],
+        imagen: "https://media.formula1.com/image/upload/f_auto/q_auto/v1677244984/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Silverstone_Circuit.png.transform/8col/image.png",
+        dimensiones: {
+            peso: 798,
+            longitud: 5.2,
+            anchura: 2.0,
+            altura: 0.95
+        },
+        rendimiento: {
+            conduccion_normal: {
+                velocidad_promedio_kmh: 315,
+                consumo_combustible: { seco: 1.8, lluvioso: 2.0, extremo: 2.3 },
+                desgaste_neumaticos: { seco: 1.4, lluvioso: 0.7, extremo: 2.4 }
+            },
+            conduccion_agresiva: {
+                velocidad_promedio_kmh: 335,
+                consumo_combustible: { seco: 2.3, lluvioso: 2.5, extremo: 2.9 },
+                desgaste_neumaticos: { seco: 2.1, lluvioso: 1.1, extremo: 3.4 }
+            },
+            ahorro_combustible: {
+                velocidad_promedio_kmh: 295,
+                consumo_combustible: { seco: 1.5, lluvioso: 1.7, extremo: 2.0 },
+                desgaste_neumaticos: { seco: 0.9, lluvioso: 0.4, extremo: 1.7 }
+            }
+        },
+        innovaciones: [
+            {
+                nombre: "Sistema de suspensión mejorado",
+                descripcion: "Nuevo diseño de suspensión para mejor manejo",
+                impacto: "Mejora del 10% en estabilidad en curvas"
+            }
+        ],
+        aerodinamica: {
+            tipo: "media"
+        },
+        presion_neumaticos: {
+            tipo: "media",
+            presion: 1.8
+        },
+        neumaticos: {
+            tipo: "Pirelli P Zero"
+        }
+    },
+    {
+        id: 3,
+        equipo: "Ferrari",
+        modelo: "SF-24",
+        motor: "Ferrari",
+        potencia: 1000,
+        velocidad_maxima_kmh: 358,
+        aceleracion_0_100: 2.5,
+        pilotos: [5, 6],
+        imagen: "https://media.formula1.com/image/upload/f_auto/q_auto/v1677244984/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Monaco_Circuit.png.transform/8col/image.png",
+        dimensiones: {
+            peso: 798,
+            longitud: 5.2,
+            anchura: 2.0,
+            altura: 0.95
+        },
+        rendimiento: {
+            conduccion_normal: {
+                velocidad_promedio_kmh: 318,
+                consumo_combustible: { seco: 1.9, lluvioso: 2.1, extremo: 2.4 },
+                desgaste_neumaticos: { seco: 1.5, lluvioso: 0.8, extremo: 2.5 }
+            },
+            conduccion_agresiva: {
+                velocidad_promedio_kmh: 338,
+                consumo_combustible: { seco: 2.4, lluvioso: 2.6, extremo: 3.0 },
+                desgaste_neumaticos: { seco: 2.2, lluvioso: 1.2, extremo: 3.5 }
+            },
+            ahorro_combustible: {
+                velocidad_promedio_kmh: 298,
+                consumo_combustible: { seco: 1.6, lluvioso: 1.8, extremo: 2.1 },
+                desgaste_neumaticos: { seco: 1.0, lluvioso: 0.5, extremo: 1.8 }
+            }
+        },
+        innovaciones: [
+            {
+                nombre: "Sistema de frenos mejorado",
+                descripcion: "Nuevo diseño de frenos para mejor rendimiento",
+                impacto: "Reducción de 15% en distancia de frenado"
             }
         ],
         aerodinamica: {
