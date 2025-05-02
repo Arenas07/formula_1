@@ -9,22 +9,30 @@ export class circuitsService{
             
             const config = {
                 method: "GET",
-                'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+                }
             }
             const response = await fetch(`${this.API_BASE}/api/circuitos`, config)
 
             if (!response.ok) {
-                throw new Error(`Error al obtener los vehículos: ${response.status} ${response.statusText}`);
+                throw new Error(`Error al obtener los circuitos: ${response.status} ${response.statusText}`);
             }
 
             const data = await response.json()
-            console.log("Datos: " + data);
+            console.log("Datos recibidos:", data);
 
-            return data
+            // Extraer los circuitos de la respuesta
+            if (data && data.circuitos && Array.isArray(data.circuitos)) {
+                return data.circuitos;
+            }
+            
+            return [];
             
         }
         catch(error){
-            console.log(error);
+            console.error("Error en getCircuitos:", error);
+            throw error;
         }
     }
 }

@@ -105,7 +105,9 @@ class CircuitosComponent extends HTMLElement {
 
         try {
             const circuitsData = await this.circuitsService.getCircuitos();
-            this.circuits = circuitsData || [];
+            this.circuits = Array.isArray(circuitsData) ? circuitsData : 
+                          (circuitsData && typeof circuitsData === 'object' ? 
+                          (circuitsData.circuits || circuitsData.data || []) : []);
             this.renderCards();
         } catch (error) {
             console.error('Error al cargar los circuitos:', error);
@@ -117,7 +119,7 @@ class CircuitosComponent extends HTMLElement {
         const container = this.shadowRoot.querySelector('#list__circuits');
         container.innerHTML = '';
 
-        if (this.circuits.length === 0) {
+        if (!this.circuits || this.circuits.length === 0) {
             container.innerHTML = `
                 <div class='no-data'>
                     <div class="spinner"></div>
@@ -127,51 +129,60 @@ class CircuitosComponent extends HTMLElement {
             return;
         }
 
+        console.log("Renderizando circuitos:", this.circuits); // Para depuración
+
         this.circuits.forEach((circuito) => {
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
+            <span class="info-btn" style="cursor:pointer;">
                 <div class="upper-information">
-                    <p>${circuito.continente}</p>
-                    <span class="difficulty">${circuito.dificultad}</span>
+                    <p>${circuito.continente || 'Continente no disponible'}</p>
+                    <span class="difficulty">${circuito.caracteristicas_tecnicas?.dificultad || 'N/A'}</span>
                 </div>
                 <div class="name-information">
-                    <h2>${circuito.nombre}</h2>
-                    <h4>${circuito.ciudad}, ${circuito.pais}</h4>
+                    <h2>${circuito.nombre || 'Nombre no disponible'}</h2>
+                    <h4>${circuito.ciudad || 'Ciudad no disponible'}, ${circuito.pais || 'País no disponible'}</h4>
                 </div>
                 <div class="card-footer">
-                    <span>📅 ${circuito.fecha}</span>
-                    <span class="info-btn" style="cursor:pointer;">ℹ️</span>
+                    <span>📅 ${circuito.primer_gp || 'Fecha no disponible'}</span>
+                    ℹ️
                 </div>
+                </span>
             `;
-            card.querySelector('.info-btn').onclick = () => this.abrirPopup(circuito.nombre);
+            card.querySelector('.info-btn').onclick = () => this.abrirPopup(circuito);
             container.appendChild(card);
         });
     }
 
-    abrirPopup(nombre) {
-        const circuito = this.circuits.find(c => c.nombre === nombre);
+    abrirPopup(circuito) {
+        console.log("Abriendo popup para circuito:", {
+            id: circuito._id,
+            nombre: circuito.nombre,
+            circuito: circuito
+        });
+        
         const popup = this.shadowRoot.querySelector('#popup');
         popup.innerHTML = `
             <div class="popup-card">
                 <button class="close-btn">×</button>
                 <div class="popup-header">
                     <div class="location-info">
-                        <h2>${circuito.nombre}</h2>
-                        <h4>${circuito.ciudad}, ${circuito.pais}</h4>
+                        <h2>${circuito.nombre || 'Nombre no disponible'}</h2>
+                        <h4>${circuito.ciudad || 'Ciudad no disponible'}, ${circuito.pais || 'País no disponible'}</h4>
                     </div>
-                    <span class="continent-tag">${circuito.continente}</span>
+                    <span class="continent-tag">${circuito.continente || 'Continente no disponible'}</span>
                 </div>
-                <img src="${circuito.imagen}" alt="${circuito.nombre}" />
+                <img src="${circuito.imagen || '../../design/images/default-circuit.png'}" alt="${circuito.nombre || 'Circuito'}" />
                 <div class="extra-information">
                     <div class="description">
                         <h3>Descripción</h3>
-                        <p>${circuito.descripcion}</p>
+                        <p>${circuito.descripcion || 'Descripción no disponible'}</p>
                     </div>
                     <div class="caracteristics">
-                        <div class="little-info"><p>Longitud:</p><b>${circuito.longitud_km}</b></div>
-                        <div class="little-info"><p>Curvas:</p><b>${circuito.curvas.total}</b></div>
-                        <div class="little-info"><p>Vueltas:</p><b>${circuito.Vueltas}</b></div>
+                        <div class="little-info"><p>Longitud:</p><b>${circuito.longitud_km || 'N/A'} km</b></div>
+                        <div class="little-info"><p>Curvas:</p><b>${circuito.curvas?.total || 'N/A'}</b></div>
+                        <div class="little-info"><p>Vueltas:</p><b>${circuito.vueltas_carrera || 'N/A'}</b></div>
                     </div>
                 </div>
             </div>
