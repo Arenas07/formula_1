@@ -706,159 +706,435 @@ const equipos = [
 // Datos de vehículos
 const vehiculos = [
     {
-        id: 1,
-        equipo: "Red Bull Racing",
-        modelo: "RB20",
-        motor: "Honda",
-        potencia: 1000,
-        velocidad_maxima_kmh: 360,
-        aceleracion_0_100: 2.5,
-        pilotos: [1, 2],
-        imagen: "https://media.formula1.com/image/upload/f_auto/q_auto/v1677244984/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Monaco_Circuit.png.transform/8col/image.png",
-        dimensiones: {
-            peso: 798,
-            longitud: 5.2,
-            anchura: 2.0,
-            altura: 0.95
+      "id": 4,
+      "equipo": "McLaren",
+      "modelo": "MCL38",
+      "motor": "Mercedes",
+      "potencia": 970,
+      "velocidad_maxima_kmh": 350,
+      "aceleracion_0_100": 2.6,
+      "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/mclaren.png",
+      "pilotos": [7, 8],
+      "dimensiones": {
+        "peso": 798,
+        "longitud": 5.2,
+        "anchura": 2.0,
+        "altura": 0.95
+      },
+      "rendimiento": {
+        "conduccion_normal": {
+          "velocidad_promedio_kmh": 315,
+          "consumo_combustible": { "seco": 1.9, "lluvioso": 2.1, "extremo": 2.4 },
+          "desgaste_neumaticos": { "seco": 1.5, "lluvioso": 0.8, "extremo": 2.5 }
         },
-        rendimiento: {
-            conduccion_normal: {
-                velocidad_promedio_kmh: 320,
-                consumo_combustible: { seco: 1.9, lluvioso: 2.1, extremo: 2.4 },
-                desgaste_neumaticos: { seco: 1.5, lluvioso: 0.8, extremo: 2.5 }
-            },
-            conduccion_agresiva: {
-                velocidad_promedio_kmh: 340,
-                consumo_combustible: { seco: 2.4, lluvioso: 2.6, extremo: 3.0 },
-                desgaste_neumaticos: { seco: 2.2, lluvioso: 1.2, extremo: 3.5 }
-            },
-            ahorro_combustible: {
-                velocidad_promedio_kmh: 300,
-                consumo_combustible: { seco: 1.6, lluvioso: 1.8, extremo: 2.1 },
-                desgaste_neumaticos: { seco: 1.0, lluvioso: 0.5, extremo: 1.8 }
-            }
+        "conduccion_agresiva": {
+          "velocidad_promedio_kmh": 335,
+          "consumo_combustible": { "seco": 2.4, "lluvioso": 2.6, "extremo": 3.0 },
+          "desgaste_neumaticos": { "seco": 2.2, "lluvioso": 1.2, "extremo": 3.5 }
         },
-        innovaciones: [
-            {
-                nombre: "Sistema de enfriamiento mejorado",
-                descripcion: "Nuevo diseño de radiadores para mejor eficiencia térmica",
-                impacto: "Reducción de 5% en temperatura del motor"
-            }
-        ],
-        aerodinamica: {
-            tipo: "alta"
-        },
-        presion_neumaticos: {
-            tipo: "media",
-            presion: 1.8
-        },
-        neumaticos: {
-            tipo: "Pirelli P Zero"
+        "ahorro_combustible": {
+          "velocidad_promedio_kmh": 295,
+          "consumo_combustible": { "seco": 1.6, "lluvioso": 1.8, "extremo": 2.1 },
+          "desgaste_neumaticos": { "seco": 1.0, "lluvioso": 0.5, "extremo": 1.8 }
         }
+      },
+      "innovaciones": [
+        {
+          "nombre": "Sistema de refrigeración optimizado",
+          "descripcion": "Mejora en la eficiencia térmica del motor",
+          "impacto": "Reducción del 5% en temperatura del motor"
+        }
+      ],
+      "aerodinamica": {
+        "tipo": "media-alta"
+      },
+      "presion_neumaticos": {
+        "tipo": "media",
+        "presion": 1.8
+      },
+      "neumaticos": {
+        "tipo": "Pirelli P Zero"
+      }
     },
     {
-        id: 2,
-        equipo: "Mercedes-AMG Petronas",
-        modelo: "W15",
-        motor: "Mercedes",
-        potencia: 1000,
-        velocidad_maxima_kmh: 355,
-        aceleracion_0_100: 2.6,
-        pilotos: [3, 4],
-        imagen: "https://media.formula1.com/image/upload/f_auto/q_auto/v1677244984/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Silverstone_Circuit.png.transform/8col/image.png",
-        dimensiones: {
-            peso: 798,
-            longitud: 5.2,
-            anchura: 2.0,
-            altura: 0.95
+      "id": 5,
+      "equipo": "Aston Martin",
+      "modelo": "AMR24",
+      "motor": "Mercedes",
+      "potencia": 965,
+      "velocidad_maxima_kmh": 348,
+      "aceleracion_0_100": 2.7,
+      "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/aston-martin.png",
+      "pilotos": [9, 10],
+      "dimensiones": {
+        "peso": 799,
+        "longitud": 5.2,
+        "anchura": 2.0,
+        "altura": 0.95
+      },
+      "rendimiento": {
+        "conduccion_normal": {
+          "velocidad_promedio_kmh": 312,
+          "consumo_combustible": { "seco": 1.95, "lluvioso": 2.15, "extremo": 2.45 },
+          "desgaste_neumaticos": { "seco": 1.55, "lluvioso": 0.85, "extremo": 2.55 }
         },
-        rendimiento: {
-            conduccion_normal: {
-                velocidad_promedio_kmh: 315,
-                consumo_combustible: { seco: 1.8, lluvioso: 2.0, extremo: 2.3 },
-                desgaste_neumaticos: { seco: 1.4, lluvioso: 0.7, extremo: 2.4 }
-            },
-            conduccion_agresiva: {
-                velocidad_promedio_kmh: 335,
-                consumo_combustible: { seco: 2.3, lluvioso: 2.5, extremo: 2.9 },
-                desgaste_neumaticos: { seco: 2.1, lluvioso: 1.1, extremo: 3.4 }
-            },
-            ahorro_combustible: {
-                velocidad_promedio_kmh: 295,
-                consumo_combustible: { seco: 1.5, lluvioso: 1.7, extremo: 2.0 },
-                desgaste_neumaticos: { seco: 0.9, lluvioso: 0.4, extremo: 1.7 }
-            }
+        "conduccion_agresiva": {
+          "velocidad_promedio_kmh": 332,
+          "consumo_combustible": { "seco": 2.45, "lluvioso": 2.65, "extremo": 3.05 },
+          "desgaste_neumaticos": { "seco": 2.25, "lluvioso": 1.25, "extremo": 3.55 }
         },
-        innovaciones: [
-            {
-                nombre: "Sistema de suspensión mejorado",
-                descripcion: "Nuevo diseño de suspensión para mejor manejo",
-                impacto: "Mejora del 10% en estabilidad en curvas"
-            }
-        ],
-        aerodinamica: {
-            tipo: "media"
-        },
-        presion_neumaticos: {
-            tipo: "media",
-            presion: 1.8
-        },
-        neumaticos: {
-            tipo: "Pirelli P Zero"
+        "ahorro_combustible": {
+          "velocidad_promedio_kmh": 292,
+          "consumo_combustible": { "seco": 1.65, "lluvioso": 1.85, "extremo": 2.15 },
+          "desgaste_neumaticos": { "seco": 1.05, "lluvioso": 0.55, "extremo": 1.85 }
         }
+      },
+      "innovaciones": [
+        {
+          "nombre": "Suspensión adaptativa",
+          "descripcion": "Sistema que ajusta la suspensión en tiempo real",
+          "impacto": "Mejora del 7% en estabilidad en curvas"
+        }
+      ],
+      "aerodinamica": {
+        "tipo": "alta"
+      },
+      "presion_neumaticos": {
+        "tipo": "media",
+        "presion": 1.75
+      },
+      "neumaticos": {
+        "tipo": "Pirelli P Zero"
+      }
     },
     {
-        id: 3,
-        equipo: "Ferrari",
-        modelo: "SF-24",
-        motor: "Ferrari",
-        potencia: 1000,
-        velocidad_maxima_kmh: 358,
-        aceleracion_0_100: 2.5,
-        pilotos: [5, 6],
-        imagen: "https://media.formula1.com/image/upload/f_auto/q_auto/v1677244984/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Monaco_Circuit.png.transform/8col/image.png",
-        dimensiones: {
-            peso: 798,
-            longitud: 5.2,
-            anchura: 2.0,
-            altura: 0.95
+      "id": 6,
+      "equipo": "Alpine",
+      "modelo": "A524",
+      "motor": "Renault",
+      "potencia": 960,
+      "velocidad_maxima_kmh": 345,
+      "aceleracion_0_100": 2.7,
+      "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/alpine.png",
+      "pilotos": [11, 12],
+      "dimensiones": {
+        "peso": 798,
+        "longitud": 5.2,
+        "anchura": 2.0,
+        "altura": 0.95
+      },
+      "rendimiento": {
+        "conduccion_normal": {
+          "velocidad_promedio_kmh": 310,
+          "consumo_combustible": { "seco": 2.0, "lluvioso": 2.2, "extremo": 2.5 },
+          "desgaste_neumaticos": { "seco": 1.6, "lluvioso": 0.9, "extremo": 2.6 }
         },
-        rendimiento: {
-            conduccion_normal: {
-                velocidad_promedio_kmh: 318,
-                consumo_combustible: { seco: 1.9, lluvioso: 2.1, extremo: 2.4 },
-                desgaste_neumaticos: { seco: 1.5, lluvioso: 0.8, extremo: 2.5 }
-            },
-            conduccion_agresiva: {
-                velocidad_promedio_kmh: 338,
-                consumo_combustible: { seco: 2.4, lluvioso: 2.6, extremo: 3.0 },
-                desgaste_neumaticos: { seco: 2.2, lluvioso: 1.2, extremo: 3.5 }
-            },
-            ahorro_combustible: {
-                velocidad_promedio_kmh: 298,
-                consumo_combustible: { seco: 1.6, lluvioso: 1.8, extremo: 2.1 },
-                desgaste_neumaticos: { seco: 1.0, lluvioso: 0.5, extremo: 1.8 }
-            }
+        "conduccion_agresiva": {
+          "velocidad_promedio_kmh": 330,
+          "consumo_combustible": { "seco": 2.5, "lluvioso": 2.7, "extremo": 3.1 },
+          "desgaste_neumaticos": { "seco": 2.3, "lluvioso": 1.3, "extremo": 3.6 }
         },
-        innovaciones: [
-            {
-                nombre: "Sistema de frenos mejorado",
-                descripcion: "Nuevo diseño de frenos para mejor rendimiento",
-                impacto: "Reducción de 15% en distancia de frenado"
-            }
-        ],
-        aerodinamica: {
-            tipo: "alta"
-        },
-        presion_neumaticos: {
-            tipo: "media",
-            presion: 1.8
-        },
-        neumaticos: {
-            tipo: "Pirelli P Zero"
+        "ahorro_combustible": {
+          "velocidad_promedio_kmh": 290,
+          "consumo_combustible": { "seco": 1.7, "lluvioso": 1.9, "extremo": 2.2 },
+          "desgaste_neumaticos": { "seco": 1.1, "lluvioso": 0.6, "extremo": 1.9 }
         }
-    }
-];
+      },
+      "innovaciones": [
+        {
+          "nombre": "Sistema de recuperación de energía mejorado",
+          "descripcion": "Tecnología avanzada para recuperar energía en frenadas",
+          "impacto": "Aumento del 6% en eficiencia energética"
+        }
+      ],
+      "aerodinamica": {
+        "tipo": "media"
+      },
+      "presion_neumaticos": {
+        "tipo": "media",
+        "presion": 1.7
+      },
+      "neumaticos": {
+        "tipo": "Pirelli P Zero"
+      }
+    }, 
+    {
+          "id": 7,
+          "equipo": "Alpine F1 Team",
+          "modelo": "A524",
+          "motor": "Renault",
+          "potencia": 950,
+          "velocidad_maxima_kmh": 350,
+          "aceleracion_0_100": 2.7,
+          "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/alpine.png",
+          "pilotos": [13, 14],
+          "dimensiones": {
+            "peso": 798,
+            "longitud": 5.2,
+            "anchura": 2.0,
+            "altura": 0.95
+          },
+          "rendimiento": {
+            "conduccion_normal": {
+              "velocidad_promedio_kmh": 310,
+              "consumo_combustible": {
+                "seco": 1.9,
+                "lluvioso": 2.1,
+                "extremo": 2.4
+              },
+              "desgaste_neumaticos": {
+                "seco": 1.5,
+                "lluvioso": 0.8,
+                "extremo": 2.5
+              }
+            },
+            "conduccion_agresiva": {
+              "velocidad_promedio_kmh": 330,
+              "consumo_combustible": {
+                "seco": 2.4,
+                "lluvioso": 2.6,
+                "extremo": 3.0
+              },
+              "desgaste_neumaticos": {
+                "seco": 2.2,
+                "lluvioso": 1.2,
+                "extremo": 3.5
+              }
+            },
+            "ahorro_combustible": {
+              "velocidad_promedio_kmh": 290,
+              "consumo_combustible": {
+                "seco": 1.6,
+                "lluvioso": 1.8,
+                "extremo": 2.1
+              },
+              "desgaste_neumaticos": {
+                "seco": 1.0,
+                "lluvioso": 0.5,
+                "extremo": 1.8
+              }
+            }
+          },
+          "innovaciones": [
+            {
+              "nombre": "Sistema de recuperación de energía mejorado",
+              "descripcion": "Nueva tecnología de recuperación de energía en frenadas",
+              "impacto": "Aumento del 7% en eficiencia energética"
+            }
+          ],
+          "aerodinamica": {
+            "tipo": "alta"
+          },
+          "presion_neumaticos": {
+            "tipo": "media",
+            "presion": 1.75
+          },
+          "neumaticos": {
+            "tipo": "Pirelli P Zero"
+          }
+        },
+        {
+          "id": 8,
+          "equipo": "Aston Martin Aramco Cognizant F1 Team",
+          "modelo": "AMR24",
+          "motor": "Mercedes",
+          "potencia": 970,
+          "velocidad_maxima_kmh": 355,
+          "aceleracion_0_100": 2.6,
+          "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/aston-martin.png",
+          "pilotos": [15, 16],
+          "dimensiones": {
+            "peso": 798,
+            "longitud": 5.2,
+            "anchura": 2.0,
+            "altura": 0.95
+          },
+          "rendimiento": {
+            "conduccion_normal": {
+              "velocidad_promedio_kmh": 315,
+              "consumo_combustible": {
+                "seco": 2.0,
+                "lluvioso": 2.2,
+                "extremo": 2.5
+              },
+              "desgaste_neumaticos": {
+                "seco": 1.6,
+                "lluvioso": 0.9,
+                "extremo": 2.6
+              }
+            },
+            "conduccion_agresiva": {
+              "velocidad_promedio_kmh": 335,
+              "consumo_combustible": {
+                "seco": 2.5,
+                "lluvioso": 2.7,
+                "extremo": 3.1
+              },
+              "desgaste_neumaticos": {
+                "seco": 2.3,
+                "lluvioso": 1.3,
+                "extremo": 3.6
+              }
+            },
+            "ahorro_combustible": {
+              "velocidad_promedio_kmh": 295,
+              "consumo_combustible": {
+                "seco": 1.7,
+                "lluvioso": 1.9,
+                "extremo": 2.2
+              },
+              "desgaste_neumaticos": {
+                "seco": 1.1,
+                "lluvioso": 0.6,
+                "extremo": 1.9
+              }
+            }
+          },
+          "innovaciones": [
+            {
+              "nombre": "Sistema de suspensión activa",
+              "descripcion": "Nueva tecnología de suspensión adaptativa",
+              "impacto": "Mejora del 8% en estabilidad en curvas"
+            }
+          ],
+          "aerodinamica": {
+            "tipo": "media-alta"
+          },
+          "presion_neumaticos": {
+            "tipo": "media",
+            "presion": 1.7
+          },
+          "neumaticos": {
+            "tipo": "Pirelli P Zero"
+          }
+        },
+        {
+          "id": 9,
+          "equipo": "Haas F1 Team",
+          "modelo": "VF-24",
+          "motor": "Ferrari",
+          "potencia": 960,
+          "velocidad_maxima_kmh": 352,
+          "aceleracion_0_100": 2.65,
+          "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/haas.png",
+          "pilotos": [17, 18],
+          "dimensiones": {
+            "peso": 798,
+            "longitud": 5.2,
+            "anchura": 2.0,
+            "altura": 0.95
+          },
+          "rendimiento": {
+            "conduccion_normal": {
+              "velocidad_promedio_kmh": 312,
+              "consumo_combustible": {
+                "seco": 1.95,
+                "lluvioso": 2.15,
+                "extremo": 2.45
+              },
+              "desgaste_neumaticos": {
+                "seco": 1.55,
+                "lluvioso": 0.85,
+                "extremo": 2.55
+              }
+            },
+            "conduccion_agresiva": {
+              "velocidad_promedio_kmh": 332,
+              "consumo_combustible": {
+                "seco": 2.45,
+                "lluvioso": 2.65,
+                "extremo": 3.05
+              },
+              "desgaste_neumaticos": {
+                "seco": 2.25,
+                "lluvioso": 1.25,
+                "extremo": 3.55
+              }
+            },
+            "ahorro_combustible": {
+              "velocidad_promedio_kmh": 292,
+              "consumo_combustible": {
+                "seco": 1.65,
+                "lluvioso": 1.85,
+                "extremo": 2.15
+              },
+              "desgaste_neumaticos": {
+                "seco": 1.05,
+                "lluvioso": 0.55,
+                "extremo": 1.85
+              }
+            }
+          },
+          "innovaciones": [
+            {
+              "nombre": "Sistema de recuperación de energía mejorado",
+              "descripcion": "Nueva tecnología de recuperación de energía en frenadas",
+              "impacto": "Aumento del 7% en eficiencia energética"
+            }
+          ],
+          "aerodinamica": {
+            "tipo": "alta"
+          },
+          "presion_neumaticos": {
+            "tipo": "media",
+            "presion": 1.75
+          },
+          "neumaticos": {
+            "tipo": "Pirelli P Zero"
+          }
+        },
+        {
+            "id": 10,
+            "equipo": "Alpine F1 Team",
+            "modelo": "A525",
+            "motor": "Renault E-Tech RE25",
+            "potencia": 980,
+            "velocidad_maxima_kmh": 350,
+            "aceleracion_0_100": 2.6,
+            "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/alpine.png",
+            "pilotos": [7, 10],
+            "dimensiones": {
+              "peso": 800,
+              "longitud": 5.2,
+              "anchura": 2.0,
+              "altura": 0.95
+            },
+            "rendimiento": {
+              "conduccion_normal": {
+                "velocidad_promedio_kmh": 315,
+                "consumo_combustible": { "seco": 1.9, "lluvioso": 2.1, "extremo": 2.4 },
+                "desgaste_neumaticos": { "seco": 1.6, "lluvioso": 0.9, "extremo": 2.6 }
+              },
+              "conduccion_agresiva": {
+                "velocidad_promedio_kmh": 335,
+                "consumo_combustible": { "seco": 2.5, "lluvioso": 2.7, "extremo": 3.0 },
+                "desgaste_neumaticos": { "seco": 2.3, "lluvioso": 1.3, "extremo": 3.5 }
+              },
+              "ahorro_combustible": {
+                "velocidad_promedio_kmh": 295,
+                "consumo_combustible": { "seco": 1.7, "lluvioso": 1.9, "extremo": 2.2 },
+                "desgaste_neumaticos": { "seco": 1.1, "lluvioso": 0.6, "extremo": 1.9 }
+              }
+            },
+            "innovaciones": [
+              {
+                "nombre": "Sistema de recuperación de energía mejorado",
+                "descripcion": "Nueva tecnología de recuperación de energía en frenadas",
+                "impacto": "Aumento del 7% en eficiencia energética"
+              }
+            ],
+            "aerodinamica": {
+              "tipo": "media-alta"
+            },
+            "presion_neumaticos": {
+              "tipo": "media",
+              "presion": 1.75
+            },
+            "neumaticos": {
+              "tipo": "Pirelli P Zero"
+            }
+          }]
+
 
 // Datos de circuitos
 const circuitos = [
