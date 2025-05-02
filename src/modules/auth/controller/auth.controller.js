@@ -14,7 +14,8 @@ class AuthController {
                 res.json({
                     status: '200',
                     message: 'Login exitoso',
-                    user: result.user
+                    user: result.user,
+                    token_id: result.token_id
                 });
             } else {
                 console.log('❌ AuthController - login - Login fallido:', result.message);

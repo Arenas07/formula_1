@@ -1,4 +1,4 @@
-const UserRepository = require('../infraestructure/user.repository');
+const UserRepository = require('../infraestructure/repository/user.repository');
 const bcrypt = require('bcrypt');
 
 class AuthService {
@@ -21,14 +21,19 @@ class AuthService {
                 return { success: false, message: 'Contraseña incorrecta' };
             }
 
+            // Determinar el token_id según el rol
+            const token_id = user.rol === 'admin' ? '1010' : '1000';
+
             console.log('✅ AuthService - login - Login exitoso');
             return { 
                 success: true, 
                 user: {
                     id: user._id,
                     email: user.email,
-                    nombre: user.nombre
-                }
+                    nombre: user.nombre,
+                    rol: user.rol
+                },
+                token_id
             };
         } catch (error) {
             console.error('💥 AuthService - login - Error:', error);
@@ -54,7 +59,8 @@ class AuthService {
             const user = await UserRepository.create({
                 email,
                 password: hashedPassword,
-                nombre
+                nombre,
+                rol: 'usuario' // Asignar rol por defecto
             });
 
             console.log('✅ AuthService - register - Usuario creado exitosamente');
@@ -64,7 +70,8 @@ class AuthService {
                 user: {
                     id: user._id,
                     email: user.email,
-                    nombre: user.nombre
+                    nombre: user.nombre,
+                    rol: user.rol
                 }
             };
         } catch (error) {
