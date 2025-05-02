@@ -29,7 +29,7 @@ class navBar extends HTMLElement {
                     <a href="/src/modules/circuits/circuitsView.html"><button id="circuits">Circuitos</button></a>
                     <a href="/src/modules/pilotos/pilotosView.html"><button id="pilots">Pilotos</button></a>
                     <a href="/src/modules/vehicles/vehiclesView.html"><button id="vehicles">Vehículos</button></a>
-                    <a href="/src/modules/homePage.html.html"><button id="simulation">Simulación</button></a>
+                    <a href="/src/modules/homePage.html"><button id="simulation">Simulación</button></a>
                 </div>
                 <div class="header-exit">
                     <button id="exit">Salir</button>
