@@ -4,6 +4,40 @@
     box-sizing: border-box;
 }
 
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 500px;
+    background: url(/src/design/icons/equipos-de-elite.png) no-repeat center center;
+    object-fit: contain;
+    margin-top: 8rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.container h1 {
+    text-align: center;
+    font-size: 4.3rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.container span{
+    font-size: 4.3rem;
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container p{
+    text-align: center;
+    font-size: 1.4rem;
+    color: white;
+    margin-bottom: 20px;
+}
+
 .list__teams {
     display: flex;
     flex-wrap: wrap;
@@ -18,7 +52,7 @@
     padding: 20px;
     text-align: center;
     width: 100%;
-    font-size: 18px;
+    font-size: 18px;    
 }
 
 .error {
