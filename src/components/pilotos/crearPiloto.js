@@ -165,8 +165,8 @@ class CrearPiloto extends HTMLElement {
     }
 
     updatePreview() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const isCompetidor = urlParams.get("isCompetidor");
+    const urlParams = new URLSearchParams(window.location.search);
+    const isCompetidor = urlParams.get("isCompetidor");
         const form = this.shadowRoot.querySelector('#form-piloto');
         const previewCard = this.shadowRoot.querySelector('#preview-card');
         const flipBox = previewCard?.querySelector('.flip-box');
