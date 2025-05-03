@@ -7,6 +7,7 @@ pilotos-view {
     flex-wrap: wrap;
     width: 100%;
 }
+
 .piloto-container {
     display: flex;
     flex-direction: column;
@@ -50,20 +51,19 @@ pilotos-view {
 
 /* Estilos de las tarjetas de pilotos */
 .piloto-card {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     width: 100%;
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 1rem;
 }
 
 .piloto-card-item {
-    flex: 0 0 300px;
-    max-width: 300px;
-    margin: 1rem;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
 }
 
 @font-face {
@@ -104,6 +104,7 @@ body {
     height: 550px;
     perspective: 1000px;
     cursor: pointer;
+    position: relative;
 }
 
 .flip-box-inner {
@@ -125,52 +126,72 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    padding: 2rem;
+    box-sizing: border-box;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
 }
 
 /* Estilos del scrollbar */
+.flip-box-front::-webkit-scrollbar,
 .flip-box-back::-webkit-scrollbar {
-    width: 6px;
-}
-
-.flip-box-back::-webkit-scrollbar-track {
+    width: 8px;
     background: transparent;
 }
 
+.flip-box-front::-webkit-scrollbar-thumb,
 .flip-box-back::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    border: 2px solid transparent;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    transition: background 0.3s;
 }
 
+.flip-box-front::-webkit-scrollbar-thumb:hover,
 .flip-box-back::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255,255,255,0.35);
 }
 
 /* Frente de la tarjeta */
 .flip-box-front {
-    background-color: var(--redbull-blue-light);
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    text-align: center;
+    background: linear-gradient(145deg, #424242, #212121);
+    color: white;
+    position: relative;
+    overflow: hidden;
 }
 
-.top-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 30px;
+.number-background {
+    position: absolute;
+    font-size: 20rem;
+    font-weight: bold;
+    opacity: 0.1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    white-space: nowrap;
+    color: inherit;
+    pointer-events: none;
+}
+
+.top-section,
+.driver-image,
+.driver-first-name,
+.driver-last-name,
+.driver-sub-info-role,
+.driver-sub-info,
+.driver-stats-link {
+    position: relative;
+    z-index: 1;
 }
 
 .team-name {
-    color: var(--text-black);
+    color: inherit;
     font-size: 1.8rem;
     font-weight: bold;
     text-align: left;
@@ -178,40 +199,36 @@ body {
 }
 
 .team-country {
-    color: var(--text-black);
+    color: inherit;
     padding: 4px 8px;
     font-size: 1rem;
 }
 
-.driver-number {
-    font-size: 3rem;
-    color: var(--text-black);
-    font-weight: bold;
-}
-
 .driver-image {
-    width: 100%;
-    height: 200px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
     object-fit: cover;
-    margin: 20px 0;
+    margin: 1rem auto;
+    border: 3px solid white;
 }
 
 .driver-first-name {
     font-size: 1.4rem;
-    color: var(--text-black);
+    color: inherit;
     margin-bottom: 5px;
 }
 
 .driver-last-name {
     font-size: 2.2rem;
-    color: var(--text-black);
+    color: inherit;
     font-weight: bold;
     margin-bottom: 15px;
     letter-spacing: 2px;
 }
 
 .driver-sub-info-role {
-    color: var(--text-black);
+    color: inherit;
     padding: 6px 15px;
     font-size: 1.2rem;
     margin: 10px 0;
@@ -226,17 +243,17 @@ body {
 }
 
 .driver-sub-info-number {
-    color: var(--text-black);
+    color: inherit;
     font-size: 1.2rem;
 }
 
 .driver-sub-info-name_acronym {
-    color: var(--text-black);
+    color: inherit;
     font-size: 1.2rem;
 }
 
 .driver-stats-link {
-    color: var(--text-black);
+    color: inherit;
     text-decoration: none;
     font-size: 1rem;
     margin-top: 20px;
@@ -244,13 +261,9 @@ body {
 
 /* Reverso de la tarjeta */
 .flip-box-back {
-    background-color: var(--redbull-blue-dark);
-    color: var(--text-light);
+    background: linear-gradient(145deg, #424242, #212121);
+    color: white;
     transform: rotateY(180deg);
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
 }
 
 .back-top-section {
@@ -266,7 +279,7 @@ body {
 }
 
 .back-pilot-number {
-    border: 2px solid var(--text-light);
+    border: 2px solid currentColor;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -283,9 +296,10 @@ body {
 }
 
 .stats-section {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .Victorias, .Podios, .Poles, .Mejor_tiempo {
@@ -300,8 +314,13 @@ body {
 }
 
 .Victorias img, .Podios img, .Poles img, .Mejor_tiempo img {
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: inline-block;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    filter: var(--icon-filter);
 }
 
 .Victorias-title, .Podios-title, .Poles-title, .Mejor_tiempo-title {
@@ -315,33 +334,36 @@ body {
 }
 
 /* Sección de información adicional */
-.info-section {
-    display: flex;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.campeonatos, .puntos, .biografia, .conducta {
+.campeonatos {
     background-color: rgba(255, 255, 255, 0.1);
     padding: 15px;
     border-radius: 10px;
     text-align: center;
+    margin-bottom: 1.5rem;
 }
 
-.campeonatos-title, .puntos-title, .biografia-title, .conducta-title, .estrategia-title {
+.campeonatos-title {
     font-size: 1.1rem;
-    margin-bottom: 10px;
-    color: var(--text-light);
+    margin-bottom: 0.5rem;
 }
 
-.campeonatos-icons, .puntos-text {
+.campeonatos-icons {
     font-size: 1.3rem;
     font-weight: bold;
-    color: var(--redbull-blue-tint);
+    color: #9ec3f8;
 }
 
 .biografia {
-    margin: 15px 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.biografia-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
 }
 
 .biografia-text {
@@ -349,14 +371,71 @@ body {
     line-height: 1.4;
 }
 
+.puntos {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.puntos-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.puntos-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.puntos-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: inline-block;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    filter: var(--icon-filter);
+}
+
+.puntos-text {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    line-height: 1;
+}
+
+.conducta {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.conducta-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
 .tipo-conduccion, .estrategia-conduccion {
-    color: var(--redbull-blue-tint);
+    color: #9ec3f8;
     font-size: 1.1rem;
     margin: 5px 0 15px;
 }
 
+.estrategia-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
 .ver-piloto {
-    color: var(--text-light);
+    color: inherit;
     text-decoration: none;
     text-align: right;
     display: block;
@@ -366,61 +445,25 @@ body {
 }
 
 /* Media Queries */
-@media (max-width: 480px) {
-    .piloto-card-item {
-        flex: 0 0 100%;
-        max-width: 300px;
-        margin: 1rem auto;
-    }
-
-    .flip-box {
-        width: 100%;
-        height: 550px;
+@media (max-width: 1600px) {
+    .piloto-card {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-/* Media Queries para controlar el número de columnas */
-@media (min-width: 1400px) {
+@media (max-width: 1200px) {
     .piloto-card {
-        justify-content: space-between;
-    }
-    
-    .piloto-card-item {
-        flex: 0 0 calc(25% - 2rem);
-        max-width: calc(25% - 2rem);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 1399px) and (min-width: 1024px) {
+@media (max-width: 768px) {
     .piloto-card {
-        justify-content: space-around;
+        grid-template-columns: 1fr;
     }
     
     .piloto-card-item {
-        flex: 0 0 calc(33.33% - 2rem);
-        max-width: calc(33.33% - 2rem);
-    }
-}
-
-@media (max-width: 1023px) and (min-width: 768px) {
-    .piloto-card {
-        justify-content: space-around;
-    }
-    
-    .piloto-card-item {
-        flex: 0 0 calc(50% - 2rem);
-        max-width: calc(50% - 2rem);
-    }
-}
-
-@media (max-width: 767px) {
-    .piloto-card {
-        justify-content: center;
-    }
-    
-    .piloto-card-item {
-        flex: 0 0 100%;
-        max-width: 300px;
+        max-width: 100%;
     }
 }
 
@@ -454,6 +497,43 @@ body {
     100% {
         opacity: 1;
     }
+}
+
+/* Asegurar que todos los elementos de texto tengan el color heredado */
+.flip-box-front *,
+.flip-box-back * {
+    color: inherit;
+}
+
+/* Ajustar el filtro de los iconos según el color de texto */
+.flip-box-front[style*="color: #000000"] .stats-item img,
+.flip-box-front[style*="color: #000000"] .Victorias img,
+.flip-box-front[style*="color: #000000"] .Podios img,
+.flip-box-front[style*="color: #000000"] .Poles img,
+.flip-box-front[style*="color: #000000"] .Mejor_tiempo img,
+.flip-box-front[style*="color: #000000"] .puntos-icon,
+.flip-box-back[style*="color: #000000"] .stats-item img,
+.flip-box-back[style*="color: #000000"] .Victorias img,
+.flip-box-back[style*="color: #000000"] .Podios img,
+.flip-box-back[style*="color: #000000"] .Poles img,
+.flip-box-back[style*="color: #000000"] .Mejor_tiempo img,
+.flip-box-back[style*="color: #000000"] .puntos-icon {
+    filter: brightness(0) saturate(100%);
+}
+
+.flip-box-front[style*="color: #FFFFFF"] .stats-item img,
+.flip-box-front[style*="color: #FFFFFF"] .Victorias img,
+.flip-box-front[style*="color: #FFFFFF"] .Podios img,
+.flip-box-front[style*="color: #FFFFFF"] .Poles img,
+.flip-box-front[style*="color: #FFFFFF"] .Mejor_tiempo img,
+.flip-box-front[style*="color: #FFFFFF"] .puntos-icon,
+.flip-box-back[style*="color: #FFFFFF"] .stats-item img,
+.flip-box-back[style*="color: #FFFFFF"] .Victorias img,
+.flip-box-back[style*="color: #FFFFFF"] .Podios img,
+.flip-box-back[style*="color: #FFFFFF"] .Poles img,
+.flip-box-back[style*="color: #FFFFFF"] .Mejor_tiempo img,
+.flip-box-back[style*="color: #FFFFFF"] .puntos-icon {
+    filter: brightness(0) invert(1);
 }
 
 .editar, .eliminar {
