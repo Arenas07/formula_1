@@ -14,7 +14,7 @@ class CrearPiloto extends HTMLElement {
         const urlParams = new URLSearchParams(window.location.search);
         const isCompetidor = urlParams.get("isCompetidor");
         let template = '';
-        template += `<link rel="stylesheet" href="/src/components/pilotos/crearPiloto.css">`;
+        template += `<link rel="stylesheet" href="/src/design/css/crearPiloto.css">`;
         template += `<div class="container">
             <div class="crear-piloto">
                 <h1>${isCompetidor ? 'Crear Piloto Competidor' : 'Crear Piloto'}</h1>
