@@ -468,8 +468,10 @@ class CircuitosComponent extends HTMLElement {
         `;
 
         try {
-            // Llama al servicio para obtener los datos reales
-            this.circuits = await this.circuitsService.getCircuits();
+            const circuitsData = await this.circuitsService.getCircuitos();
+            this.circuits = Array.isArray(circuitsData) ? circuitsData : 
+                          (circuitsData && typeof circuitsData === 'object' ? 
+                          (circuitsData.circuits || circuitsData.data || []) : []);
             this.renderCards();
         } catch (error) {
             console.error('Error al cargar los circuitos:', error);
