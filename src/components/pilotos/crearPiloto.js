@@ -267,7 +267,7 @@ class CrearPiloto extends HTMLElement {
                         <div class="puntos">
                             <p class="puntos-title">Puntos</p>
                             <div class="puntos-container">
-                                <span class="puntos-icon">📊</span>
+                                <img src="/src/design/icons/points.png" alt="Puntos-icon" class="puntos-icon">
                                 <p class="puntos-text">${puntos_f1}</p>
                             </div>
                         </div>
@@ -296,6 +296,11 @@ class CrearPiloto extends HTMLElement {
             // Aplicar colores de texto para garantizar contraste
             flipBoxFront.style.setProperty('color', textColor, 'important');
             flipBoxBack.style.setProperty('color', textColor, 'important');
+            
+            // Aplicar filtro a los iconos según el color de texto
+            const iconFilter = textColor === '#000000' ? 'brightness(0) saturate(100%)' : 'brightness(0) invert(1)';
+            flipBoxFront.style.setProperty('--icon-filter', iconFilter, 'important');
+            flipBoxBack.style.setProperty('--icon-filter', iconFilter, 'important');
         }
     }
 

@@ -234,22 +234,55 @@ button[type="submit"]:hover {
     margin: 1rem auto;
     border: 3px solid white;
 }
-.stats-item img {
+.stats-item img,
+.Victorias img,
+.Podios img,
+.Poles img,
+.Mejor_tiempo img,
+.puntos-icon {
     width: 32px;
     height: 32px;
     object-fit: contain;
     display: inline-block;
     margin-right: 0.5rem;
     vertical-align: middle;
-    filter: brightness(0) invert(1);
+    filter: var(--icon-filter);
 }
-.puntos-icon {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    display: inline-block;
-    margin-right: 0.75rem;
-    vertical-align: middle;
+
+/* Asegurar que todos los elementos de texto tengan el color heredado */
+.flip-box-front *,
+.flip-box-back * {
+    color: inherit;
+}
+
+/* Ajustar el filtro de los iconos según el color de texto */
+.flip-box-front[style*="color: #000000"] .stats-item img,
+.flip-box-front[style*="color: #000000"] .Victorias img,
+.flip-box-front[style*="color: #000000"] .Podios img,
+.flip-box-front[style*="color: #000000"] .Poles img,
+.flip-box-front[style*="color: #000000"] .Mejor_tiempo img,
+.flip-box-front[style*="color: #000000"] .puntos-icon,
+.flip-box-back[style*="color: #000000"] .stats-item img,
+.flip-box-back[style*="color: #000000"] .Victorias img,
+.flip-box-back[style*="color: #000000"] .Podios img,
+.flip-box-back[style*="color: #000000"] .Poles img,
+.flip-box-back[style*="color: #000000"] .Mejor_tiempo img,
+.flip-box-back[style*="color: #000000"] .puntos-icon {
+    filter: brightness(0) saturate(100%);
+}
+
+.flip-box-front[style*="color: #FFFFFF"] .stats-item img,
+.flip-box-front[style*="color: #FFFFFF"] .Victorias img,
+.flip-box-front[style*="color: #FFFFFF"] .Podios img,
+.flip-box-front[style*="color: #FFFFFF"] .Poles img,
+.flip-box-front[style*="color: #FFFFFF"] .Mejor_tiempo img,
+.flip-box-front[style*="color: #FFFFFF"] .puntos-icon,
+.flip-box-back[style*="color: #FFFFFF"] .stats-item img,
+.flip-box-back[style*="color: #FFFFFF"] .Victorias img,
+.flip-box-back[style*="color: #FFFFFF"] .Podios img,
+.flip-box-back[style*="color: #FFFFFF"] .Poles img,
+.flip-box-back[style*="color: #FFFFFF"] .Mejor_tiempo img,
+.flip-box-back[style*="color: #FFFFFF"] .puntos-icon {
     filter: brightness(0) invert(1);
 }
 .stats-section {
@@ -267,10 +300,6 @@ button[type="submit"]:hover {
     flex-direction: column;
     align-items: center;
     gap: 8px;
-}
-.Victorias img, .Podios img, .Poles img, .Mejor_tiempo img {
-    width: 32px;
-    height: 32px;
 }
 .Victorias-title, .Podios-title, .Poles-title, .Mejor_tiempo-title {
     font-size: 0.9rem;
