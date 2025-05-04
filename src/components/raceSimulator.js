@@ -183,10 +183,15 @@ function onCircuitSelect() {
 }
 
 function enviarConfiguracion() {
-    const vehiculoId = document.getElementById('vehicle').value;
-    const vehiculoNombre = vehiculos.find(v => v.id == vehiculoId)?.nombre || '';
-    const circuitoId = document.getElementById('circuit').value;
-    const circuitoNombre = circuitos.find(c => c.id == circuitoId)?.nombre || '';
+    const vehiculoId = parseInt(document.getElementById('vehicle').value);
+    const circuitoId = parseInt(document.getElementById('circuit').value);
+
+    const vehiculo = vehiculos.find(v => v.id === vehiculoId);
+    const circuito = circuitos.find(c => c.id === circuitoId);
+
+    const vehiculoNombre = vehiculo?.modelo || 'Desconocido';
+    const circuitoNombre = circuito?.nombre || 'Desconocido';
+
     const modoId = document.getElementById('modo-conduccion').value;
     const modoNombre = document.getElementById('modo-conduccion').selectedOptions[0]?.textContent || '';
     const aeroId = document.getElementById('aero-carga').value;
@@ -207,17 +212,22 @@ function enviarConfiguracion() {
     }
 
     switch (vehiculoNombre) {
-        case "Mercedes W12": tiempo -= 4; break;
-        case "Red Bull RB16B": tiempo -= 3; break;
-        case "McLaren MCL35M": tiempo += 2; break;
-        case "Alpine A521": tiempo += 3; break;
+        case "AMR24": tiempo -= 12; break;
+        case "MCL38": tiempo -= 10; break;
+        case "A525": tiempo -= 6; break;
+        case "A524": tiempo -= 3; break;
+        case "VF-24": tiempo += 1; break;
+        case "AMR24": tiempo += 7; break;
+        case "Desconocido": tiempo += 10; break;
+        case _: tiempo += 15; break;
     }
 
     switch (circuitoNombre) {
-        case "Mónaco": tiempo += 6; break;
+        case "": tiempo += 6; break;
         case "Monza": tiempo -= 3; break;
         case "Silverstone": tiempo += 1; break;
-        case "Suzuka": tiempo += 2; break;
+        case "Desconocido": tiempo += 7; break;
+        case _: tiempo += 15; break;
     }
 
     switch (modoNombre) {
