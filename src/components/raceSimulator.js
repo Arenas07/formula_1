@@ -1,4 +1,4 @@
-import { VehiclesService } from '../services/VehiclesService.js';
+import { VehiclesService } from "../services/vehicles.service.js";
 import { CircuitsService } from '../services/CircuitsService.js';
 
 const vehiclesService = new VehiclesService();
