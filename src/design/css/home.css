@@ -1,3 +1,4 @@
+/* Font imports */
 @font-face {
     font-family: "Form-bold";
     src: url(../fonts/Formula1/Formula1-Bold_web_0.ttf);
@@ -7,28 +8,40 @@
     font-family: "Form-regular";
     src: url(../fonts/Formula1/Formula1-Regular_web_0.ttf);
 }
+
 @font-face {
     font-family: "Form-wide";
     src: url(../fonts/Formula1/Formula1-Wide_web_0.ttf);
 }
 
-*{
+/* Base styles */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Form-regular";
+    font-family: "Form-regular", sans-serif;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
 
+body {
+    overflow-x: hidden;
+    background-color: #f0f2f5;
+}
+
+/* Scrollbar styling */
 ::-webkit-scrollbar {
     width: 10px;
 }
 
-
 ::-webkit-scrollbar-track {
     background: #f0f2f5;  
 }
-
 
 ::-webkit-scrollbar-thumb {
     background-color: #888;   
@@ -36,76 +49,25 @@
     border: 2px solid #f0f2f5; 
 }
 
-
 ::-webkit-scrollbar-thumb:hover {
     background-color: #e10600; 
 }
 
-body{
-    overflow-x: hidden;
-    background-color: #f0f2f5;
-}
-header{
+/* Main content area */
+main {
+    flex: 1;
     display: flex;
-    position: fixed;
-    top: 0;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem;
-    width: 100vw;
-    background: rgba(240, 242, 245, 0.6); 
-    backdrop-filter: blur(10px);
-    z-index: 10;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-}
-
-.logo img{
-    width: 70px;
-    height: 30px;
-}
-.header-menu{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-
-.header-menu button{
-    background: none;
-    cursor: pointer;
-    border: none;
-    font-size: 1.2rem;
-}
-
-.header-menu button:hover{
-    transition: ease-in-out 0.3s;
-    color: #ff0000;
-}
-
-.header-exit button{
-    background: none;
-    cursor: pointer;
-    border: none;
-    font-size: 1.2rem;
-}
-
-.header-exit button:hover{
-    transition: ease-in-out 0.3s;
-    color: #ff0000;
-}
-
-main{
-    display: flex;
-    margin-top: 6.2rem;
-    width: 100vw;
-}
-
-.home-container{
+    flex-direction: column;
     width: 100%;
-
+    padding-top: 6.2rem; /* Adjust for fixed header */
 }
 
-.home-content{
+/* Home section */
+.home-container {
+    width: 100%;
+}
+
+.home-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -115,90 +77,135 @@ main{
     background-size: cover;
     height: 500px;
     color: #fff;
+    padding: 2rem;
+    text-align: center;
 }
 
-.deco-actual-year{
-    background-color: #ff0000;
+.deco-actual-year {
+    background-color: #e10600;
     padding: 3px 10px;
     border-radius: 10px;
     color: #fff;
+    font-weight: bold;
 }
 
-h2{
+h2 {
     font-size: 5rem;
     color: #fff;
     text-align: center;
     font-family: "Form-bold";
 }
 
-.colored-p{
-    color: #ff0000;
+.colored-p {
+    color: #e10600;
     font-family: "Form-bold";
-    
 }
 
-
-.home-button a{
-    font-size: 1.1rem;
-    text-decoration: none;
-    color: #fff;
-}
-
-.home-button a:hover{
-    transition: ease-in-out 0.3s;
-    color: #ff0000;
-}
-
-.home-button button{
+.home-button button {
     font-size: 3rem;
-    background-color: #ff0000;
+    background-color: #e10600;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px 20px;
     border: 1px solid black;
     border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.home-button button:hover{
-    transition: ease-in-out 0.3s;
+.home-button a {
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+.home-button button:hover {
     background-color: #fff;
 }
 
-.home-video{
+.home-button a:hover {
+    color: #e10600;
+}
+
+.home-video {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
     width: 100%;
     background-color: black;
+    padding: 2rem 0;
+    flex-wrap: wrap;
 }
-/****************************************/
 
-.best-pilots{
-    margin: 50px 100px;
+/* Best Pilots section */
+.best-pilots {
+    margin: 50px auto;
+    max-width: 1200px;
+    width: 90%;
     background-color: rgba(255, 255, 255, 0.945);
-    border: 1px solid #ff0000;
+    border: 1px solid #e10600;
     border-radius: 20px;
-
+    padding: 2rem 1rem;
+    overflow: hidden; /* Ensure no overflow from carousel */
 }
 
-.best-pilots h2{
+.best-pilots h2 {
     color: black;
+    margin-bottom: 2rem;
 }
+
+.carrousel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 1rem;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    position: relative;
+}
+
 .pilot-card {
     position: relative;
     width: 300px;
+    min-width: 250px;
     height: 400px;
     overflow: hidden;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    scroll-snap-align: center;
+    margin-bottom: 10px;
 }
 
 .pilot-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover;
     border-radius: 10px;
+}
+
+.pilot-card:hover {
+    transform: scale(1.05);
+}
+
+.pilot-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    z-index: 1;
+    border-radius: 0 0 10px 10px;
 }
 
 .pilot-info {
@@ -214,47 +221,19 @@ h2{
     gap: 5px;
 }
 
-.carrousel {
-    display: flex;
-    flex-direction: row; 
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    flex-wrap: nowrap; 
-    overflow-x: auto; 
-    padding: 1rem;
-    width: 100%;
-}
-.pilot-card:hover{
-    transform: scale(1.05);
-    transition: all 0.3s ease-in-out;
-}
-.pilot-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40%;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-    z-index: 1;
-    border-radius: 0 0 10px 10px;
-}
-
-
-.top{
+.top {
     position: absolute;
     top: 20px;
     right: 10px;
-    padding: 5px;
-    background-color: white;
-    color: #ff0000;
-    border-radius: 50%;
     padding: 5px 10px;
+    background-color: white;
+    color: #e10600;
+    border-radius: 50%;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
-/****************************************/
+/* Footer */
 #footer {
     background-color: #000;
     padding: 2rem 1rem;
@@ -263,14 +242,19 @@ h2{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
     text-align: center;
+    margin-top: auto;
 }
 
-.footer-logo{
+.footer-logo {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
 }
+
 .footer-content {
     display: flex;
     flex-direction: column;
@@ -289,16 +273,12 @@ h2{
     gap: 0.5rem;
 }
 
-.footer-content .social-media {
+.social-media {
     display: flex;
     gap: 20px;
     margin-top: 20px;
-}
-
-.social-media{
-    margin-top: 20px;
-    gap: 20px;
-    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .footer-content .social-media i {
@@ -314,24 +294,281 @@ h2{
 }
 
 .bx {
-    font-size: 32px; 
-}
-
-.bx {
-    color: #e10600; 
-}
-.bx {
+    font-size: 32px;
+    color: #e10600;
     background-color: white;
     padding: 0.5rem;
     border-radius: 50%;
-}
-.bx:hover {
-    transform: rotate(10deg) scale(1.1);
     transition: all 0.3s ease;
 }
-        
+
+.bx:hover {
+    transform: rotate(10deg) scale(1.1);
+}
+
 .bx-copyright {
     font-size: 14px;
     color: #fff;
     background-color: black;
+}
+
+/* Carousel Navigation */
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.carousel-control {
+    background-color: #e10600;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.carousel-control:hover {
+    background-color: #fff;
+    color: #e10600;
+    transform: scale(1.1);
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: #e10600;
+    transform: scale(1.2);
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1200px) {
+    .best-pilots {
+        width: 95%;
+        margin: 40px auto;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    h2 {
+        font-size: 4rem;
+    }
+    
+    .home-button button {
+        font-size: 2.5rem;
+    }
+    
+    .carrousel {
+        gap: 20px;
+    }
+    
+    .pilot-card {
+        width: 250px;
+        height: 350px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    main {
+        padding-top: 5rem;
+    }
+    
+    h2 {
+        font-size: 3rem;
+    }
+    
+    .home-content {
+        height: 400px;
+    }
+    
+    .home-button button {
+        font-size: 2rem;
+        padding: 8px 16px;
+    }
+    
+    .best-pilots {
+        margin: 30px auto;
+        padding: 1.5rem 1rem;
+    }
+    
+    .carrousel {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 15px; 
+        overflow-x: auto;
+        padding: 0.5rem;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+    }
+
+    .pilot-card {
+        width: 200px;
+        height: 300px;
+        min-width: 200px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    h2 {
+        font-size: 2.5rem;
+    }
+    
+    .home-content {
+        height: 350px;
+        gap: 20px;
+    }
+    
+    .home-button button {
+        font-size: 1.5rem;
+    }
+    
+    .best-pilots {
+        margin: 20px auto;
+        border-radius: 15px;
+    }
+    
+    .best-pilots h2 {
+        font-size: 2rem;
+    }
+    
+    .carrousel {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start; 
+        gap: 10px;
+        overflow-x: auto;
+        padding: 0.5rem;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+    }
+
+    .pilot-card {
+        width: 180px;
+        height: 270px;
+        min-width: 180px;
+    }
+    
+    .pilot-info {
+        padding: 0.8rem;
+    }
+    
+    .top {
+        padding: 3px 8px;
+        font-size: 0.9rem;
+    }
+    
+    .footer-content {
+        gap: 1rem;
+    }
+    
+    .social-media {
+        gap: 15px;
+    }
+    
+    .bx {
+        font-size: 28px;
+        padding: 0.4rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h2 {
+        font-size: 2rem;
+    }
+    
+    .home-content {
+        height: 300px;
+    }
+    
+    .home-button a {
+        font-size: 1rem;
+    }
+    
+    .home-button button {
+        font-size: 1.2rem;
+        padding: 6px 12px;
+    }
+    
+    .carrousel {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start; 
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0.5rem;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+    }
+
+    .pilot-card {
+        width: 160px;
+        height: 240px;
+        min-width: 160px;
+    }
+    
+    .pilot-info {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .home-content {
+        padding: 1rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    .carrousel {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start; 
+        gap: 5px; 
+        overflow-x: auto;
+        padding: 0.5rem;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+    }
+
+    .pilot-card {
+        width: 140px;
+        height: 210px;
+        min-width: 140px;
+    }
 }

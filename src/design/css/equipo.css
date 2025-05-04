@@ -4,6 +4,51 @@
     box-sizing: border-box;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 500px;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
+                url('/src/design/icons/circuitos-legendarios.png') no-repeat center center;
+    background-size: cover;
+    margin-top: 8rem;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    text-align: center;
+}
+
+.container h1 {
+    font-size: clamp(2.5rem, 8vw, 4.3rem);
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.container span {
+    font-size: clamp(2.5rem, 8vw, 4.3rem);
+    color: red;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.container p {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: white;
+    max-width: 800px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
 .list__teams {
     display: flex;
     flex-wrap: wrap;
@@ -18,7 +63,7 @@
     padding: 20px;
     text-align: center;
     width: 100%;
-    font-size: 18px;
+    font-size: 18px;    
 }
 
 .error {
