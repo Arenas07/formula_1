@@ -1157,8 +1157,8 @@ const circuitos = [
             { temporada: 2022, piloto: 2 },
             { temporada: 2023, piloto: 1 }
         ],
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
-        imagen_destacada: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
+        imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Monte_Carlo_Formula_1_track_map.svg/1200px-Monte_Carlo_Formula_1_track_map.svg.pnghttps://img2.51gt3.com/rac/track/202304/adbd43e013004af186a50503a1c2b260.png",
+        imagen_destacada: "https://img.redbull.com/images/c_limit,w_1500,h_1000/f_auto,q_auto/redbullcom/2021/5/18/ipsdfstmkuw0faah8vru/guia-circuito-monaco-formula-1",
         trazado: "Circuito urbano",
         curvas: {
             total: 19,
@@ -1192,127 +1192,186 @@ const circuitos = [
             {
                 año: 2018,
                 suceso: "Daniel Ricciardo gana con problemas de potencia",
-                imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg"
+                imagen: "https://soymotor.com/sites/default/files/imagenes/noticia/ricciardo-gana-monza-soymotor.jpg"
             }
         ]
     },
-    {
-        id: 2,
-        nombre: "Circuito de Monaco",
-        pais: "Mónaco",
-        ciudad: "Montecarlo",
-        continente: "Europa",
-        longitud_km: 3.34,
-        vueltas: 78,
-        descripcion: "Uno de los circuitos más prestigiosos y difíciles del calendario, conocido por sus calles angostas y la falta de zonas de adelantamiento.",
-        record_vuelta: {
-            tiempo: "1:10.166",
-            piloto: "Lewis Hamilton",
-            año: 2019
-        },
-        ganadores: [
-            { temporada: 2021, piloto: 1 },
-            { temporada: 2022, piloto: 2 },
-            { temporada: 2023, piloto: 1 }
-        ],
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
-        imagen_destacada: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
-        trazado: "Circuito urbano",
-        curvas: {
-            total: 19,
-            izquierda: 10,
-            derecha: 9
-        },
-        vueltas_carrera: 78,
-        distancia_carrera: 260.52,
-        zonas_drs: {
-            cantidad: 1,
-            ubicaciones: ["Túnel"]
-        },
-        primer_gp: 1950,
-        caracteristicas_tecnicas: {
-            dificultad: "alta",
-            evolucion_pista: "baja",
-            dificultad_adelantamiento: "alta",
-            desgaste_neumaticos: "bajo",
-            severidad_frenado: "alta",
-            clima_promedio: "soleado"
-        },
-        curvas_clave: [
-            {
-                nombre: "Casino Square",
-                descripcion: "Curva cerrada de 90 grados después de una bajada",
-                dificultad: "alta"
-            }
-        ],
-        historia: "El Gran Premio de Mónaco es uno de los eventos más prestigiosos del automovilismo mundial.",
-        momentos_memorables: [
-            {
-                año: 2018,
-                suceso: "Daniel Ricciardo gana con problemas de potencia",
-                imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg"
-            }
-        ]
-    },
-    {
-        id: 3,
-        nombre: "Circuito de Mónacoa",
-        pais: "Mónaco",
-        ciudad: "Montecarlo",
-        continente: "Europa",
-        longitud_km: 3.34,
-        vueltas: 78,
-        descripcion: "Uno de los circuitos más prestigiosos y difíciles del calendario, conocido por sus calles angostas y la falta de zonas de adelantamiento.",
-        record_vuelta: {
-            tiempo: "1:10.166",
-            piloto: "Lewis Hamilton",
-            año: 2019
-        },
-        ganadores: [
-            { temporada: 2021, piloto: 1 },
-            { temporada: 2022, piloto: 2 },
-            { temporada: 2023, piloto: 1 }
-        ],
-        imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
-        imagen_destacada: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg",
-        trazado: "Circuito urbano",
-        curvas: {
-            total: 19,
-            izquierda: 10,
-            derecha: 9
-        },
-        vueltas_carrera: 78,
-        distancia_carrera: 260.52,
-        zonas_drs: {
-            cantidad: 1,
-            ubicaciones: ["Túnel"]
-        },
-        primer_gp: 1950,
-        caracteristicas_tecnicas: {
-            dificultad: "alta",
-            evolucion_pista: "baja",
-            dificultad_adelantamiento: "alta",
-            desgaste_neumaticos: "bajo",
-            severidad_frenado: "alta",
-            clima_promedio: "soleado"
-        },
-        curvas_clave: [
-            {
-                nombre: "Casino Square",
-                descripcion: "Curva cerrada de 90 grados después de una bajada",
-                dificultad: "alta"
-            }
-        ],
-        historia: "El Gran Premio de Mónaco es uno de los eventos más prestigiosos del automovilismo mundial.",
-        momentos_memorables: [
-            {
-                año: 2018,
-                suceso: "Daniel Ricciardo gana con problemas de potencia",
-                imagen: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Circuit_Silverstone_2011.svg"
-            }
-        ]
-    }
-];
+      {
+          id: 2,
+          nombre: "Circuito de Suzuka",
+          pais: "Japón",
+          ciudad: "Suzuka",
+          continente: "Asia",
+          longitud_km: 5.807,
+          vueltas: 53,
+          descripcion: "Uno de los pocos circuitos con diseño en forma de ocho, conocido por su fluidez y curvas técnicas.",
+          record_vuelta: {
+              tiempo: "1:30.983",
+              piloto: "Kimi Räikkönen",
+              año: 2005
+          },
+          ganadores: [
+              { temporada: 2021, piloto: 3 },
+              { temporada: 2022, piloto: 4 },
+              { temporada: 2023, piloto: 4 }
+          ],
+          imagen: "https://img2.51gt3.com/rac/track/aacbce6c41dd4e5496eea246fc5e7c6b.jpg",
+          imagen_destacada: "https://www.autohebdo.fr/app/uploads/2023/09/DPPI_00123037_387.jpg",
+          trazado: "Permanente",
+          curvas: {
+              total: 18,
+              izquierda: 10,
+              derecha: 8
+          },
+          vueltas_carrera: 53,
+          distancia_carrera: 307.471,
+          zonas_drs: {
+              cantidad: 1,
+              ubicaciones: ["Recta principal"]
+          },
+          primer_gp: 1987,
+          caracteristicas_tecnicas: {
+              dificultad: "media",
+              evolucion_pista: "media",
+              dificultad_adelantamiento: "media",
+              desgaste_neumaticos: "alto",
+              severidad_frenado: "media",
+              clima_promedio: "lluvioso"
+          },
+          curvas_clave: [
+              {
+                  nombre: "130R",
+                  descripcion: "Curva rápida y de alta carga aerodinámica",
+                  dificultad: "alta"
+              }
+          ],
+          historia: "Famoso por decidir múltiples campeonatos, especialmente en la era de Senna y Prost.",
+          momentos_memorables: [
+              {
+                  año: 1989,
+                  suceso: "Accidente entre Senna y Prost en la chicana final",
+                  imagen: "https://cdn-6.motorsport.com/images/amp/6l9JzEx0/s1000/alain-prost-mclaren-ayrton-sen.jpg"
+              }
+          ]
+      },
+      {
+          id: 3,
+          nombre: "Autódromo Hermanos Rodríguez",
+          pais: "México",
+          ciudad: "Ciudad de México",
+          continente: "América",
+          longitud_km: 4.304,
+          vueltas: 71,
+          descripcion: "Famoso por su altitud extrema y la sección del estadio con una atmósfera vibrante.",
+          record_vuelta: {
+              tiempo: "1:17.774",
+              piloto: "Valtteri Bottas",
+              año: 2021
+          },
+          ganadores: [
+              { temporada: 2021, piloto: 5 },
+              { temporada: 2022, piloto: 6 },
+              { temporada: 2023, piloto: 5 }
+          ],
+          imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Aut%C3%B3dromo_Hermanos_Rodr%C3%ADguez_2015.svg/1200px-Aut%C3%B3dromo_Hermanos_Rodr%C3%ADguez_2015.svg.png",
+          imagen_destacada: "https://i0.wp.com/mayacomunicacion.com.mx/wp-content/uploads/2024/10/Gran-Premio-de-Mexico-2025-%C2%BFCuando-sera.png?fit=818%2C545&ssl=1",
+          trazado: "Permanente",
+          curvas: {
+              total: 17,
+              izquierda: 10,
+              derecha: 7
+          },
+          vueltas_carrera: 71,
+          distancia_carrera: 305.354,
+          zonas_drs: {
+              cantidad: 2,
+              ubicaciones: ["Recta principal", "entre curvas 3 y 4"]
+          },
+          primer_gp: 1963,
+          caracteristicas_tecnicas: {
+              dificultad: "media",
+              evolucion_pista: "alta",
+              dificultad_adelantamiento: "baja",
+              desgaste_neumaticos: "medio",
+              severidad_frenado: "alta",
+              clima_promedio: "templado"
+          },
+          curvas_clave: [
+              {
+                  nombre: "Foro Sol",
+                  descripcion: "Curvas lentas dentro de un estadio lleno de fans",
+                  dificultad: "media"
+              }
+          ],
+          historia: "Reinstaurado en 2015 con gran éxito y una afición entusiasta.",
+          momentos_memorables: [
+              {
+                  año: 2017,
+                  suceso: "Hamilton gana el campeonato pese a terminar noveno",
+                  imagen: "https://s.yimg.com/ny/api/res/1.2/4LbKVSqVfhYSataq8P5Jpw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTQwOA--/https://media.zenfs.com/en_us/News/Reuters/2017-10-29T223255Z_1_LYNXMPED9S0R7_RTROPTP_2_AUTOMOVILISMO-F1-HAMILTON.JPG"
+              }
+          ]
+      },
+      {
+          id: 4,
+          nombre: "Circuito de Spa-Francorchamps",
+          pais: "Bélgica",
+          ciudad: "Stavelot",
+          continente: "Europa",
+          longitud_km: 7.004,
+          vueltas: 44,
+          descripcion: "Uno de los circuitos más largos y legendarios, conocido por su clima impredecible y curvas como Eau Rouge.",
+          record_vuelta: {
+              tiempo: "1:46.286",
+              piloto: "Valtteri Bottas",
+              año: 2018
+          },
+          ganadores: [
+              { temporada: 2021, piloto: 2 },
+              { temporada: 2022, piloto: 1 },
+              { temporada: 2023, piloto: 1 }
+          ],
+          imagen: "https://img2.51gt3.com/rac/track/202304/1aebcbf68ab14bce81924c06009fbe62.png",
+          imagen_destacada: "https://www.spa-francorchamps.be/assets/cache/41f96bbd-ec49-4132-9e37-3462e031622a/aa3d7a4f7fc53143af3b3e05619e0b16-1.png",
+          trazado: "Permanente",
+          curvas: {
+              total: 20,
+              izquierda: 9,
+              derecha: 11
+          },
+          vueltas_carrera: 44,
+          distancia_carrera: 308.052,
+          zonas_drs: {
+              cantidad: 2,
+              ubicaciones: ["Recta Kemmel", "antes de la chicana final"]
+          },
+          primer_gp: 1950,
+          caracteristicas_tecnicas: {
+              dificultad: "alta",
+              evolucion_pista: "media",
+              dificultad_adelantamiento: "media",
+              desgaste_neumaticos: "medio",
+              severidad_frenado: "media",
+              clima_promedio: "variable"
+          },
+          curvas_clave: [
+              {
+                  nombre: "Eau Rouge - Raidillon",
+                  descripcion: "Secuencia en subida tomada a alta velocidad",
+                  dificultad: "alta"
+              }
+          ],
+          historia: "Ha albergado carreras épicas desde los inicios de la F1 moderna.",
+          momentos_memorables: [
+              {
+                  año: 1998,
+                  suceso: "Choque múltiple bajo la lluvia en la primera vuelta",
+                  imagen: "https://img.vavel.com/b/GP%20BELGICA%201998%20-%20D_%20HILL%2022%C2%BA.jpg"
+              }
+          ]
+      }
+  ]
+
 
 // Datos de configuraciones de simulación
 const configuracionesSimulacion = [
