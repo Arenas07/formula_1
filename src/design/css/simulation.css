@@ -1218,7 +1218,6 @@ button:active {
     }
 }
 
-
 @media (max-width: 992px) {
     .tarjetas-historial {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -1273,7 +1272,6 @@ button:active {
         font-size: 14px;
     }
 }
-
 
 @media (max-width: 576px) {
     section:first-of-type {
@@ -1366,7 +1364,6 @@ button:active {
         max-width: 100%;
     }
 }
-
 
 @media (max-width: 400px) {
     section h1 {
