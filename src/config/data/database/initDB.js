@@ -19,7 +19,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "VER",
         session_key: 9158,
-        team_colour: "3671C6",
+        team_colour: "#f01919",
         team_name: "Red Bull Racing",
         estadisticas: {
             victorias: 54,
@@ -46,7 +46,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "PER",
         session_key: 9158,
-        team_colour: "3671C6",
+        team_colour: "#f01919",
         team_name: "Red Bull Racing",
         estadisticas: {
             victorias: 6,
@@ -73,7 +73,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "HAM",
         session_key: 9158,
-        team_colour: "00D2BE",
+        team_colour: "#f01919",
         team_name: "Mercedes-AMG Petronas",
         estadisticas: {
             victorias: 103,
@@ -100,7 +100,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "RUS",
         session_key: 9158,
-        team_colour: "00D2BE",
+        team_colour: "#f01919",
         team_name: "Mercedes-AMG Petronas",
         estadisticas: {
             victorias: 1,
@@ -127,7 +127,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "LEC",
         session_key: 9158,
-        team_colour: "DC0000",
+        team_colour: "#f01919",
         team_name: "Ferrari",
         estadisticas: {
             victorias: 5,
@@ -154,7 +154,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "SAI",
         session_key: 9158,
-        team_colour: "DC0000",
+        team_colour: "#f01919",
         team_name: "Ferrari",
         estadisticas: {
             victorias: 2,
@@ -181,7 +181,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "NOR",
         session_key: 9158,
-        team_colour: "FF8700",
+        team_colour: "#f01919",
         team_name: "McLaren",
         estadisticas: {
             victorias: 0,
@@ -208,7 +208,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "PIA",
         session_key: 9158,
-        team_colour: "FF8700",
+        team_colour: "#f01919",
         team_name: "McLaren",
         estadisticas: {
             victorias: 0,
@@ -235,7 +235,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "ALO",
         session_key: 9158,
-        team_colour: "006F62",
+        team_colour: "#f01919",
         team_name: "Aston Martin",
         estadisticas: {
             victorias: 32,
@@ -262,7 +262,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "STR",
         session_key: 9158,
-        team_colour: "006F62",
+        team_colour: "#f01919",
         team_name: "Aston Martin",
         estadisticas: {
             victorias: 0,
@@ -289,7 +289,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "OCO",
         session_key: 9158,
-        team_colour: "0090FF",
+        team_colour: "#f01919",
         team_name: "Alpine",
         estadisticas: {
             victorias: 1,
@@ -316,7 +316,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "GAS",
         session_key: 9158,
-        team_colour: "0090FF",
+        team_colour: "#f01919",
         team_name: "Alpine",
         estadisticas: {
             victorias: 1,
@@ -343,7 +343,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "BOT",
         session_key: 9158,
-        team_colour: "900000",
+        team_colour: "#f01919",
         team_name: "Alfa Romeo",
         estadisticas: {
             victorias: 10,
@@ -370,7 +370,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "ZHO",
         session_key: 9158,
-        team_colour: "900000",
+        team_colour: "#f01919",
         team_name: "Alfa Romeo",
         estadisticas: {
             victorias: 0,
@@ -397,7 +397,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "MAG",
         session_key: 9158,
-        team_colour: "FFFFFF",
+        team_colour: "#f01919",
         team_name: "Haas",
         estadisticas: {
             victorias: 0,
@@ -424,7 +424,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "HUL",
         session_key: 9158,
-        team_colour: "FFFFFF",
+        team_colour: "#f01919",
         team_name: "Haas",
         estadisticas: {
             victorias: 0,
@@ -451,7 +451,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "TSU",
         session_key: 9158,
-        team_colour: "2B4562",
+        team_colour: "#f01919",
         team_name: "AlphaTauri",
         estadisticas: {
             victorias: 0,
@@ -478,7 +478,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "RIC",
         session_key: 9158,
-        team_colour: "2B4562",
+        team_colour: "#f01919",
         team_name: "AlphaTauri",
         estadisticas: {
             victorias: 8,
@@ -505,7 +505,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "ALB",
         session_key: 9158,
-        team_colour: "005AFF",
+        team_colour: "#f01919",
         team_name: "Williams",
         estadisticas: {
             victorias: 0,
@@ -532,7 +532,7 @@ const pilotos = [
         meeting_key: 1219,
         name_acronym: "SAR",
         session_key: 9158,
-        team_colour: "005AFF",
+        team_colour: "#f01919",
         team_name: "Williams",
         estadisticas: {
             victorias: 0,
