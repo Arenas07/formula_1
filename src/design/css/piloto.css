@@ -456,3 +456,46 @@ body {
     }
 }
 
+.editar, .eliminar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.btn-editar, .btn-eliminar {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-editar {
+    background-color: var(--mercedes-silver);
+    color: var(--text-dark);
+}
+
+.btn-editar:hover {
+    background-color: var(--mercedes-silver-hover);
+    transform: translateY(-2px);
+}
+
+.btn-eliminar {
+    background-color: var(--red-bull-red);
+    color: var(--text-light);
+}
+
+.btn-eliminar:hover {
+    background-color: var(--red-bull-red-hover);
+    transform: translateY(-2px);
+}
+
+.admin-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+

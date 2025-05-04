@@ -195,8 +195,8 @@ class NavBar extends HTMLElement {
                 console.log("Cerrando sesión...");
                 localStorage.removeItem("auth_token");
                 localStorage.removeItem("user");
-                
-                window.location.href = "../../modules/login/loginView.html";
+                localStorage.removeItem("token_id");
+                window.location.href = "/src/modules/login/loginView.html";
             });
         } else {
             console.error("No se encontró el botón de salir");

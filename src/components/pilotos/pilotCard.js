@@ -1,4 +1,5 @@
-// pilotCard.js
+import { tokenValidator, tokenValidatorAdmin } from "../../utils/shared/tokenValidator";
+
 export const pilotCard = (shadowRoot, pilotos = []) => {
     const pilotoCardContainer = shadowRoot.querySelector("#piloto-card");
     
@@ -32,6 +33,15 @@ export const pilotCard = (shadowRoot, pilotos = []) => {
                             </div>
 
                             <p class="driver-stats-link">Ver estadísticas ></p>
+                            
+                            <div class="admin-actions">
+                                <div class="editar">
+                                    <button class="btn-editar" data-piloto-id="${piloto.id}">Editar</button>
+                                </div>
+                                <div class="eliminar">
+                                    <button class="btn-eliminar" data-piloto-id="${piloto.id}">Eliminar</button>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="flip-box-back">
@@ -123,4 +133,40 @@ export const pilotCard = (shadowRoot, pilotos = []) => {
             tarjeta.classList.toggle("flip");
         });
     });
+
+    const btnsEditar = shadowRoot.querySelectorAll(".btn-editar");
+    const btnsEliminar = shadowRoot.querySelectorAll(".btn-eliminar");
+    
+
+    // Verificar permisos al cargar la página
+    const existToken = tokenValidator();
+    if (existToken) {
+        const isAdmin = tokenValidatorAdmin();
+        if (!isAdmin) {
+            btnsEditar.forEach(btn => btn.style.display = 'none');
+            btnsEliminar.forEach(btn => btn.style.display = 'none');
+        }
+    } else {
+        btnsEditar.forEach(btn => btn.style.display = 'none');
+    }
+
+    btnsEliminar.forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            event.stopPropagation(); // Detiene la propagación del evento
+            const pilotoId = btn.getAttribute('data-piloto-id');
+            console.log("Eliminar piloto con ID:", pilotoId);
+            window.location.href = `/src/modules/admin/pilotos/eliminarPiloto.html?id=${pilotoId}`;
+        });
+    });
+
+    btnsEditar.forEach(btnEditar => {
+        btnEditar.addEventListener("click", (event) => {
+            event.stopPropagation(); // Detiene la propagación del evento
+            const pilotoId = btnEditar.getAttribute('data-piloto-id');
+            console.log("Editar piloto con ID:", pilotoId);
+            window.location.href = `/src/modules/admin/pilotos/editarPiloto.html?id=${pilotoId}`;
+        });
+    });
 };
+
+
