@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación</title>
+    <link rel="stylesheet" href="/src/design/css/home.css">
+    <link rel="stylesheet" href="/src/design/css/simulation.css">
+    <script src="/src/utils/shared/navBarComponent.js" type="module" defer></script>
+    <script src="/src/utils/shared/footerRights.js" type="module" defer></script>
+    <script src="/src/components/raceSimulator.js" type="module" defer></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <custom-navbar></custom-navbar>
+    <section id="section-margin">
+        <h1>Simulación de Formula 1</h1>
+        <p>Vive la emoción del deporte desde tu casa</p>
+    </section>
+    <main>
+        <h2>Configuración de Simulación</h2>
+        
+        <div class="form-column">
+            <div class="form-group">
+              <label for="vehicle">Vehículo:</label>
+              <input type="hidden" id="vehicle" />
+            </div>
+            <div id="vehicle-list" class="vehicle-list"></div>
+          </div>
+          
+
+          <div class="form-group">
+            <label for="circuit">Circuito:</label>
+            <div id="espera-circuito" class="pantalla-espera">
+                Esperando a la selección de vehículo...
+              </div>
+              <div id="circuit-list" class="card-list"></div>              
+            <div id="circuit-list" class="card-list"></div>
+            <input type="hidden" id="circuit" />
+        </div>
+        
+           
+        <div class="form-group">
+            <label for="modo-conduccion">Modo de Conducción:</label>
+            <select id="modo-conduccion" disabled></select>
+        </div>
+
+        <div class="form-group">
+            <label for="aero-carga">Carga Aerodinámica:</label>
+            <select id="aero-carga" disabled></select>
+        </div>
+
+        <div class="form-group">
+            <label for="presion-neumaticos">Presión de Neumáticos:</label>
+            <select id="presion-neumaticos" disabled></select>
+        </div>
+
+        <div class="form-group">
+            <label for="estrategia-combustible">Estrategia de Combustible:</label>
+            <select id="estrategia-combustible" disabled></select>
+        </div>
+
+        <button id="start-simulation">Iniciar Simulación</button>
+            
+        <div class="success-message">
+            ¡Simulación completada! Vea los resultados
+        </div>
+
+        <div id="car-race-container">
+            <img id="car-race" src="/src/design/icons/mclaren.avif" alt="Carro en carrera">
+          </div>
+          
+          
+        </div>
+        <section id="resultados-simulacion">
+            <h3>Resultados</h3>
+            <table id="tabla-resultados">
+                <thead>
+                    <tr>
+                      <th>Vehículo</th>
+                      <th>Circuito</th>
+                      <th>Modo</th>
+                      <th>Aero</th>
+                      <th>Presión</th>
+                      <th>Combustible</th>
+                      <th>Clima</th> 
+                      <th>Tiempo</th>
+                    </tr>
+                </thead>
+              <tbody></tbody>
+            </table>
+          </section>
+          
+          <section id="historial-config">
+            <h3>Configuraciones anteriores</h3>
+            <div id="tarjetas-config" class="tarjetas-historial"></div>
+          </section>
+          
+    </main>
+    <custom-footer></custom-footer>
+</body>
+</html>
