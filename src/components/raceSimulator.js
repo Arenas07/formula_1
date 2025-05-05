@@ -1,5 +1,6 @@
-import { VehiclesService } from '../services/VehiclesService.js';
-import { CircuitsService } from '../services/CircuitsService.js';
+import { VehiclesService } from '../services/vehicles.service.js';
+import { circuitsService as CircuitsServiceClass } from '../services/circuits.service.js';
+import { SimulacionService } from '../services/simulacion.service.js';
 
 const vehiclesService = new VehiclesService();
 let vehiculos = [];
@@ -15,12 +16,13 @@ async function cargarVehiculos() {
 
 cargarVehiculos();
 
-const circuitsService = new CircuitsService();
+// Instanciar correctamente circuitsService
+const circuitsService = new CircuitsServiceClass();
 let circuitos = [];
 
 async function cargarCircuitos() {
     try {
-        circuitos = await circuitsService.getCircuits();
+        circuitos = await circuitsService.getCircuitos();
         renderizarCircuitos(circuitos); 
     } catch (err) {
         console.error('Error al cargar circuitos:', err);
@@ -29,6 +31,15 @@ async function cargarCircuitos() {
 
 cargarCircuitos();
 
+const simulacionService = new SimulacionService();
+
+// Validar sesión antes de cualquier acción
+function isAuthenticated() {
+    return !!localStorage.getItem('auth_token');
+}
+if (!isAuthenticated()) {
+    window.location.href = '/login.html';
+}
 
 const modoConduccion = [
     { id: 1, nombre: "Agresivo" },
@@ -54,7 +65,12 @@ const estrategiaCombustible = [
     { id: 3, nombre: "Estrategia 2 paradas" }
 ];
 
-const historialConfiguraciones = [];
+// Recuperar historial de localStorage al cargar la página
+let historialConfiguraciones = JSON.parse(localStorage.getItem('historialSimulaciones')) || [];
+
+function guardarHistorial() {
+    localStorage.setItem('historialSimulaciones', JSON.stringify(historialConfiguraciones));
+}
 
 function renderizarVehiculos(listaVehiculos) {
     const vehicleList = document.getElementById('vehicle-list');
@@ -103,7 +119,6 @@ function renderizarCircuitos(listaCircuitos) {
         circuitList.appendChild(card);
     });
 }
-
 
 function onVehicleSelect() {
     const vehicleId = document.getElementById('vehicle').value;
@@ -219,7 +234,7 @@ function enviarConfiguracion() {
         case "VF-24": tiempo += 1; break;
         case "AMR24": tiempo += 7; break;
         case "Desconocido": tiempo += 10; break;
-        case _: tiempo += 15; break;
+        default: tiempo += 15; break;
     }
 
     switch (circuitoNombre) {
@@ -227,7 +242,7 @@ function enviarConfiguracion() {
         case "Monza": tiempo -= 3; break;
         case "Silverstone": tiempo += 1; break;
         case "Desconocido": tiempo += 7; break;
-        case _: tiempo += 15; break;
+        default: tiempo += 15; break;
     }
 
     switch (modoNombre) {
@@ -269,6 +284,7 @@ function enviarConfiguracion() {
         clima
     };
     historialConfiguraciones.push(config);
+    guardarHistorial();
     renderHistorial();
 }
 
@@ -322,6 +338,9 @@ function renderHistorial() {
     });
 }
 
+// Al cargar la página, renderizar el historial guardado
+renderHistorial();
+
 document.getElementById("start-simulation").addEventListener("click", () => {
     document.querySelector(".success-message").style.display = "none";
     document.getElementById("resultados-simulacion").style.display = "none";
@@ -336,5 +355,38 @@ document.getElementById("start-simulation").addEventListener("click", () => {
         document.getElementById("car-race-container").style.display = "none";
         document.querySelector(".success-message").style.display = "block";
         document.getElementById("resultados-simulacion").style.display = "block";
+        enviarConfiguracion(); // <-- Aquí se llama para mostrar y guardar los datos
     }, 8000); 
 });
+
+// Ejemplo de función para crear y ejecutar simulación
+async function ejecutarSimulacionDesdeFront(configuracion) {
+    try {
+        await simulacionService.crearSimulacion(configuracion);
+        const resultado = await simulacionService.ejecutarSimulacion(configuracion);
+        mostrarResultadosSimulacion(resultado);
+    } catch (error) {
+        showError('Error en la simulación: ' + error.message);
+    }
+}
+
+// Ejemplo de cómo armar la configuración para enviar (sin usuario_id)
+function armarConfiguracionSimulacion() {
+    // Aquí debes obtener los valores seleccionados en la UI
+    return {
+        piloto_id: document.getElementById('piloto')?.value, // si tienes selector de piloto
+        vehiculo_id: document.getElementById('vehicle').value,
+        circuito_id: document.getElementById('circuit').value,
+        configuracion: {
+            aerodinamica: obtenerValorAerodinamica(),
+            presion_neumatica: obtenerValorPresion(),
+            tipo_conduccion: obtenerValorConduccion(),
+            carga_aerodinamica: obtenerValorCarga(),
+            estrategia: obtenerValorEstrategia()
+        },
+        clima: obtenerValorClima(),
+        fecha_simulacion: new Date().toISOString()
+    };
+}
+
+// Llama a ejecutarSimulacionDesdeFront(armarConfiguracionSimulacion()) cuando el usuario envíe la simulación
