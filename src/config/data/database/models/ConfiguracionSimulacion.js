@@ -94,4 +94,11 @@ const configuracionSimulacionSchema = new mongoose.Schema({
     timestamps: true
 });
 
+// Índices para mejorar el rendimiento de las búsquedas
+configuracionSimulacionSchema.index({ usuario_id: 1 });
+configuracionSimulacionSchema.index({ piloto_id: 1 });
+configuracionSimulacionSchema.index({ vehiculo_id: 1 });
+configuracionSimulacionSchema.index({ circuito_id: 1 });
+configuracionSimulacionSchema.index({ fecha_simulacion: -1 });
+
 module.exports = mongoose.model('ConfiguracionSimulacion', configuracionSimulacionSchema); 

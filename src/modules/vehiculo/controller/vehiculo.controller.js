@@ -7,7 +7,11 @@ class VehiculoController {
             if (!result.success) {
                 return res.status(404).json(result);
             }
-            res.json(result);
+            res.json({
+                success: true,
+                message: 'Vehículos obtenidos exitosamente',
+                vehiculos: result.vehiculos
+            });
         } catch (error) {
             console.error('💥 VehiculoController - getVehiculos - Error:', error);
             res.status(500).json({ 

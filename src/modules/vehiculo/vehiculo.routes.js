@@ -27,6 +27,8 @@ router.use(verifyToken);
  *               properties:
  *                 success:
  *                   type: boolean
+ *                 message:
+ *                   type: string
  *                 vehiculos:
  *                   type: array
  *                   items:
@@ -36,7 +38,7 @@ router.use(verifyToken);
  *       500:
  *         description: Error del servidor
  */
-router.get('/vehiculos', requireRole(['admin', 'user']), vehiculoController.getVehiculos);
+router.get('/vehiculos', requireRole(['admin', 'usuario']), vehiculoController.getVehiculos);
 
 /**
  * @swagger
@@ -74,7 +76,7 @@ router.get('/vehiculos', requireRole(['admin', 'user']), vehiculoController.getV
  *       500:
  *         description: Error del servidor
  */
-router.get('/vehiculos/:id', requireRole(['admin', 'user']), vehiculoController.getVehiculoById);
+router.get('/vehiculos/:id', requireRole(['admin', 'usuario']), vehiculoController.getVehiculoById);
 
 /**
  * @swagger

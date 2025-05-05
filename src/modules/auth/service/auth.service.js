@@ -42,28 +42,6 @@ class AuthService {
         }
     }
 
-    getPermisosByRol(rol) {
-        const permisos = {
-            admin: {
-                puedeGestionarUsuarios: true,
-                puedeGestionarPilotos: true,
-                puedeGestionarEquipos: true,
-                puedeGestionarCarreras: true,
-                puedeVerEstadisticas: true,
-                puedeGestionarConfiguracion: true
-            },
-            usuario: {
-                puedeGestionarUsuarios: false,
-                puedeGestionarPilotos: false,
-                puedeGestionarEquipos: false,
-                puedeGestionarCarreras: false,
-                puedeVerEstadisticas: true,
-                puedeGestionarConfiguracion: false
-            }
-        };
-        return permisos[rol] || permisos.usuario;
-    }
-
     async register(email, password, nombre) {
         console.log('🔍 AuthService - register - Iniciando proceso de registro');
         try {
@@ -103,29 +81,6 @@ class AuthService {
         }
     }
 
-    async getUserProfile(userId) {
-        console.log('🔍 AuthService - getUserProfile - Iniciando proceso de obtener perfil');
-        try {
-            console.log('👤 AuthService - getUserProfile - Buscando usuario:', userId);
-            const user = await UserRepository.findById(userId);
-            
-            if (!user) {
-                console.log('❌ AuthService - getUserProfile - Usuario no encontrado');
-                throw new Error('Usuario no encontrado');
-            }
-
-            console.log('✅ AuthService - getUserProfile - Perfil obtenido');
-            return {
-                id: user._id,
-                email: user.email,
-                nombre: user.nombre
-            };
-        } catch (error) {
-            console.error('💥 AuthService - getUserProfile - Error:', error);
-            throw error;
-        }
-    }
-
     async registerAdmin(email, password, nombre) {
         console.log('🔍 AuthService - registerAdmin - Iniciando proceso de registro de administrador');
         try {
@@ -161,6 +116,37 @@ class AuthService {
             };
         } catch (error) {
             console.error('💥 AuthService - registerAdmin - Error:', error);
+            throw error;
+        }
+    }
+
+    getPermisosByRol(rol) {
+        const permisos = {
+            admin: ['read', 'write', 'delete', 'admin'],
+            usuario: ['read']
+        };
+        return permisos[rol] || [];
+    }
+
+    async getUserProfile(userId) {
+        console.log('🔍 AuthService - getUserProfile - Iniciando proceso de obtener perfil');
+        try {
+            console.log('👤 AuthService - getUserProfile - Buscando usuario:', userId);
+            const user = await UserRepository.findById(userId);
+            
+            if (!user) {
+                console.log('❌ AuthService - getUserProfile - Usuario no encontrado');
+                throw new Error('Usuario no encontrado');
+            }
+
+            console.log('✅ AuthService - getUserProfile - Perfil obtenido');
+            return {
+                id: user._id,
+                email: user.email,
+                nombre: user.nombre
+            };
+        } catch (error) {
+            console.error('💥 AuthService - getUserProfile - Error:', error);
             throw error;
         }
     }

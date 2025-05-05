@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const { generateToken } = require('../../../utils/middleware/jwt');
 const ResponseHandler = require('../../../shared/response/ResponseHandler');
 const UserRepository = require('../infraestructure/repository/user.repository');
+const authService = require('../service/auth.service');
 
 class AuthController {
     async login(req, res) {

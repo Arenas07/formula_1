@@ -3,13 +3,13 @@ const VehiculoRepository = require('../infraestructure/repository/vehiculo.repos
 class VehiculoService {
     async getVehiculos() {
         try {
-            const vehiculos = await VehiculoRepository.getVehiculos();
-            if (vehiculos.length === 0) {
+            const result = await VehiculoRepository.getVehiculos();
+            if (!result.success || result.vehiculos.length === 0) {
                 console.log('❌ VehiculoService - getVehiculos - No hay vehículos disponibles');
                 return { success: false, message: 'No hay vehículos disponibles' };
             }
             console.log('✅ VehiculoService - getVehiculos - Todos los vehículos obtenidos');
-            return { success: true, vehiculos };
+            return { success: true, vehiculos: result.vehiculos };
         } catch (error) {
             console.error('💥 VehiculoService - getVehiculos - Error:', error);
             throw error;

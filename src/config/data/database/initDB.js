@@ -1377,9 +1377,10 @@ const circuitos = [
 const configuracionesSimulacion = [
     {
         id: 1,
-        piloto_id: 1,
-        vehiculo_id: 1,
-        circuito_id: 1,
+        usuario_id: new mongoose.Types.ObjectId(), // ID de usuario por defecto
+        piloto_id: new mongoose.Types.ObjectId(), // Se actualizará después
+        vehiculo_id: new mongoose.Types.ObjectId(), // Se actualizará después
+        circuito_id: new mongoose.Types.ObjectId(), // Se actualizará después
         configuracion: {
             aerodinamica: "alta",
             presion_neumatica: "media",
@@ -1414,7 +1415,7 @@ const initDB = async () => {
         console.log('🗑️ Colecciones limpiadas');
 
         // Insertar datos
-        await Piloto.insertMany(pilotos);
+        const pilotosInsertados = await Piloto.insertMany(pilotos);
         console.log('👤 Pilotos insertados');
 
         await Equipo.insertMany(equipos);
@@ -1426,13 +1427,15 @@ const initDB = async () => {
         const circuitosInsertados = await Circuito.insertMany(circuitos);
         console.log('🏁 Circuitos insertados');
 
-        // Obtener los ObjectIds de los vehículos y circuitos insertados
+        // Obtener los ObjectIds de los elementos insertados
+        const pilotoId = pilotosInsertados[0]._id;
         const vehiculoId = vehiculosInsertados[0]._id;
         const circuitoId = circuitosInsertados[0]._id;
 
         // Actualizar las configuraciones de simulación con los ObjectIds correctos
         const configuracionesActualizadas = configuracionesSimulacion.map(config => ({
             ...config,
+            piloto_id: pilotoId,
             vehiculo_id: vehiculoId,
             circuito_id: circuitoId
         }));
