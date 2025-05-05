@@ -7,9 +7,40 @@
     <script src="../../utils/shared/navBarComponent.js" type="module" defer></script>
     <script src="../../utils/shared/footerRights.js" type="module" defer></script>
     <script src="/src/components/circuitCard.js" type="module" defer></script>
+    <script src="/src/services/login.service.js" type="module" defer></script>
     <link rel="stylesheet" href="../../design/css/home.css">
-    <link rel="stylesheet" href="../../design//css/circuits.css">
+    <link rel="stylesheet" href="../../design/css/circuits.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <style>
+        .admin-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #e10600;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        .admin-button.hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <custom-navbar></custom-navbar>
@@ -20,7 +51,32 @@
     <main>
         <circuits-template></circuits-template>
     </main>
+    
+    <!-- Botón de administración (solo visible para administradores) -->
+    <button id="admin-btn" class="admin-button hidden" title="Administrar Circuitos">
+        <i class='bx bx-cog'></i>
+    </button>
+    
     <custom-footer></custom-footer>
+    
+    <script type="module">
+        import { AuthService } from '../../services/login.service.js';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const authService = new AuthService();
+            const adminBtn = document.getElementById('admin-btn');
+            
+            // Mostrar el botón solo si el usuario es administrador
+            if (authService.isAdmin()) {
+                adminBtn.classList.remove('hidden');
+                
+                // Configurar el evento de clic para ir a la página de administración
+                adminBtn.addEventListener('click', function() {
+                    window.location.href = '/src/modules/circuits/adminCircuits.html';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
 
