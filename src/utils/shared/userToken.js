@@ -1,14 +1,14 @@
 const getUserToken = () => {
-    const token_id = localStorage.getItem('token_id');
-    return token_id;
+    const token = localStorage.getItem('token');
+    return token;
 }
 
-const setUserToken = (token_id) => {
-    localStorage.setItem('token_id', token_id);
+const setUserToken = (token) => {
+    localStorage.setItem('token', token);
 }
 
 const removeUserToken = () => {
-    localStorage.removeItem('token_id');
+    localStorage.removeItem('token');
 }
 
 export { getUserToken, setUserToken, removeUserToken };

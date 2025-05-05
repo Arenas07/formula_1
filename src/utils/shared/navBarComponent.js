@@ -175,7 +175,7 @@ class NavBar extends HTMLElement {
                     <a href="/src/modules/circuits/circuitsView.html"><button id="circuits">Circuitos</button></a>
                     <a href="/src/modules/pilotos/pilotosView.html"><button id="pilots">Pilotos</button></a>
                     <a href="/src/modules/vehicles/vehiclesView.html"><button id="vehicles">Vehículos</button></a>
-                    <a href="/src/modules/homePage.html"><button id="simulation">Simulación</button></a>
+                    <a href="/src/modules/simulation/simulationView.html"><button id="simulation">Simulación</button></a>
                 </div>
                 <div class="header-exit">
                     <button id="exit">Salir</button>
@@ -188,21 +188,22 @@ class NavBar extends HTMLElement {
     }
 
     initializeEventListeners() {
-        
         const exitButton = this.shadowRoot.getElementById("exit");
         if (exitButton) {
             exitButton.addEventListener("click", () => {
-                console.log("Cerrando sesión...");
-                localStorage.removeItem("auth_token");
+                console.log("🔒 Cerrando sesión...");
+                // Eliminar todos los tokens y datos de usuario
+                localStorage.removeItem("token");
                 localStorage.removeItem("user");
                 localStorage.removeItem("token_id");
+                localStorage.removeItem("auth_token");
+                console.log("✅ Sesión cerrada correctamente");
                 window.location.href = "/src/modules/login/loginView.html";
             });
         } else {
-            console.error("No se encontró el botón de salir");
+            console.error("❌ No se encontró el botón de salir");
         }
 
-        
         const mobileToggle = this.shadowRoot.getElementById("mobile-toggle");
         const menu = this.shadowRoot.getElementById("menu");
         

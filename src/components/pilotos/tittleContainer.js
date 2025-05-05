@@ -1,13 +1,9 @@
-import { tokenValidator, tokenValidatorAdmin } from "../../utils/shared/tokenValidator";
+import { tokenValidator } from "../../utils/shared/tokenValidator";
+import { isAdmin } from "../../utils/shared/roleValidator";
 import { PilotoService } from "../../services/piloto.service";
 
-
-
-
-export const tittleContainer = (shadowRoot) => {
+export const tittleContainer = async (shadowRoot) => {
     const tittleContainer = shadowRoot.querySelector(".tittle-container");
-
-    
 
     const template = `
         <style>
@@ -49,18 +45,24 @@ export const tittleContainer = (shadowRoot) => {
     const btnCrearPilotoNuevo = shadowRoot.querySelector(".btn-crear-piloto-nuevo");
     const btnCrearPilotoCompetidor = shadowRoot.querySelector(".btn-crear-piloto-competidor");
     
-
-
-    let token = tokenValidator();
-    if (token) {
-        let isAdmin = tokenValidatorAdmin();
-        if (isAdmin) {
-            console.log("Es admin");
-        } else {
-            console.log("No es admin");
+    // Verificar permisos al cargar la página
+    const existToken = tokenValidator();
+    console.log('🔑 Estado del token en título:', existToken ? 'Presente' : 'No presente');
+    
+    if (existToken) {
+        const isUserAdmin = await isAdmin();
+        console.log('🔐 Estado de permisos en título:', { existToken, isUserAdmin });
+        if (!isUserAdmin) {
+            console.log('👤 Usuario no es administrador, ocultando botones de crear');
             btnCrearPilotoNuevo.style.display = "none";
             btnCrearPilotoCompetidor.style.display = "none";
+        } else {
+            console.log('👑 Usuario es administrador, mostrando botones de crear');
         }
+    } else {
+        console.log('🔒 No hay token, ocultando botones de crear');
+        btnCrearPilotoNuevo.style.display = "none";
+        btnCrearPilotoCompetidor.style.display = "none";
     }
 
     btnCrearPilotoNuevo.addEventListener("click", () => {
@@ -70,6 +72,5 @@ export const tittleContainer = (shadowRoot) => {
     btnCrearPilotoCompetidor.addEventListener("click", () => {
         window.location.href = "/src/modules/admin/pilotos/crearPilotos.html?isCompetidor=true";
     });
-
-}
+};
 

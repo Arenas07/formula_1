@@ -6,9 +6,16 @@ class Login extends HTMLElement{
         super()
         this.attachShadow({ mode: "open" })
         this.isLogin = true; // Estado inicial
+        this.authService = new AuthService();
+        this.isSubmitting = false; // Para evitar múltiples envíos
     }
 
     connectedCallback() {
+        // Verificar si el usuario ya está autenticado
+        if (this.authService.isAuthenticated()) {
+            window.location.href = '../homePage.html';
+            return;
+        }
         this.initializeStyles();
         this.render();
     }
@@ -33,7 +40,7 @@ class Login extends HTMLElement{
         container.innerHTML = `
         <div class="background-decor"></div>
         <div class="wrapper">
-            <form action="">
+            <form id="auth-form">
                 <h1>${this.isLogin ? "Login" : "Registro"}</h1>
                 <div class="input-box">
                     <input type="text" placeholder="E-mail" id="email" required>
@@ -49,7 +56,7 @@ class Login extends HTMLElement{
                     <input type="password" placeholder="Password" id="password" required>
                     <i class="bx bx-lock-alt"></i>
                 </div>
-                <button type="submit" class="btn" id="${this.isLogin ? 'btn-login' : 'btn-register'}">
+                <button type="submit" class="btn" ${this.isSubmitting ? 'disabled' : ''}>
                     ${this.isLogin ? "Login" : "Registrarse"}
                 </button>
                 <div class="register-user">
@@ -78,50 +85,69 @@ class Login extends HTMLElement{
         this.initializeEventListeners();
     }
 
+    async handleSubmit(e) {
+        e.preventDefault();
+        
+        if (this.isSubmitting) {
+            console.log('Ya hay una petición en curso');
+            return;
+        }
+
+        this.isSubmitting = true;
+        const submitButton = this.shadowRoot.querySelector('button[type="submit"]');
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = this.isLogin ? "Iniciando sesión..." : "Registrando...";
+        }
+
+        try {
+            const email = this.shadowRoot.querySelector('#email').value;
+            const password = this.shadowRoot.querySelector('#password').value;
+
+            if (this.isLogin) {
+                console.log('Intentando login...');
+                const data = await this.authService.login(email, password);
+                console.log('Login exitoso:', data);
+                showSuccess('Login exitoso. Bienvenido.');
+                window.location.href = '../homePage.html';
+            } else {
+                const nombre = this.shadowRoot.querySelector('#nombre').value;
+                console.log('Intentando registro...');
+                const response = await this.authService.register({ email, password, nombre });
+                console.log('Registro exitoso:', response);
+                if (response.success) {
+                    showSuccess('Registro exitoso. Por favor, inicia sesión.');
+                    this.isLogin = true;
+                    this.render();
+                } else {
+                    throw new Error(response.message || 'Error en el registro');
+                }
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showError(error.message || (this.isLogin ? 'Error al iniciar sesión' : 'Error al registrar'));
+        } finally {
+            this.isSubmitting = false;
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = this.isLogin ? "Login" : "Registrarse";
+            }
+        }
+    }
+
     initializeEventListeners() {
+        // Evento para cambiar entre login y registro
         this.shadowRoot.querySelector("#toggle-mode")?.addEventListener("click", (e) => {
             e.preventDefault();
             this.isLogin = !this.isLogin;
             this.render();
         });
 
-        this.shadowRoot.querySelector('#btn-login')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            const email = this.shadowRoot.querySelector('#email').value;
-            const password = this.shadowRoot.querySelector('#password').value;
-            console.log('Intentando login con:', { email, password });
-            const authService = new AuthService();
-            authService.login(email, password)
-                .then(data => {
-                    console.log('Login exitoso:', data);
-                    showSuccess('Login exitoso. Bienvenido.');
-                    window.location.href = '../homePage.html';
-                })
-                .catch(error => {
-                    console.error('Error en login:', error);
-                    showError(error.message);
-                });
-        });
-
-        this.shadowRoot.querySelector('#btn-register')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            const email = this.shadowRoot.querySelector('#email').value;
-            const password = this.shadowRoot.querySelector('#password').value;
-            const nombre = this.shadowRoot.querySelector('#nombre').value;
-            console.log('Intentando registro con:', { email, password, nombre });
-            const authService = new AuthService();
-            authService.register({ email, password, nombre })
-                .then(data => {
-                    console.log('Registro exitoso:', data);
-                    showSuccess('Registro exitoso. Por favor, inicia sesión.');
-                    this.isLogin = true;
-                    this.render();
-                })
-                .catch(error => {
-                    console.error('Error en registro:', error);
-                    showError(error.message);
-                });
-        });
+        // Evento para el formulario
+        const form = this.shadowRoot.querySelector('#auth-form');
+        if (form) {
+            form.addEventListener('submit', (e) => this.handleSubmit(e));
+        }
     }
 }
 
