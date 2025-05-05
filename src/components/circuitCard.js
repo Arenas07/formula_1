@@ -459,19 +459,23 @@ class CircuitosComponent extends HTMLElement {
     }
 
     async loadData() {
-        const container = this.shadowRoot.querySelector("#list__circuits");
-        container.innerHTML = `
-            <div class='loading'>
-                <div class="spinner"></div>
-                <p>Cargando circuitos...</p>
-            </div>
-        `;
-
         try {
-            const circuitsData = await this.circuitsService.getCircuitos();
-            this.circuits = Array.isArray(circuitsData) ? circuitsData : 
-                          (circuitsData && typeof circuitsData === 'object' ? 
-                          (circuitsData.circuits || circuitsData.data || []) : []);
+            const response = await this.circuitsService.getCircuitos();
+            console.log('Circuitos recibidos:', response);
+            
+            // Verificar los diferentes formatos posibles de la respuesta
+            if (Array.isArray(response)) {
+                this.circuits = response;
+            } else if (response && Array.isArray(response.circuitos)) {
+                this.circuits = response.circuitos;
+            } else if (response && response.success && Array.isArray(response.circuitos)) {
+                this.circuits = response.circuitos;
+            } else {
+                console.warn('Formato de respuesta no reconocido:', response);
+                this.circuits = [];
+            }
+            
+            console.log('Circuitos procesados:', this.circuits);
             this.renderCards();
         } catch (error) {
             console.error('Error al cargar los circuitos:', error);

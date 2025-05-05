@@ -3,20 +3,47 @@ export class circuitsService{
         this.API_BASE = import.meta.env.VITE_API_BASE_URL   
     }
 
+    async getHeaders() {
+        // Obtener el token de localStorage con múltiples opciones
+        const token = localStorage.getItem('token') || 
+                    localStorage.getItem('auth_token') || 
+                    localStorage.getItem('accessToken');
+                    
+        if (!token) {
+            console.warn('No hay token de autenticación, intentando sin token');
+            return {
+                'Content-Type': 'application/json'
+            };
+        }
+        
+        // Construir el header de autorización en el formato esperado
+        let authHeader;
+        if (token.startsWith('Bearer ')) {
+            authHeader = token;
+        } else {
+            authHeader = `Bearer ${token}`;
+        }
+        
+        return {
+            'Content-Type': 'application/json',
+            'Authorization': authHeader
+        };
+    }
+
     async getCircuitos(){
         try{
             console.log(`Datos obtenidos de: ${this.API_BASE}/api/circuitos`);
             
-            const config = {
+            const headers = await this.getHeaders();
+            
+            const response = await fetch(`${this.API_BASE}/api/circuitos`, {
                 method: "GET",
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
-                }
-            }
-            const response = await fetch(`${this.API_BASE}/api/circuitos`, config)
+                headers
+            });
 
             if (!response.ok) {
-                throw new Error(`Error al obtener los circuitos: ${response.status} ${response.statusText}`);
+                console.error(`Error al obtener los circuitos: ${response.status} ${response.statusText}`);
+                return [];
             }
 
             const data = await response.json()
@@ -32,7 +59,7 @@ export class circuitsService{
         }
         catch(error){
             console.error("Error en getCircuitos:", error);
-            throw error;
+            return []; // Devolver array vacío en caso de error
         }
     }
 }

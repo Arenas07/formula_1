@@ -1,18 +1,34 @@
 export async function fetchWithAuth(url, options = {}) {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token') || localStorage.getItem('auth_token');
+    
+    if (!token) {
+        console.error('No se encontró token de autenticación');
+        window.location.href = '/src/modules/login/loginView.html';
+        throw new Error('No hay sesión activa');
+    }
+    
     const headers = {
         ...options.headers,
         'Content-Type': 'application/json',
-        ...(token && { 'Authorization': `Bearer ${token}` })
+        'Authorization': `Bearer ${token}`
     };
-    const response = await fetch(url, { ...options, headers });
-    if (response.status === 401 || response.status === 403) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        window.location.href = '/login.html';
-        throw new Error('Sesión expirada o no autorizada');
+    
+    try {
+        const response = await fetch(url, { ...options, headers });
+        
+        if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user');
+            window.location.href = '/src/modules/login/loginView.html';
+            throw new Error('Sesión expirada o no autorizada');
+        }
+        
+        return response;
+    } catch (error) {
+        console.error('Error en fetchWithAuth:', error);
+        throw error;
     }
-    return response;
 }
 
 export class SimulacionService {

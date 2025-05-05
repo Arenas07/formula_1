@@ -30,18 +30,19 @@ class VehicleList extends HTMLElement {
         const response = await this.vehiclesService.getVehicles();
         console.log('Vehículos recibidos:', response);
         
-        // Validar y extraer los vehículos de la estructura anidada
-        if (response && 
-            response.success && 
-            response.vehiculos && 
-            response.vehiculos.success && 
-            Array.isArray(response.vehiculos.vehiculos)) {
-          this.vehicles = response.vehiculos.vehiculos;
+        // Verificar que los vehículos se hayan cargado correctamente
+        if (Array.isArray(response)) {
+          this.vehicles = response;
+        } else if (response && Array.isArray(response.vehiculos)) {
+          this.vehicles = response.vehiculos;
+        } else if (response && response.success && Array.isArray(response.vehiculos)) {
+          this.vehicles = response.vehiculos;
         } else {
-          console.error('Formato de respuesta inválido:', response);
+          console.warn('Formato de respuesta no reconocido:', response);
           this.vehicles = [];
         }
         
+        console.log('Vehículos procesados:', this.vehicles);
         this.generateVehicles();
       } catch (error) {
         console.error('Error al cargar los vehículos:', error);

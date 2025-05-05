@@ -3,26 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipos - F1</title>
+    <title>Editar Equipo - F1</title>
     <script src="../../utils/shared/navBarComponent.js"></script>
     <script src="../../utils/shared/footerRights.js"></script>
-    <script src="../../components/teamCard.js" type="module" defer></script>
+    <script src="../../components/teams/editarEquipo.js" type="module" defer></script>
     <link rel="stylesheet" href="../../design/css/home.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
-    <link rel="stylesheet" href="../../design/css/equipo.css">
 </head>
 <body>
     <custom-navbar></custom-navbar>
-    <div class="container">
-        <div class="header">
-            <h1>Equipos</h1>
-            <a href="/src/modules/teams/crearEquipo.html" class="create-button">
-                <i class='bx bx-plus'></i>
-                Crear Equipo
-            </a>
-        </div>
-        <team-list></team-list>
-    </div>
+    <editar-equipo></editar-equipo>
     <custom-footer></custom-footer>
 </body>
-</html>
+</html> 

@@ -98,5 +98,17 @@
           
     </main>
     <custom-footer></custom-footer>
+    <script>
+        // Verificar autenticación al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token') || localStorage.getItem('auth_token');
+            if (!token) {
+                console.log("No hay token de autenticación. Redirigiendo a login...");
+                window.location.href = '/src/modules/login/loginView.html';
+            } else {
+                console.log("Token de autenticación encontrado:", token ? "Sí" : "No");
+            }
+        });
+    </script>
 </body>
 </html>

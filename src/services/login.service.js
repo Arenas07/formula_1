@@ -1,3 +1,5 @@
+import { storeAuthData, clearAuthData } from '../utils/auth-debug.js';
+
 export class AuthService {
     constructor() {
         this.API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -37,14 +39,10 @@ export class AuthService {
             const responseData = await response.json();
             console.log('Login exitoso:', responseData);
             
-            if (responseData.success && responseData.data) {
-                // Guardar token y datos del usuario
-                localStorage.setItem('token', responseData.data.token);
-                localStorage.setItem('user', JSON.stringify(responseData.data.user));
-                return responseData.data;
-            } else {
-                throw new Error('Formato de respuesta inválido');
-            }
+            // Guardar token y datos del usuario usando la nueva función
+            storeAuthData(responseData);
+            
+            return responseData;
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
             if (error.message.includes('Failed to fetch')) {
@@ -86,6 +84,19 @@ export class AuthService {
 
             const data = await response.json();
             console.log('Registro exitoso:', data);
+            
+            // Intentar acceder al token si está disponible en la respuesta (algunos backends lo envían directamente)
+            if (data.token || (data.data && data.data.token) || data.access_token) {
+                const token = data.token || (data.data && data.data.token) || data.access_token;
+                localStorage.setItem('token', token);
+                
+                // Si hay datos de usuario
+                const user = data.user || (data.data && data.data.user);
+                if (user) {
+                    localStorage.setItem('user', JSON.stringify(user));
+                }
+            }
+            
             return data;
         } catch (error) {
             console.error('Error al registrar:', error);
@@ -98,21 +109,63 @@ export class AuthService {
 
     // Método para verificar si el usuario está autenticado
     isAuthenticated() {
-        const token = localStorage.getItem('token');
+        // Intentar obtener token de diferentes fuentes
+        const token = this.getToken();
         if (!token) return false;
 
         try {
             // Verificar si el token está expirado
-            const payload = JSON.parse(atob(token.split('.')[1]));
+            const payload = this.decodeToken(token);
+            if (!payload) return false;
+            
             return payload.exp > Date.now() / 1000;
-        } catch {
+        } catch (e) {
+            console.error('Error al verificar autenticación:', e);
             return false;
         }
     }
 
-    // Método para obtener el token actual
+    // Método para obtener el token actual de cualquier ubicación
     getToken() {
-        return localStorage.getItem('token');
+        const token = localStorage.getItem('token') || 
+               localStorage.getItem('auth_token') || 
+               localStorage.getItem('accessToken');
+               
+        if (token) {
+            // Log para diagnóstico
+            console.log('🔑 Token encontrado en localStorage:', {
+                length: token.length,
+                start: token.substring(0, 10) + '...',
+                format: token.includes('.') ? 'JWT válido' : 'Formato no estándar',
+                hasBearerPrefix: token.startsWith('Bearer ')
+            });
+            
+            // Retornar token limpio sin el prefijo "Bearer " si lo tiene
+            return token.startsWith('Bearer ') ? token.substring(7) : token;
+        }
+        
+        return null;
+    }
+    
+    // Método para decodificar un token JWT
+    decodeToken(token) {
+        try {
+            // Limpiar el prefijo 'Bearer ' si existe
+            const cleanToken = token.startsWith('Bearer ') ? token.substring(7) : token;
+            
+            // Verificar formato válido de JWT (debe tener al menos 2 puntos)
+            if (!cleanToken || cleanToken.split('.').length !== 3) {
+                console.warn('Formato de token inválido:', cleanToken.substring(0, 10) + '...');
+                return null;
+            }
+            
+            // Decodificar payload
+            const payload = JSON.parse(atob(cleanToken.split('.')[1]));
+            return payload;
+        } catch (e) {
+            console.error('Error al decodificar token:', e);
+            return null;
+        }
     }
 
     // Método para obtener los datos del usuario actual
@@ -124,7 +177,7 @@ export class AuthService {
     // Método para verificar si el usuario es admin
     isAdmin() {
         const user = this.getCurrentUser();
-        return user && user.rol === 'admin';
+        return user && (user.rol === 'admin' || user.role === 'admin' || user.isAdmin === true);
     }
 
     // Método para verificar permisos específicos
@@ -139,10 +192,16 @@ export class AuthService {
         return false;
     }
 
-    // Método para cerrar sesión
+    // Método para cerrar sesión y limpiar almacenamiento
     logout() {
         localStorage.removeItem('token');
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
-        window.location.href = '/login.html';
+        
+        // Redirigir a la página de login si es necesario
+        if (window.location.pathname !== '/login.html') {
+            window.location.href = '/login.html';
+        }
     }
 }

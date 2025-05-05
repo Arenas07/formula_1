@@ -197,6 +197,7 @@ class NavBar extends HTMLElement {
                 localStorage.removeItem("user");
                 localStorage.removeItem("token_id");
                 localStorage.removeItem("auth_token");
+                localStorage.removeItem("accessToken");
                 console.log("✅ Sesión cerrada correctamente");
                 window.location.href = "/src/modules/login/loginView.html";
             });

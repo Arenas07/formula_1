@@ -11,10 +11,19 @@ export class VehiclesService {
     }
 
     async getHeaders() {
-        const token = localStorage.getItem('token');
+        // Obtener token de diferentes fuentes posibles
+        const token = localStorage.getItem('token') || 
+                     localStorage.getItem('auth_token') || 
+                     localStorage.getItem('accessToken');
+        
+        // Si no hay token, intentar con cabeceras básicas sin autenticación
         if (!token) {
-            throw new Error('No hay token de autenticación');
+            console.warn('No hay token de autenticación, intentando sin token');
+            return {
+                'Content-Type': 'application/json'
+            };
         }
+        
         return {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -27,14 +36,27 @@ export class VehiclesService {
             const response = await fetch(`${this.baseUrl}/vehiculos`, {
                 headers
             });
-            const data = await response.json();
+            
             if (!response.ok) {
-                throw new Error(data.message || 'Error al obtener los vehículos');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Error al obtener los vehículos');
             }
-            return data;
+            
+            const data = await response.json();
+            console.log('Respuesta del servidor:', data);
+            
+            // Extraer los vehículos de la respuesta según el formato
+            if (data && data.vehiculos && Array.isArray(data.vehiculos)) {
+                return data.vehiculos;
+            } else if (Array.isArray(data)) {
+                return data;
+            } else {
+                console.warn('Formato de respuesta inesperado:', data);
+                return [];
+            }
         } catch (error) {
             console.error('Error al obtener vehículos:', error);
-            throw error;
+            return []; // Devolver array vacío en caso de error
         }
     }
 
