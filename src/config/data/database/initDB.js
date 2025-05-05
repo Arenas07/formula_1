@@ -712,30 +712,30 @@ const vehiculos = [
       "motor": "Mercedes",
       "potencia": 970,
       "velocidad_maxima_kmh": 350,
-      "aceleracion_0_100": 2.6,
+      "aceleracion_0_100": 2,
       "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/mclaren.png",
       "pilotos": [7, 8],
       "dimensiones": {
         "peso": 798,
-        "longitud": 5.2,
-        "anchura": 2.0,
-        "altura": 0.95
+        "longitud": 5,
+        "anchura": 2,
+        "altura": 1
       },
       "rendimiento": {
         "conduccion_normal": {
           "velocidad_promedio_kmh": 315,
-          "consumo_combustible": { "seco": 1.9, "lluvioso": 2.1, "extremo": 2.4 },
-          "desgaste_neumaticos": { "seco": 1.5, "lluvioso": 0.8, "extremo": 2.5 }
+          "consumo_combustible": { "seco": 1, "lluvioso": 2, "extremo": 2},
+          "desgaste_neumaticos": { "seco": 1, "lluvioso": 0, "extremo": 2 }
         },
         "conduccion_agresiva": {
           "velocidad_promedio_kmh": 335,
-          "consumo_combustible": { "seco": 2.4, "lluvioso": 2.6, "extremo": 3.0 },
-          "desgaste_neumaticos": { "seco": 2.2, "lluvioso": 1.2, "extremo": 3.5 }
+          "consumo_combustible": { "seco": 2, "lluvioso": 2, "extremo": 3 },
+          "desgaste_neumaticos": { "seco": 2, "lluvioso": 1, "extremo": 3 }
         },
         "ahorro_combustible": {
           "velocidad_promedio_kmh": 295,
-          "consumo_combustible": { "seco": 1.6, "lluvioso": 1.8, "extremo": 2.1 },
-          "desgaste_neumaticos": { "seco": 1.0, "lluvioso": 0.5, "extremo": 1.8 }
+          "consumo_combustible": { "seco": 1, "lluvioso": 1, "extremo": 2 },
+          "desgaste_neumaticos": { "seco": 1, "lluvioso": 0, "extremo": 1 }
         }
       },
       "innovaciones": [
@@ -750,7 +750,7 @@ const vehiculos = [
       },
       "presion_neumaticos": {
         "tipo": "media",
-        "presion": 1.8
+        "presion": 1
       },
       "neumaticos": {
         "tipo": "Pirelli P Zero"
@@ -763,30 +763,30 @@ const vehiculos = [
       "motor": "Mercedes",
       "potencia": 965,
       "velocidad_maxima_kmh": 348,
-      "aceleracion_0_100": 2.7,
+      "aceleracion_0_100": 2,
       "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/aston-martin.png",
       "pilotos": [9, 10],
       "dimensiones": {
         "peso": 799,
-        "longitud": 5.2,
-        "anchura": 2.0,
-        "altura": 0.95
+        "longitud": 5,
+        "anchura": 2,
+        "altura": 1
       },
       "rendimiento": {
         "conduccion_normal": {
           "velocidad_promedio_kmh": 312,
-          "consumo_combustible": { "seco": 1.95, "lluvioso": 2.15, "extremo": 2.45 },
-          "desgaste_neumaticos": { "seco": 1.55, "lluvioso": 0.85, "extremo": 2.55 }
+          "consumo_combustible": { "seco": 1, "lluvioso": 2, "extremo": 2 },
+          "desgaste_neumaticos": { "seco": 1, "lluvioso": 0, "extremo": 2 }
         },
         "conduccion_agresiva": {
           "velocidad_promedio_kmh": 332,
-          "consumo_combustible": { "seco": 2.45, "lluvioso": 2.65, "extremo": 3.05 },
-          "desgaste_neumaticos": { "seco": 2.25, "lluvioso": 1.25, "extremo": 3.55 }
+          "consumo_combustible": { "seco": 2, "lluvioso": 2, "extremo": 3 },
+          "desgaste_neumaticos": { "seco": 2, "lluvioso": 1, "extremo": 3 }
         },
         "ahorro_combustible": {
           "velocidad_promedio_kmh": 292,
-          "consumo_combustible": { "seco": 1.65, "lluvioso": 1.85, "extremo": 2.15 },
-          "desgaste_neumaticos": { "seco": 1.05, "lluvioso": 0.55, "extremo": 1.85 }
+          "consumo_combustible": { "seco": 1, "lluvioso": 1, "extremo": 2 },
+          "desgaste_neumaticos": { "seco": 1, "lluvioso": 0, "extremo": 1 }
         }
       },
       "innovaciones": [
@@ -801,7 +801,7 @@ const vehiculos = [
       },
       "presion_neumaticos": {
         "tipo": "media",
-        "presion": 1.75
+        "presion": 1
       },
       "neumaticos": {
         "tipo": "Pirelli P Zero"
@@ -814,30 +814,30 @@ const vehiculos = [
       "motor": "Renault",
       "potencia": 960,
       "velocidad_maxima_kmh": 345,
-      "aceleracion_0_100": 2.7,
+      "aceleracion_0_100": 2,
       "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/alpine.png",
       "pilotos": [11, 12],
       "dimensiones": {
         "peso": 798,
-        "longitud": 5.2,
-        "anchura": 2.0,
-        "altura": 0.95
+        "longitud": 5,
+        "anchura": 2,
+        "altura": 1
       },
       "rendimiento": {
         "conduccion_normal": {
           "velocidad_promedio_kmh": 310,
-          "consumo_combustible": { "seco": 2.0, "lluvioso": 2.2, "extremo": 2.5 },
-          "desgaste_neumaticos": { "seco": 1.6, "lluvioso": 0.9, "extremo": 2.6 }
+          "consumo_combustible": { "seco": 2, "lluvioso": 2, "extremo": 2 },
+          "desgaste_neumaticos": { "seco": 1, "lluvioso": 0, "extremo": 2 }
         },
         "conduccion_agresiva": {
           "velocidad_promedio_kmh": 330,
-          "consumo_combustible": { "seco": 2.5, "lluvioso": 2.7, "extremo": 3.1 },
-          "desgaste_neumaticos": { "seco": 2.3, "lluvioso": 1.3, "extremo": 3.6 }
+          "consumo_combustible": { "seco": 2, "lluvioso": 2, "extremo": 3 },
+          "desgaste_neumaticos": { "seco": 2, "lluvioso": 1, "extremo": 3 }
         },
         "ahorro_combustible": {
           "velocidad_promedio_kmh": 290,
-          "consumo_combustible": { "seco": 1.7, "lluvioso": 1.9, "extremo": 2.2 },
-          "desgaste_neumaticos": { "seco": 1.1, "lluvioso": 0.6, "extremo": 1.9 }
+          "consumo_combustible": { "seco": 1, "lluvioso": 1, "extremo": 2 },
+          "desgaste_neumaticos": { "seco": 1, "lluvioso": 0, "extremo": 1 }
         }
       },
       "innovaciones": [
@@ -852,7 +852,7 @@ const vehiculos = [
       },
       "presion_neumaticos": {
         "tipo": "media",
-        "presion": 1.7
+        "presion": 1
       },
       "neumaticos": {
         "tipo": "Pirelli P Zero"
@@ -870,48 +870,48 @@ const vehiculos = [
           "pilotos": [13, 14],
           "dimensiones": {
             "peso": 798,
-            "longitud": 5.2,
-            "anchura": 2.0,
-            "altura": 0.95
+            "longitud": 5,
+            "anchura": 2,
+            "altura": 1
           },
           "rendimiento": {
             "conduccion_normal": {
               "velocidad_promedio_kmh": 310,
               "consumo_combustible": {
-                "seco": 1.9,
-                "lluvioso": 2.1,
-                "extremo": 2.4
+                "seco": 1,
+                "lluvioso": 2,
+                "extremo": 2
               },
               "desgaste_neumaticos": {
-                "seco": 1.5,
-                "lluvioso": 0.8,
-                "extremo": 2.5
+                "seco": 1,
+                "lluvioso": 0,
+                "extremo": 2
               }
             },
             "conduccion_agresiva": {
               "velocidad_promedio_kmh": 330,
               "consumo_combustible": {
-                "seco": 2.4,
-                "lluvioso": 2.6,
-                "extremo": 3.0
+                "seco": 2,
+                "lluvioso": 2,
+                "extremo": 3
               },
               "desgaste_neumaticos": {
-                "seco": 2.2,
-                "lluvioso": 1.2,
-                "extremo": 3.5
+                "seco": 2,
+                "lluvioso": 1,
+                "extremo": 3
               }
             },
             "ahorro_combustible": {
               "velocidad_promedio_kmh": 290,
               "consumo_combustible": {
-                "seco": 1.6,
-                "lluvioso": 1.8,
-                "extremo": 2.1
+                "seco": 1,
+                "lluvioso": 1,
+                "extremo": 2
               },
               "desgaste_neumaticos": {
-                "seco": 1.0,
-                "lluvioso": 0.5,
-                "extremo": 1.8
+                "seco": 1,
+                "lluvioso": 0,
+                "extremo": 1
               }
             }
           },
@@ -927,7 +927,7 @@ const vehiculos = [
           },
           "presion_neumaticos": {
             "tipo": "media",
-            "presion": 1.75
+            "presion": 1
           },
           "neumaticos": {
             "tipo": "Pirelli P Zero"
@@ -940,14 +940,14 @@ const vehiculos = [
           "motor": "Mercedes",
           "potencia": 970,
           "velocidad_maxima_kmh": 355,
-          "aceleracion_0_100": 2.6,
+          "aceleracion_0_100": 2,
           "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/aston-martin.png",
           "pilotos": [15, 16],
           "dimensiones": {
             "peso": 798,
-            "longitud": 5.2,
-            "anchura": 2.0,
-            "altura": 0.95
+            "longitud": 5,
+            "anchura": 2,
+            "altura": 1
           },
           "rendimiento": {
             "conduccion_normal": {
@@ -958,35 +958,35 @@ const vehiculos = [
                 "extremo": 2.5
               },
               "desgaste_neumaticos": {
-                "seco": 1.6,
-                "lluvioso": 0.9,
-                "extremo": 2.6
+                "seco": 1,
+                "lluvioso": 0,
+                "extremo": 2
               }
             },
             "conduccion_agresiva": {
               "velocidad_promedio_kmh": 335,
               "consumo_combustible": {
-                "seco": 2.5,
-                "lluvioso": 2.7,
-                "extremo": 3.1
+                "seco": 2,
+                "lluvioso": 2,
+                "extremo": 3
               },
               "desgaste_neumaticos": {
-                "seco": 2.3,
-                "lluvioso": 1.3,
-                "extremo": 3.6
+                "seco": 2,
+                "lluvioso": 1,
+                "extremo": 3
               }
             },
             "ahorro_combustible": {
               "velocidad_promedio_kmh": 295,
               "consumo_combustible": {
-                "seco": 1.7,
-                "lluvioso": 1.9,
-                "extremo": 2.2
+                "seco": 1,
+                "lluvioso": 1,
+                "extremo": 2
               },
               "desgaste_neumaticos": {
-                "seco": 1.1,
-                "lluvioso": 0.6,
-                "extremo": 1.9
+                "seco": 1,
+                "lluvioso": 0,
+                "extremo": 1
               }
             }
           },
@@ -1002,7 +1002,7 @@ const vehiculos = [
           },
           "presion_neumaticos": {
             "tipo": "media",
-            "presion": 1.7
+            "presion": 1
           },
           "neumaticos": {
             "tipo": "Pirelli P Zero"
@@ -1015,53 +1015,53 @@ const vehiculos = [
           "motor": "Ferrari",
           "potencia": 960,
           "velocidad_maxima_kmh": 352,
-          "aceleracion_0_100": 2.65,
+          "aceleracion_0_100": 2,
           "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/haas.png",
           "pilotos": [17, 18],
           "dimensiones": {
             "peso": 798,
-            "longitud": 5.2,
-            "anchura": 2.0,
-            "altura": 0.95
+            "longitud": 5,
+            "anchura": 2,
+            "altura": 1
           },
           "rendimiento": {
             "conduccion_normal": {
               "velocidad_promedio_kmh": 312,
               "consumo_combustible": {
-                "seco": 1.95,
-                "lluvioso": 2.15,
-                "extremo": 2.45
+                "seco": 1,
+                "lluvioso": 2,
+                "extremo": 2
               },
               "desgaste_neumaticos": {
-                "seco": 1.55,
-                "lluvioso": 0.85,
-                "extremo": 2.55
+                "seco": 1,
+                "lluvioso": 1,
+                "extremo": 2
               }
             },
             "conduccion_agresiva": {
               "velocidad_promedio_kmh": 332,
               "consumo_combustible": {
-                "seco": 2.45,
-                "lluvioso": 2.65,
-                "extremo": 3.05
+                "seco": 2,
+                "lluvioso": 2,
+                "extremo": 3
               },
               "desgaste_neumaticos": {
-                "seco": 2.25,
-                "lluvioso": 1.25,
-                "extremo": 3.55
+                "seco": 2,
+                "lluvioso": 1,
+                "extremo": 3
               }
             },
             "ahorro_combustible": {
               "velocidad_promedio_kmh": 292,
               "consumo_combustible": {
-                "seco": 1.65,
-                "lluvioso": 1.85,
-                "extremo": 2.15
+                "seco": 1,
+                "lluvioso": 1,
+                "extremo": 2
               },
               "desgaste_neumaticos": {
-                "seco": 1.05,
-                "lluvioso": 0.55,
-                "extremo": 1.85
+                "seco": 1,
+                "lluvioso": 0,
+                "extremo": 1
               }
             }
           },
@@ -1077,7 +1077,7 @@ const vehiculos = [
           },
           "presion_neumaticos": {
             "tipo": "media",
-            "presion": 1.75
+            "presion": 1
           },
           "neumaticos": {
             "tipo": "Pirelli P Zero"
@@ -1090,30 +1090,30 @@ const vehiculos = [
             "motor": "Renault E-Tech RE25",
             "potencia": 980,
             "velocidad_maxima_kmh": 350,
-            "aceleracion_0_100": 2.6,
+            "aceleracion_0_100": 2,
             "imagen": "https://www.formula1.com/content/dam/fom-website/teams/2024/alpine.png",
             "pilotos": [7, 10],
             "dimensiones": {
               "peso": 800,
-              "longitud": 5.2,
-              "anchura": 2.0,
-              "altura": 0.95
+              "longitud": 5,
+              "anchura": 2,
+              "altura": 0
             },
             "rendimiento": {
               "conduccion_normal": {
                 "velocidad_promedio_kmh": 315,
-                "consumo_combustible": { "seco": 1.9, "lluvioso": 2.1, "extremo": 2.4 },
-                "desgaste_neumaticos": { "seco": 1.6, "lluvioso": 0.9, "extremo": 2.6 }
+                "consumo_combustible": { "seco": 1, "lluvioso": 2, "extremo": 2 },
+                "desgaste_neumaticos": { "seco": 1, "lluvioso": 0, "extremo": 2 }
               },
               "conduccion_agresiva": {
                 "velocidad_promedio_kmh": 335,
-                "consumo_combustible": { "seco": 2.5, "lluvioso": 2.7, "extremo": 3.0 },
-                "desgaste_neumaticos": { "seco": 2.3, "lluvioso": 1.3, "extremo": 3.5 }
+                "consumo_combustible": { "seco": 2, "lluvioso": 2, "extremo": 3 },
+                "desgaste_neumaticos": { "seco": 2, "lluvioso": 1, "extremo": 3 }
               },
               "ahorro_combustible": {
                 "velocidad_promedio_kmh": 295,
-                "consumo_combustible": { "seco": 1.7, "lluvioso": 1.9, "extremo": 2.2 },
-                "desgaste_neumaticos": { "seco": 1.1, "lluvioso": 0.6, "extremo": 1.9 }
+                "consumo_combustible": { "seco": 1, "lluvioso": 1, "extremo": 2 },
+                "desgaste_neumaticos": { "seco": 1, "lluvioso": 0, "extremo": 1}
               }
             },
             "innovaciones": [
@@ -1128,7 +1128,7 @@ const vehiculos = [
             },
             "presion_neumaticos": {
               "tipo": "media",
-              "presion": 1.75
+              "presion": 1
             },
             "neumaticos": {
               "tipo": "Pirelli P Zero"
@@ -1144,7 +1144,7 @@ const circuitos = [
         pais: "Mónaco",
         ciudad: "Montecarlo",
         continente: "Europa",
-        longitud_km: 3.34,
+        longitud_km: 3,
         vueltas: 78,
         descripcion: "Uno de los circuitos más prestigiosos y difíciles del calendario, conocido por sus calles angostas y la falta de zonas de adelantamiento.",
         record_vuelta: {
@@ -1166,7 +1166,7 @@ const circuitos = [
             derecha: 9
         },
         vueltas_carrera: 78,
-        distancia_carrera: 260.52,
+        distancia_carrera: 260,
         zonas_drs: {
             cantidad: 1,
             ubicaciones: ["Túnel"]
@@ -1202,7 +1202,7 @@ const circuitos = [
           pais: "Japón",
           ciudad: "Suzuka",
           continente: "Asia",
-          longitud_km: 5.807,
+          longitud_km: 5,
           vueltas: 53,
           descripcion: "Uno de los pocos circuitos con diseño en forma de ocho, conocido por su fluidez y curvas técnicas.",
           record_vuelta: {
@@ -1224,7 +1224,7 @@ const circuitos = [
               derecha: 8
           },
           vueltas_carrera: 53,
-          distancia_carrera: 307.471,
+          distancia_carrera: 307,
           zonas_drs: {
               cantidad: 1,
               ubicaciones: ["Recta principal"]
@@ -1260,7 +1260,7 @@ const circuitos = [
           pais: "México",
           ciudad: "Ciudad de México",
           continente: "América",
-          longitud_km: 4.304,
+          longitud_km: 4,
           vueltas: 71,
           descripcion: "Famoso por su altitud extrema y la sección del estadio con una atmósfera vibrante.",
           record_vuelta: {
@@ -1282,7 +1282,7 @@ const circuitos = [
               derecha: 7
           },
           vueltas_carrera: 71,
-          distancia_carrera: 305.354,
+          distancia_carrera: 305,
           zonas_drs: {
               cantidad: 2,
               ubicaciones: ["Recta principal", "entre curvas 3 y 4"]
@@ -1318,7 +1318,7 @@ const circuitos = [
           pais: "Bélgica",
           ciudad: "Stavelot",
           continente: "Europa",
-          longitud_km: 7.004,
+          longitud_km: 7,
           vueltas: 44,
           descripcion: "Uno de los circuitos más largos y legendarios, conocido por su clima impredecible y curvas como Eau Rouge.",
           record_vuelta: {
@@ -1340,7 +1340,7 @@ const circuitos = [
               derecha: 11
           },
           vueltas_carrera: 44,
-          distancia_carrera: 308.052,
+          distancia_carrera: 308,
           zonas_drs: {
               cantidad: 2,
               ubicaciones: ["Recta Kemmel", "antes de la chicana final"]
