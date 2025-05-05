@@ -223,9 +223,10 @@ function enviarConfiguracion() {
     }
 
     switch (circuitoNombre) {
-        case "": tiempo += 6; break;
-        case "Monza": tiempo -= 3; break;
-        case "Silverstone": tiempo += 1; break;
+        case "Circuito de Mónaco": tiempo += 3; break;
+        case "Circuito de Suzuka": tiempo += 5; break;
+        case "Autódromo Hermanos Rodríguez": tiempo += 4; break;
+        case "Circuito de Spa-Francorchamps": tiempo += 7; break;
         case "Desconocido": tiempo += 7; break;
         case _: tiempo += 15; break;
     }
