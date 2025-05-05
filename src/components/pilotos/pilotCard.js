@@ -1,7 +1,10 @@
-import { tokenValidator, tokenValidatorAdmin } from "../../utils/shared/tokenValidator";
+import { tokenValidator, tokenValidatorAdmin, hasPermission } from "../../utils/shared/tokenValidator";
+import { PilotoService } from "../../services/piloto.service";
+import { showError, showSuccess } from "../../utils/shared/notifications";
 
 export const pilotCard = (shadowRoot, pilotos = []) => {
     const pilotoCardContainer = shadowRoot.querySelector("#piloto-card");
+    const pilotoService = new PilotoService();
     
     // Asegurar que pilotos sea un array
     const pilotosArray = Array.isArray(pilotos) ? pilotos : 
@@ -143,21 +146,50 @@ export const pilotCard = (shadowRoot, pilotos = []) => {
     // Verificar permisos al cargar la página
     const existToken = tokenValidator();
     if (existToken) {
-        const isAdmin = tokenValidatorAdmin();
-        if (!isAdmin) {
+        // Verificar si el usuario tiene permisos de administrador
+        const canManagePilots = hasPermission('puedeGestionarPilotos');
+        if (!canManagePilots) {
             btnsEditar.forEach(btn => btn.style.display = 'none');
             btnsEliminar.forEach(btn => btn.style.display = 'none');
         }
     } else {
         btnsEditar.forEach(btn => btn.style.display = 'none');
+        btnsEliminar.forEach(btn => btn.style.display = 'none');
     }
 
     btnsEliminar.forEach(btn => {
-        btn.addEventListener("click", (event) => {
+        btn.addEventListener("click", async (event) => {
             event.stopPropagation(); // Detiene la propagación del evento
             const pilotoId = btn.getAttribute('data-piloto-id');
-            console.log("Eliminar piloto con ID:", pilotoId);
-            window.location.href = `/src/modules/admin/pilotos/eliminarPiloto.html?id=${pilotoId}`;
+            
+            if (!pilotoId) {
+                console.error("No se encontró el ID del piloto");
+                showError("No se encontró el ID del piloto");
+                return;
+            }
+
+            // Confirmar antes de eliminar
+            if (!confirm('¿Estás seguro de que deseas eliminar este piloto?')) {
+                return;
+            }
+
+            try {
+                // Deshabilitar el botón durante la operación
+                btn.disabled = true;
+                btn.textContent = 'Eliminando...';
+
+                await pilotoService.eliminarPiloto(pilotoId);
+                showSuccess('Piloto eliminado exitosamente');
+                // Recargar la página para actualizar la lista
+                window.location.reload();
+            } catch (error) {
+                console.error("Error al eliminar el piloto:", error);
+                // Restaurar el botón
+                btn.disabled = false;
+                btn.textContent = 'Eliminar';
+                // Mostrar mensaje de error más descriptivo
+                showError(`Error al eliminar el piloto: ${error.message}`);
+            }
         });
     });
 

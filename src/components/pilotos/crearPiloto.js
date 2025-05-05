@@ -1,3 +1,6 @@
+import { PilotoService } from '../../services/piloto.service';
+import { showError, showSuccess } from '../../utils/shared/notifications';
+
 class CrearPiloto extends HTMLElement {
     constructor() {
         super();
@@ -32,16 +35,16 @@ class CrearPiloto extends HTMLElement {
                         <input type="text" id="country_code" name="country_code" maxlength="3" required>
                     </div>
                     <div class="form-group">
-                        <label for="${isCompetidor ? 'driver_number' : 'diver_number'}">Número de piloto</label>
-                        <input type="number" id="${isCompetidor ? 'driver_number' : 'diver_number'}" name="${isCompetidor ? 'driver_number' : 'diver_number'}" required>
+                        <label for="driver_number">Número de piloto</label>
+                        <input type="number" id="driver_number" name="driver_number" min="1" max="99" required>
                     </div>
                     <div class="form-group">
                         <label for="headshot_url">Foto de cabeza</label>
                         <input type="text" id="headshot_url" name="headshot_url" required>
                     </div>
                     <div class="form-group">
-                        <label for="${isCompetidor ? 'team_colour' : 'team_color'}">Color del equipo</label>
-                        <input type="color" id="${isCompetidor ? 'team_colour' : 'team_color'}" name="${isCompetidor ? 'team_colour' : 'team_color'}" value="#000000" class="color-picker" required>
+                        <label for="team_colour">Color del equipo</label>
+                        <input type="color" id="team_colour" name="team_colour" value="#000000" class="color-picker" required>
                     </div>
                     <div class="form-group">
                         <label for="team_name">Nombre del equipo</label>
@@ -121,11 +124,13 @@ class CrearPiloto extends HTMLElement {
         const urlParams = new URLSearchParams(window.location.search);
         const isCompetidor = urlParams.get("isCompetidor");
         const form = this.shadowRoot.querySelector('#form-piloto');
+        
         // Actualización en tiempo real
         form.querySelectorAll('input, select, textarea').forEach(input => {
             input.addEventListener('input', () => this.updatePreview());
             input.addEventListener('change', () => this.updatePreview());
         });
+
         // Flip funcional
         this.shadowRoot.addEventListener('click', (e) => {
             const flipBox = this.shadowRoot.querySelector('.flip-box');
@@ -133,40 +138,74 @@ class CrearPiloto extends HTMLElement {
                 flipBox.classList.toggle('flip');
             }
         });
+
         // Submit handler
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(form);
             let data = Object.fromEntries(formData.entries());
+
+            // Depuración: mostrar los datos del formulario
+            console.log('Datos del formulario:', data);
+
+            // Validar campos requeridos
+            if (!data.tipo_conduccion || !data.estrategia) {
+                showError('Por favor, selecciona el tipo de conducción y la estrategia');
+                return;
+            }
+
+            // Asegurar que el número del piloto sea un número válido
+            const driverNumber = formData.get('driver_number');
+            console.log('Número de piloto antes de procesar:', driverNumber);
+            
+            if (!driverNumber) {
+                showError('El número del piloto es requerido');
+                return;
+            }
+
+            data.driver_number = Number(driverNumber);
+            console.log('Número de piloto después de convertir:', data.driver_number);
+
+            if (isNaN(data.driver_number) || data.driver_number < 1 || data.driver_number > 99) {
+                showError('El número del piloto debe ser un número entre 1 y 99');
+                return;
+            }
+
+            // Asegurar que la URL de la foto sea válida
+            try {
+                new URL(data.headshot_url);
+            } catch {
+                showError('La URL de la foto debe ser válida');
+                return;
+            }
+
             if (isCompetidor) {
-                data = {
-                    ...data,
-                    estadisticas: {
-                        victorias: Number(formData.get('victorias')),
-                        podios: Number(formData.get('podios')),
-                        poles: Number(formData.get('poles')),
-                        mejor_tiempo: formData.get('mejor_tiempo') || '',
-                        campeonatos_mundiales: Number(formData.get('campeonatos_mundiales')),
-                        puntos_f1: Number(formData.get('puntos_f1'))
-                    }
+                data.estadisticas = {
+                    victorias: Number(formData.get('victorias')),
+                    podios: Number(formData.get('podios')),
+                    poles: Number(formData.get('poles')),
+                    mejor_tiempo: formData.get('mejor_tiempo'),
+                    campeonatos_mundiales: Number(formData.get('campeonatos_mundiales')),
+                    puntos_f1: Number(formData.get('puntos_f1'))
                 };
             }
-            const { PilotoService } = await import('../../services/piloto.service.js');
+
+            console.log('Datos finales a enviar:', data);
+
             const service = new PilotoService();
             try {
                 await service.createPilotoNuevo(data);
-                alert(isCompetidor ? 'Piloto competidor creado exitosamente' : 'Piloto creado exitosamente');
-                form.reset();
-                this.updatePreview();
+                showSuccess(isCompetidor ? 'Piloto competidor creado exitosamente' : 'Piloto creado exitosamente');
+                window.location.href = '/src/modules/admin/pilotos/pilotosView.html';
             } catch (err) {
-                alert('Error al crear el piloto: ' + err.message);
+                showError('Error al crear el piloto: ' + err.message);
             }
         });
     }
 
     updatePreview() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const isCompetidor = urlParams.get("isCompetidor");
+        const urlParams = new URLSearchParams(window.location.search);
+        const isCompetidor = urlParams.get("isCompetidor");
         const form = this.shadowRoot.querySelector('#form-piloto');
         const previewCard = this.shadowRoot.querySelector('#preview-card');
         const flipBox = previewCard?.querySelector('.flip-box');
@@ -174,7 +213,7 @@ class CrearPiloto extends HTMLElement {
         
         const formData = new FormData(form);
         // Datos comunes
-        const number = formData.get(isCompetidor ? 'driver_number' : 'diver_number') || '';
+        const number = formData.get('driver_number') || '';
         const team = formData.get('team_name') || 'Equipo';
         const firstName = formData.get('first_name') || 'Nombre';
         const lastName = formData.get('last_name') || 'APELLIDO';
@@ -184,7 +223,7 @@ class CrearPiloto extends HTMLElement {
         const driving = formData.get('tipo_conduccion') || '-';
         const strategy = formData.get('estrategia') || '-';
         const acronym = (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
-        const teamColor = formData.get(isCompetidor ? 'team_colour' : 'team_color') || '#424242';
+        const teamColor = formData.get('team_colour') || '#424242';
         const biografia = formData.get('biografia') || 'Biografía del piloto...';
         
         // Asegurar que el número siempre tenga el #
