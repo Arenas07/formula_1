@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('./controller/auth.controller');
-const { requireAuth } = require('../../utils/middleware/auth');
+const { verifyToken } = require('../../utils/middleware/jwt');
 const { validateLogin, validateRegister, validateResults } = require('./scream/auth.scream');
 
 /**
@@ -46,6 +46,15 @@ const { validateLogin, validateRegister, validateResults } = require('./scream/a
  *                 token:
  *                   type: string
  *                   description: Token JWT para autenticación
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     rol:
+ *                       type: string
  *       401:
  *         description: Credenciales inválidas
  */
@@ -66,26 +75,61 @@ router.post('/login', validateLogin, validateResults, authController.login);
  *             required:
  *               - email
  *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *                 format: password
+ *               rol:
+ *                 type: string
+ *                 enum: [usuario, admin]
+ *     responses:
+ *       201:
+ *         description: Usuario registrado exitosamente
+ *       400:
+ *         description: Datos inválidos
+ *       409:
+ *         description: Email ya registrado
+ */
+router.post('/register', validateRegister, validateResults, authController.register);
+
+/**
+ * @swagger
+ * /auth/register-admin:
+ *   post:
+ *     summary: Registrar nuevo administrador
+ *     tags: [Autenticación]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
  *               - name
  *             properties:
  *               email:
  *                 type: string
  *                 format: email
- *                 description: Correo electrónico del usuario
+ *                 description: Correo electrónico del administrador
  *               password:
  *                 type: string
  *                 format: password
- *                 description: Contraseña del usuario
+ *                 description: Contraseña del administrador
  *               name:
  *                 type: string
- *                 description: Nombre completo del usuario
+ *                 description: Nombre completo del administrador
  *     responses:
  *       201:
- *         description: Usuario registrado exitosamente
+ *         description: Administrador registrado exitosamente
  *       400:
  *         description: Error en los datos proporcionados
  */
-router.post('/register', validateRegister, validateResults, authController.register);
+router.post('/register-admin', validateRegister, validateResults, authController.registerAdmin);
 
 /**
  * @swagger
@@ -101,7 +145,7 @@ router.post('/register', validateRegister, validateResults, authController.regis
  *       401:
  *         description: No autorizado
  */
-router.post('/logout', authController.logout);
+router.post('/logout', verifyToken, authController.logout);
 
 /**
  * @swagger
@@ -114,20 +158,25 @@ router.post('/logout', authController.logout);
  *     responses:
  *       200:
  *         description: Perfil del usuario
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                 name:
- *                   type: string
- *                 email:
- *                   type: string
  *       401:
  *         description: No autorizado
  */
-router.get('/profile', requireAuth, authController.getProfile);
+router.get('/profile', verifyToken, authController.getProfile);
+
+/**
+ * @swagger
+ * /auth/me/role:
+ *   get:
+ *     summary: Obtener el rol del usuario
+ *     tags: [Autenticación]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Rol del usuario
+ *       401:
+ *         description: No autorizado
+ */
+router.get('/role', verifyToken, authController.getCurrentUserRole);
 
 module.exports = router; 

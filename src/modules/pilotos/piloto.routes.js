@@ -1,124 +1,184 @@
 const express = require('express');
 const router = express.Router();
-const PilotoController = require('./controller/piloto.controller');
+const pilotoController = require('./controller/piloto.controller');
+const { verifyToken } = require('../../utils/middleware/jwt');
+const { validatePiloto, validateId, validateResults } = require('./scream/piloto.scream');
 
-const pilotoController = new PilotoController();
+// Todas las rutas requieren autenticación
+router.use(verifyToken);
+
+// Rutas principales de pilotos
+router.get('/pilotos', pilotoController.getPilotos);
+router.get('/pilotos/:id', validateId, validateResults, pilotoController.getPilotoById);
+router.post('/pilotos', validatePiloto, validateResults, pilotoController.createPiloto);
+router.put('/pilotos/:id', validateId, validatePiloto, validateResults, pilotoController.updatePiloto);
+router.delete('/pilotos/:id', validateId, validateResults, pilotoController.deletePiloto);
+
+// Rutas específicas para tipos de pilotos
+router.post('/pilotos/nuevo', validatePiloto, validateResults, pilotoController.createPilotoNuevo);
+router.post('/pilotos/competidor', validatePiloto, validateResults, pilotoController.createPilotoCompetidor);
 
 /**
  * @swagger
- * /pilotos:
+ * tags:
+ *   name: Pilotos
+ *   description: API para gestión de pilotos
+ */
+
+/**
+ * @swagger
+ * /api/pilotos:
  *   get:
  *     summary: Obtener todos los pilotos
  *     tags: [Pilotos]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Lista de pilotos
+ *         description: Lista de pilotos obtenida exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Piloto'
  */
-router.get('/pilotos', (req, res) => pilotoController.getPilotos(req, res));
 
 /**
  * @swagger
- * /pilotos/{id}:
+ * /api/pilotos/{id}:
  *   get:
- *     summary: Obtener piloto por ID
+ *     summary: Obtener un piloto por ID
  *     tags: [Pilotos]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID del piloto
  *     responses:
  *       200:
- *         description: Piloto encontrado
+ *         description: Piloto encontrado exitosamente
  *       404:
  *         description: Piloto no encontrado
  */
-router.get('/pilotos/:id', (req, res) => pilotoController.getPilotoById(req, res));
 
 /**
  * @swagger
- * /pilotos/nuevo:
+ * /api/pilotos:
  *   post:
- *     summary: Crear piloto nuevo (estadísticas en 0)
+ *     summary: Crear un nuevo piloto
  *     tags: [Pilotos]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
+ *             $ref: '#/components/schemas/Piloto'
  *     responses:
  *       201:
- *         description: Piloto nuevo creado
+ *         description: Piloto creado exitosamente
+ *       400:
+ *         description: Datos inválidos
  */
-router.post('/pilotos/nuevo', (req, res) => pilotoController.createPilotoNuevo(req, res));
 
 /**
  * @swagger
- * /pilotos/competidor:
- *   post:
- *     summary: Crear piloto que ya compite (estadísticas desde el request)
- *     tags: [Pilotos]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *     responses:
- *       201:
- *         description: Piloto competidor creado
- */
-router.post('/pilotos/competidor', (req, res) => pilotoController.createPilotoCompetidor(req, res));
-
-/**
- * @swagger
- * /pilotos/{id}:
+ * /api/pilotos/{id}:
  *   put:
- *     summary: Actualizar piloto
+ *     summary: Actualizar un piloto
  *     tags: [Pilotos]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID del piloto
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
+ *             $ref: '#/components/schemas/Piloto'
  *     responses:
  *       200:
- *         description: Piloto actualizado
+ *         description: Piloto actualizado exitosamente
  *       404:
  *         description: Piloto no encontrado
  */
-router.put('/pilotos/:id', (req, res) => pilotoController.updatePiloto(req, res));
 
 /**
  * @swagger
- * /pilotos/{id}:
+ * /api/pilotos/{id}:
  *   delete:
- *     summary: Eliminar piloto
+ *     summary: Eliminar un piloto
  *     tags: [Pilotos]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID del piloto
  *     responses:
  *       200:
- *         description: Piloto eliminado
+ *         description: Piloto eliminado exitosamente
  *       404:
  *         description: Piloto no encontrado
  */
-router.delete('/pilotos/:id', (req, res) => pilotoController.deletePiloto(req, res));
+
+/**
+ * @swagger
+ * /api/pilotos/nuevo:
+ *   post:
+ *     summary: Crear un piloto nuevo (sin estadísticas)
+ *     tags: [Pilotos]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PilotoNuevo'
+ *     responses:
+ *       201:
+ *         description: Piloto nuevo creado exitosamente
+ *       400:
+ *         description: Datos inválidos
+ */
+
+/**
+ * @swagger
+ * /api/pilotos/competidor:
+ *   post:
+ *     summary: Crear un piloto competidor (con estadísticas)
+ *     tags: [Pilotos]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PilotoCompetidor'
+ *     responses:
+ *       201:
+ *         description: Piloto competidor creado exitosamente
+ *       400:
+ *         description: Datos inválidos
+ */
 
 module.exports = router;

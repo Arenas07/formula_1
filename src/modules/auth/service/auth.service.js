@@ -31,7 +31,8 @@ class AuthService {
                     id: user._id,
                     email: user.email,
                     nombre: user.nombre,
-                    rol: user.rol
+                    rol: user.rol,
+                    permisos: this.getPermisosByRol(user.rol)
                 },
                 token_id
             };
@@ -39,6 +40,28 @@ class AuthService {
             console.error('💥 AuthService - login - Error:', error);
             throw error;
         }
+    }
+
+    getPermisosByRol(rol) {
+        const permisos = {
+            admin: {
+                puedeGestionarUsuarios: true,
+                puedeGestionarPilotos: true,
+                puedeGestionarEquipos: true,
+                puedeGestionarCarreras: true,
+                puedeVerEstadisticas: true,
+                puedeGestionarConfiguracion: true
+            },
+            usuario: {
+                puedeGestionarUsuarios: false,
+                puedeGestionarPilotos: false,
+                puedeGestionarEquipos: false,
+                puedeGestionarCarreras: false,
+                puedeVerEstadisticas: true,
+                puedeGestionarConfiguracion: false
+            }
+        };
+        return permisos[rol] || permisos.usuario;
     }
 
     async register(email, password, nombre) {
@@ -99,6 +122,45 @@ class AuthService {
             };
         } catch (error) {
             console.error('💥 AuthService - getUserProfile - Error:', error);
+            throw error;
+        }
+    }
+
+    async registerAdmin(email, password, nombre) {
+        console.log('🔍 AuthService - registerAdmin - Iniciando proceso de registro de administrador');
+        try {
+            console.log('📧 AuthService - registerAdmin - Verificando usuario existente:', email);
+            const existingUser = await UserRepository.findByEmail(email);
+            
+            if (existingUser) {
+                console.log('❌ AuthService - registerAdmin - Usuario ya existe');
+                return { success: false, message: 'El usuario ya existe' };
+            }
+
+            console.log('🔑 AuthService - registerAdmin - Encriptando contraseña');
+            const hashedPassword = await bcrypt.hash(password, 10);
+            
+            console.log('👤 AuthService - registerAdmin - Creando nuevo administrador');
+            const user = await UserRepository.create({
+                email,
+                password: hashedPassword,
+                nombre,
+                rol: 'admin' // Asignar rol de administrador
+            });
+
+            console.log('✅ AuthService - registerAdmin - Administrador creado exitosamente');
+            
+            return { 
+                success: true, 
+                user: {
+                    id: user._id,
+                    email: user.email,
+                    nombre: user.nombre,
+                    rol: user.rol
+                }
+            };
+        } catch (error) {
+            console.error('💥 AuthService - registerAdmin - Error:', error);
             throw error;
         }
     }

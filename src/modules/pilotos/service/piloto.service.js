@@ -16,25 +16,155 @@ class PilotoService {
         }
     }
 
+    async getPilotoById(id) {
+        try {
+            const piloto = await PilotoRepository.getPilotoById(id);
+            
+            if (!piloto) {
+                console.log('❌ PilotoService - getPilotoById - Piloto no encontrado');
+                return { 
+                    success: false, 
+                    message: 'Piloto no encontrado' 
+                };
+            }
+
+            console.log('✅ PilotoService - getPilotoById - Piloto encontrado');
+            return { 
+                success: true, 
+                piloto 
+            };
+        } catch (error) {
+            console.error('💥 PilotoService - getPilotoById - Error:', error);
+            return { 
+                success: false, 
+                message: 'Error al obtener el piloto' 
+            };
+        }
+    }
+
+    async createPiloto(data) {
+        try {
+            // Normalizar el rol (aceptar "Lider" sin acento)
+            if (data.rol === 'Lider') {
+                data.rol = 'Líder';
+            }
+
+            // Generar campos automáticos
+            const pilotoData = this._generarDatosPiloto(data, true);
+            const piloto = await PilotoRepository.createPiloto(pilotoData);
+            return { success: true, piloto };
+        } catch (error) {
+            console.error('Error al crear piloto:', error);
+            return { 
+                success: false, 
+                message: error.message || 'Error al crear piloto' 
+            };
+        }
+    }
+
+    async updatePiloto(id, data) {
+        try {
+            // Verificar si el piloto existe
+            const pilotoExistente = await PilotoRepository.getPilotoById(id);
+            if (!pilotoExistente) {
+                return { 
+                    success: false, 
+                    message: 'Piloto no encontrado' 
+                };
+            }
+
+            // Normalizar el rol si se proporciona
+            if (data.rol && data.rol === 'Lider') {
+                data.rol = 'Líder';
+            }
+
+            // Actualizar campos automáticos si se modifican nombres
+            if (data.first_name || data.last_name) {
+                const first_name = data.first_name || pilotoExistente.first_name;
+                const last_name = data.last_name || pilotoExistente.last_name;
+                data.broadcast_name = `${first_name} ${last_name}`;
+                data.full_name = `${first_name} ${last_name}`;
+                data.name_acronym = last_name.substring(0, 3).toUpperCase();
+            }
+
+            // Actualizar el piloto
+            const pilotoActualizado = await PilotoRepository.updatePiloto(id, data);
+            return { 
+                success: true, 
+                piloto: pilotoActualizado 
+            };
+        } catch (error) {
+            console.error('💥 PilotoService - updatePiloto - Error:', error);
+            return { 
+                success: false, 
+                message: 'Error al actualizar el piloto' 
+            };
+        }
+    }
+
+    async deletePiloto(id) {
+        try {
+            // Verificar si el piloto existe
+            const pilotoExistente = await PilotoRepository.getPilotoById(id);
+            if (!pilotoExistente) {
+                return { 
+                    success: false, 
+                    message: 'Piloto no encontrado' 
+                };
+            }
+
+            // Eliminar el piloto
+            await PilotoRepository.deletePiloto(id);
+            return { 
+                success: true, 
+                message: 'Piloto eliminado exitosamente' 
+            };
+        } catch (error) {
+            console.error('💥 PilotoService - deletePiloto - Error:', error);
+            return { 
+                success: false, 
+                message: 'Error al eliminar el piloto' 
+            };
+        }
+    }
+
     async createPilotoNuevo(data) {
         try {
+            // Normalizar el rol (aceptar "Lider" sin acento)
+            if (data.rol === 'Lider') {
+                data.rol = 'Líder';
+            }
+
             // Generar campos automáticos y estadísticas en 0
             const pilotoData = this._generarDatosPiloto(data, true);
             const piloto = await PilotoRepository.createPiloto(pilotoData);
             return { success: true, piloto };
         } catch (error) {
-            return { success: false, message: 'Error al crear piloto nuevo' };
+            console.error('Error al crear piloto nuevo:', error);
+            return { 
+                success: false, 
+                message: error.message || 'Error al crear piloto nuevo' 
+            };
         }
     }
 
     async createPilotoCompetidor(data) {
         try {
+            // Normalizar el rol (aceptar "Lider" sin acento)
+            if (data.rol === 'Lider') {
+                data.rol = 'Líder';
+            }
+
             // Generar campos automáticos y estadísticas desde el request
             const pilotoData = this._generarDatosPiloto(data, false);
             const piloto = await PilotoRepository.createPiloto(pilotoData);
             return { success: true, piloto };
         } catch (error) {
-            return { success: false, message: 'Error al crear piloto competidor' };
+            console.error('Error al crear piloto competidor:', error);
+            return { 
+                success: false, 
+                message: error.message || 'Error al crear piloto competidor' 
+            };
         }
     }
 
@@ -44,19 +174,16 @@ class PilotoService {
         const id = Math.floor(Math.random() * 1000000);
         // broadcast_name: primer nombre + apellido
         const broadcast_name = `${data.first_name} ${data.last_name}`;
-        // country_code: se asume que viene del front como código
-        // driver_number: lo ingresa el usuario
         // full_name: primer nombre + apellido
         const full_name = `${data.first_name} ${data.last_name}`;
-        // headshot_url: lo ingresa el usuario
         // meeting_key: random
         const meeting_key = Math.floor(Math.random() * 1000000);
         // name_acronym: primeras 3 letras del apellido
         const name_acronym = data.last_name ? data.last_name.substring(0, 3).toUpperCase() : '';
         // session_key: random
         const session_key = Math.floor(Math.random() * 1000000);
-        // team_colour, team_name, biografia, rol, tipo_conduccion, estrategia: los ingresa el usuario
-        // estadisticas
+
+        // estadisticas siempre inician en 0 para pilotos nuevos
         const estadisticas = esNuevo ? {
             victorias: 0,
             podios: 0,
@@ -81,7 +208,7 @@ class PilotoService {
             team_colour: data.team_colour,
             team_name: data.team_name,
             estadisticas,
-            biografia: data.biografia,
+            biografia: data.biografia || '',
             rol: data.rol,
             tipo_conduccion: data.tipo_conduccion,
             estrategia: data.estrategia
@@ -89,4 +216,6 @@ class PilotoService {
     }
 }
 
-module.exports = new PilotoService();
+// Exportar una instancia del servicio
+const pilotoService = new PilotoService();
+module.exports = pilotoService;

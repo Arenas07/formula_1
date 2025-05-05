@@ -11,6 +11,16 @@ class PilotoRepository {
         }
     }
 
+    async getPilotoById(id) {
+        try {
+            const piloto = await Piloto.findOne({ id: Number(id) });
+            return piloto;
+        } catch (error) {
+            console.error('💥 PilotoRepository - getPilotoById - Error:', error);
+            throw error;
+        }
+    }
+
     async createPiloto(pilotoData) {
         try {
             const piloto = new Piloto(pilotoData);
@@ -21,6 +31,32 @@ class PilotoRepository {
             throw error;
         }
     }
+
+    async updatePiloto(id, pilotoData) {
+        try {
+            const piloto = await Piloto.findOneAndUpdate(
+                { id: Number(id) },
+                { $set: pilotoData },
+                { new: true, runValidators: true }
+            );
+            return piloto;
+        } catch (error) {
+            console.error('💥 PilotoRepository - updatePiloto - Error:', error);
+            throw error;
+        }
+    }
+
+    async deletePiloto(id) {
+        try {
+            const piloto = await Piloto.findOneAndDelete({ id: Number(id) });
+            return piloto;
+        } catch (error) {
+            console.error('💥 PilotoRepository - deletePiloto - Error:', error);
+            throw error;
+        }
+    }
 }
 
-module.exports = new PilotoRepository();
+// Exportar una instancia del repositorio
+const pilotoRepository = new PilotoRepository();
+module.exports = pilotoRepository;

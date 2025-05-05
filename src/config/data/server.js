@@ -64,6 +64,7 @@ const equipoRoutes = require('../../modules/equipo/equipo.routes');
 const vehiculoRoutes = require('../../modules/vehiculo/vehiculo.routes');
 const circuitoRoutes = require('../../modules/circuito/circuito.routes');
 const usuarioRoutes = require('../../modules/usuario/infraestructure/routes/usuario.routes');
+const simulacionRoutes = require('../../modules/simulacion/simulacion.routes');
 
 app.use('/auth', authRoutes);
 app.use('/api', pilotoRoutes);
@@ -71,6 +72,7 @@ app.use('/api', equipoRoutes);
 app.use('/api', vehiculoRoutes);
 app.use('/api', circuitoRoutes);
 app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/simulacion', simulacionRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {

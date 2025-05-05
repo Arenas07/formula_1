@@ -6,8 +6,13 @@ const configuracionSimulacionSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    usuario_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     piloto_id: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Piloto',
         required: true
     },
@@ -58,12 +63,35 @@ const configuracionSimulacionSchema = new mongoose.Schema({
         default: Date.now
     },
     resultados: {
-        tiempo_total: String,
-        posicion_final: Number,
-        vueltas_completadas: Number,
-        consumo_combustible: Number,
-        desgaste_neumaticos: Number
+        tiempo_total: {
+            type: String,
+            required: true
+        },
+        posicion_final: {
+            type: Number,
+            required: true,
+            min: 1,
+            max: 20
+        },
+        vueltas_completadas: {
+            type: Number,
+            required: true
+        },
+        consumo_combustible: {
+            type: Number,
+            required: true,
+            min: 0,
+            max: 100
+        },
+        desgaste_neumaticos: {
+            type: Number,
+            required: true,
+            min: 0,
+            max: 100
+        }
     }
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('ConfiguracionSimulacion', configuracionSimulacionSchema); 

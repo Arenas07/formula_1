@@ -1,23 +1,73 @@
-const equipoService = require('../service/equipo.service');
+const EquipoService = require('../service/equipo.service');
 
 class EquipoController {
     async getEquipos(req, res) {
         try {
-            const result = await equipoService.getEquipos();
-            if (result.success) {
-                console.log('✅ EquipoController - getEquipos - Todos los equipos obtenidos');
-                res.json({
-                    status: '200',
-                    message: 'Todos los equipos obtenidos',
-                    equipos: result.equipos
-                });
-            } else {
-                console.log('❌ EquipoController - getEquipos - Error:', result.message);
-                res.status(401).json({ message: result.message });
+            const resultado = await EquipoService.getEquipos();
+            if (!resultado.success) {
+                return res.status(404).json(resultado);
             }
+            return res.status(200).json(resultado);
         } catch (error) {
             console.error('💥 EquipoController - getEquipos - Error:', error);
-            res.status(500).json({ message: 'Error en el servidor' });
+            return res.status(500).json({ success: false, message: 'Error interno del servidor' });
+        }
+    }
+
+    async getEquipoById(req, res) {
+        try {
+            const { id } = req.params;
+            const resultado = await EquipoService.getEquipoById(id);
+            if (!resultado.success) {
+                return res.status(404).json(resultado);
+            }
+            return res.status(200).json(resultado);
+        } catch (error) {
+            console.error('💥 EquipoController - getEquipoById - Error:', error);
+            return res.status(500).json({ success: false, message: 'Error interno del servidor' });
+        }
+    }
+
+    async createEquipo(req, res) {
+        try {
+            const equipoData = req.body;
+            const resultado = await EquipoService.createEquipo(equipoData);
+            if (!resultado.success) {
+                return res.status(400).json(resultado);
+            }
+            return res.status(201).json(resultado);
+        } catch (error) {
+            console.error('💥 EquipoController - createEquipo - Error:', error);
+            return res.status(500).json({ success: false, message: 'Error interno del servidor' });
+        }
+    }
+
+    async updateEquipo(req, res) {
+        try {
+            const { id } = req.params;
+            const equipoData = req.body;
+            const resultado = await EquipoService.updateEquipo(id, equipoData);
+            if (!resultado.success) {
+                return res.status(404).json(resultado);
+            }
+            return res.status(200).json(resultado);
+        } catch (error) {
+            console.error('💥 EquipoController - updateEquipo - Error:', error);
+            return res.status(500).json({ success: false, message: 'Error interno del servidor' });
+        }
+    }
+
+    async deleteEquipo(req, res) {
+        try {
+            const { id } = req.params;
+            const resultado = await EquipoService.deleteEquipo(id);
+            if (!resultado.success) {
+                return res.status(404).json(resultado);
+            }
+            return res.status(200).json(resultado);
+        } catch (error) {
+            console.error('💥 EquipoController - deleteEquipo - Error:', error);
+            return res.status(500).json({ success: false, message: 'Error interno del servidor' });
         }
     }
 }
