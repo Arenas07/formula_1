@@ -1,0 +1,173 @@
+:root {
+    --primary-color: #e10600;
+    --secondary-color: #1e1e1e;
+    --text-color: #333;
+    --input-border: #ddd;
+    --input-background: #fff;
+    --error-color: #dc3545;
+    --success-color: #28a745;
+}
+
+.container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.crear-vehiculo {
+    flex: 1;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.preview-container {
+    flex: 1;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--input-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: var(--input-background);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.color-picker {
+    height: 50px;
+    padding: 0.5rem;
+}
+
+button[type="submit"] {
+    margin-top: 1.5rem;
+    padding: 1.1rem 0;
+    background: linear-gradient(90deg, #2563eb 60%, #1e3a8a 100%);
+    color: #fff;
+    border: none;
+    border-radius: 1.3rem;
+    font-weight: bold;
+    font-size: 1.18rem;
+    cursor: pointer;
+    box-shadow: 0 6px 20px #2563eb22;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.5px;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(90deg, #1e3a8a 60%, #2563eb 100%);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 32px #2563eb33;
+}
+
+/* Estilos para la vista previa */
+.vehiculo-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.vehiculo-imagen {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.vehiculo-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vehiculo-info {
+    padding: 1.5rem;
+}
+
+.vehiculo-info h2 {
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+}
+
+.modelo {
+    color: var(--secondary-color);
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+}
+
+.especificaciones {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.spec-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.value {
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.descripcion {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--input-border);
+}
+
+.descripcion p {
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .crear-vehiculo,
+    .preview-container {
+        width: 100%;
+    }
+} 

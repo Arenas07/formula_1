@@ -1,10 +1,13 @@
 import { VehiclesService } from "../services/vehicles.service.js";
+import { AuthService } from "../services/login.service.js";
+import { showNotification } from "../utils/notifications.js";
 
 class VehicleList extends HTMLElement {
     constructor() {
       super();
       this.attachShadow({ mode: 'open' });
       this.vehiclesService = new VehiclesService();
+      this.authService = new AuthService();
       this.vehicles = [];
     }
   
@@ -24,10 +27,21 @@ class VehicleList extends HTMLElement {
         `;
         
         console.log('Iniciando carga de vehículos...');
-        const vehiclesData = await this.vehiclesService.getVehicles();
-        console.log('Vehículos recibidos:', vehiclesData);
+        const response = await this.vehiclesService.getVehicles();
+        console.log('Vehículos recibidos:', response);
         
-        this.vehicles = vehiclesData || [];
+        // Validar y extraer los vehículos de la estructura anidada
+        if (response && 
+            response.success && 
+            response.vehiculos && 
+            response.vehiculos.success && 
+            Array.isArray(response.vehiculos.vehiculos)) {
+          this.vehicles = response.vehiculos.vehiculos;
+        } else {
+          console.error('Formato de respuesta inválido:', response);
+          this.vehicles = [];
+        }
+        
         this.generateVehicles();
       } catch (error) {
         console.error('Error al cargar los vehículos:', error);
@@ -51,6 +65,12 @@ class VehicleList extends HTMLElement {
     generateVehicles() {
       const container = this.shadowRoot.querySelector("#list__vehicles");
       container.innerHTML = "";
+  
+      // Validar que this.vehicles sea un array
+      if (!Array.isArray(this.vehicles)) {
+        console.error('this.vehicles no es un array:', this.vehicles);
+        this.vehicles = [];
+      }
   
       if (!this.vehicles || this.vehicles.length === 0) {
         container.innerHTML = `
@@ -98,7 +118,13 @@ class VehicleList extends HTMLElement {
             <img src="${vehicle.imagen || '../../design/images/default-vehicle.png'}" 
                 alt="${vehicle.modelo || 'Vehículo'}"
           </div>
-          <p class="more-info">Ver más <i class='bx bx-right-arrow-alt'></i></p>
+          <div class="card-actions-bottom">
+            <button class="more-info"><i class='bx bx-right-arrow-alt'></i> Ver más</button>
+            ${this.authService.isAdmin() ? `
+              <button class="edit-btn"><i class='bx bx-edit'></i> Editar</button>
+              <button class="delete-btn"><i class='bx bx-trash'></i> Eliminar</button>
+            ` : ''}
+          </div>
         `;
         
         // Aplicar estilo personalizado basado en el equipo
@@ -110,9 +136,63 @@ class VehicleList extends HTMLElement {
           card.style.color = "#FFFFFF";
         }
   
-        card.addEventListener("click", () => this.openPopup(vehicle));
+        card.addEventListener("click", (e) => {
+          // No abrir el popup si se hizo clic en los botones de admin
+          if (!e.target.closest('.admin-actions')) {
+            this.openPopup(vehicle);
+          }
+        });
+
+        // Agregar event listeners para los botones de admin
+        if (this.authService.isAdmin()) {
+          const editBtn = card.querySelector('.edit-btn');
+          const deleteBtn = card.querySelector('.delete-btn');
+
+          editBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.handleEdit(vehicle.id);
+          });
+
+          deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.handleDelete(vehicle.id);
+          });
+        }
+
+        // El botón ver más debe abrir el popup
+        const moreInfoBtn = card.querySelector('.more-info');
+        if (moreInfoBtn) {
+          moreInfoBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.openPopup(vehicle);
+          });
+        }
+
         cardsContainer.appendChild(card);
       });
+    }
+
+    async handleEdit(id) {
+      try {
+        window.location.href = `/src/modules/vehicles/editarVehiculo.html?id=${id}`;
+      } catch (error) {
+        console.error('Error al redirigir a la página de edición:', error);
+        showNotification('Error al redirigir a la página de edición', 'error');
+      }
+    }
+
+    async handleDelete(id) {
+      try {
+        const confirmDelete = confirm('¿Estás seguro de que deseas eliminar este vehículo?');
+        if (!confirmDelete) return;
+
+        await this.vehiclesService.deleteVehicle(id);
+        showNotification('Vehículo eliminado exitosamente', 'success');
+        this.loadData(); // Recargar la lista
+      } catch (error) {
+        console.error('Error al eliminar el vehículo:', error);
+        showNotification(error.message || 'Error al eliminar el vehículo', 'error');
+      }
     }
   
     openPopup(vehicle) {
@@ -210,337 +290,381 @@ class VehicleList extends HTMLElement {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           }
           
-          @keyframes popupIn {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-          }
-          
-          @keyframes popupOut {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0; }
-          }
-          
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+          body {
+            background: #f3f4f8;
           }
           
           #list__vehicles {
-            margin-top: 5rem;
-            padding: 2rem;
+            margin-top: 7rem;
+            padding: 2.5rem 1rem 2rem 1rem;
             min-height: 400px;
             display: flex;
             flex: 1; 
-
             flex-direction: column;
+            background: #f3f4f8;
           }
           
           .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
             width: 100%;
-            max-width: 1400px;
+            max-width: 1500px;
+            margin: 0 auto;
           }
           
           .vehicle-container {
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-            padding: 1.2rem;
-            transition: all 0.3s ease-in-out;
+            border-radius: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18), 0 1.5px 6px 0 rgba(0,0,0,0.10);
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            transition: transform 0.25s cubic-bezier(.4,2,.3,1), box-shadow 0.25s;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
             overflow: hidden;
-            min-height: 320px;
-          }
-          
-          .vehicle-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
-            z-index: 1;
-            pointer-events: none;
+            min-height: 370px;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(255,255,255,0.25);
           }
           
           .vehicle-container:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.22), 0 4px 16px 0 rgba(0,0,0,0.13);
           }
           
           .top-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
             z-index: 2;
           }
           
           .team-name {
-            font-size: 1rem;
-            font-weight: bold;
-            background: rgba(0, 0, 0, 0.1);
-            padding: 0.3rem 0.7rem;
-            border-radius: 20px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            background: rgba(255,255,255,0.35);
+            color: #222;
+            padding: 0.5rem 1.2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.25);
+            letter-spacing: 0.5px;
           }
           
           .vehicle-id {
-            font-size: 1.2rem;
-            font-weight: bold;
-            background: rgba(0, 0, 0, 0.2);
-            width: 35px;
-            height: 35px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            background: rgba(0,0,0,0.10);
+            color: #333;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            backdrop-filter: blur(3px);
           }
           
           .model {
             z-index: 2;
+            text-align: center;
+            margin: 1.2rem 0 0.7rem 0;
           }
           
           .model h2 {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 2.3rem;
+            font-weight: 900;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            letter-spacing: 1.5px;
+            color: #222;
           }
           
           .principal-img {
             position: relative;
-            height: 180px;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 2;
-            margin-bottom: 1rem;
+            margin: 1.2rem 0 0.7rem 0;
           }
           
           .principal-img img {
-            width: 100%;
+            width: 90%;
             height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
-            transition: transform 0.3s ease;
+            filter: drop-shadow(0 8px 18px rgba(0,0,0,0.18));
+            transition: transform 0.35s cubic-bezier(.4,2,.3,1);
           }
           
           .vehicle-container:hover .principal-img img {
-            transform: scale(1.05);
+            transform: scale(1.08) rotate(-2deg);
           }
           
-          .more-info {
-            text-align: right;
-            font-size: 0.9rem;
-            font-weight: bold;
-            padding: 0.5rem 0;
+          .card-actions-bottom {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.7rem;
+            width: 100%;
+            margin-top: 1.5rem;
+            padding-bottom: 0.2rem;
+            background: none;
+            position: absolute;
+            bottom: 1.2rem;
+            right: 1.2rem;
+            left: 1.2rem;
+            z-index: 10;
+          }
+          .more-info, .edit-btn, .delete-btn {
+            background: rgba(255,255,255,0.92);
+            border: none;
+            min-width: 90px;
+            height: 42px;
+            border-radius: 1.2rem;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            z-index: 2;
+            justify-content: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            transition: all 0.22s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            font-size: 1.08rem;
+            color: #222;
+            border: 1.5px solid #e5e7eb;
+            font-weight: 600;
+            padding: 0 1.1rem;
           }
-          
-          .more-info i {
-            margin-left: 0.3rem;
-            font-size: 1.1rem;
-            transition: transform 0.2s ease;
+          .more-info:hover {
+            background: linear-gradient(135deg, #2563eb 60%, #1e3a8a 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px #2563eb44;
+            border-color: #2563eb;
           }
-          
-          .vehicle-container:hover .more-info i {
-            transform: translateX(3px);
+          .edit-btn:hover {
+            background: linear-gradient(135deg, #3b82f6 60%, #1e3a8a 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px #3b82f6aa;
+            border-color: #3b82f6;
           }
-          
+          .delete-btn:hover {
+            background: linear-gradient(135deg, #ef4444 60%, #b91c1c 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px #ef4444aa;
+            border-color: #ef4444;
+          }
+          .more-info i, .edit-btn i, .delete-btn i {
+            font-size: 1.15rem;
+          }
+
+          /* Animaciones y glassmorphism para el popup */
           .popup {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background: rgba(30, 41, 59, 0.85);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            padding: 1rem;
-            backdrop-filter: blur(5px);
-          }
-          
-          .popup-content {
-            background-color: #ffffff;
-            border-radius: 20px;
             padding: 2rem;
+            backdrop-filter: blur(10px);
+          }
+          .popup-content {
+            background: rgba(255,255,255,0.92);
+            border-radius: 2rem;
+            padding: 2.5rem;
             width: 100%;
-            max-width: 700px;
+            max-width: 850px;
             color: #1f2937;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(8px);
           }
-          
           #popup-title {
-            font-size: 1.8rem;
+            font-size: 2.1rem;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             color: #1e3a8a;
-            border-bottom: 2px solid #e5e7eb;
+            border-bottom: 3px solid #e5e7eb;
             padding-bottom: 1rem;
+            letter-spacing: 1px;
           }
-          
           .popup-body {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 2rem;
             align-items: start;
           }
-          
-          @media (max-width: 768px) {
+          @media (max-width: 900px) {
             .popup-body {
               grid-template-columns: 1fr;
             }
+            .popup-content {
+              padding: 1.5rem;
+            }
           }
-          
           .popup-body img {
             width: 100%;
             height: auto;
-            max-height: 250px;
+            max-height: 300px;
             object-fit: contain;
-            border-radius: 10px;
-            background-color: #f8fafc;
+            border-radius: 1.2rem;
+            background: #f8fafc;
             grid-column: 1 / -1;
-            padding: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.10);
           }
-          
           #motor-info, #dimension-info {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
             width: 100%;
           }
-          
           .info-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            background-color: #f8fafc;
-            padding: 0.8rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease;
+            gap: 1.2rem;
+            background: rgba(248,250,252,0.85);
+            padding: 1.1rem;
+            border-radius: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s;
           }
-          
           .info-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+            background: #f1f5f9;
           }
-          
           .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
+            gap: 1rem;
           }
-          
           .info-item i {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: #2563eb;
-            background-color: #eff6ff;
-            width: 40px;
-            height: 40px;
+            background: #eff6ff;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
+            border-radius: 12px;
+            transition: all 0.3s;
           }
-          
+          .info-item:hover i {
+            transform: scale(1.1);
+            background: #dbeafe;
+          }
           .info-item p {
-            font-size: 0.8rem;
+            font-size: 0.98rem;
             color: #64748b;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
           }
-          
           .info-item b {
-            font-size: 1.1rem;
+            font-size: 1.18rem;
             color: #0f172a;
+            font-weight: 700;
           }
-          
           .close-btn {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
+            top: 22px;
+            right: 22px;
+            font-size: 1.8rem;
             color: #ef4444;
-            background-color: #fee2e2;
-            width: 35px;
-            height: 35px;
+            background: #fee2e2;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             border: none;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.10);
           }
-          
           .close-btn:hover {
-            transform: scale(1.1);
-            background-color: #fecaca;
+            transform: scale(1.13) rotate(90deg);
+            background: #fecaca;
           }
-          
           .loading, .error, .no-data {
             width: 100%;
             text-align: center;
-            padding: 3rem;
-            font-size: 1.2rem;
+            padding: 4rem 2rem;
+            font-size: 1.3rem;
             color: #64748b;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.5rem;
+            background: rgba(255,255,255,0.93);
+            border-radius: 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.10);
           }
-          
           .loading .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #e2e8f0;
-            border-top: 5px solid #3b82f6;
+            width: 64px;
+            height: 64px;
+            border: 7px solid #e2e8f0;
+            border-top: 7px solid #3b82f6;
             border-radius: 50%;
             animation: spin 1s linear infinite;
           }
-          
           .error {
             color: #ef4444;
-            background-color: #fee2e2;
-            border-radius: 10px;
+            background: #fee2e2;
+            border-radius: 1.5rem;
           }
-          
           .error i, .no-data i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: #ef4444;
           }
-          
           .retry-btn {
-            margin-top: 1rem;
-            padding: 0.7rem 1.5rem;
-            background-color: #3b82f6;
+            margin-top: 1.5rem;
+            padding: 1rem 2.2rem;
+            background: #3b82f6;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 1.2rem;
             font-weight: bold;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.10);
           }
-          
           .retry-btn:hover {
-            background-color: #2563eb;
+            background: #2563eb;
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+          }
+          @keyframes popupIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+          }
+          @keyframes popupOut {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0; }
+          }
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
           }
         </style>
   
