@@ -1,6 +1,5 @@
 import { getUserToken } from './userToken';
 
-
 const tokenValidator = () => {
     const token = getUserToken();
     if (token) {
@@ -10,11 +9,13 @@ const tokenValidator = () => {
 }
 
 const tokenValidatorAdmin = () => {
-    const token = getUserToken();
-    if (token == 1010) {
-        return true;
-    }
-    return false;
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.rol === 'admin';
 }
 
-export { tokenValidator, tokenValidatorAdmin };
+const hasPermission = (permission) => {
+    const permisos = JSON.parse(localStorage.getItem('user_permisos') || '{}');
+    return permisos[permission] === true;
+}
+
+export { tokenValidator, tokenValidatorAdmin, hasPermission };

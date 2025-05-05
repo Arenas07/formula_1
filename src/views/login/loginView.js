@@ -1,4 +1,6 @@
 import { AuthService } from "../../services/login.service";
+import { showError, showSuccess } from '../../utils/shared/notifications';
+
 class Login extends HTMLElement{
     constructor(){
         super()
@@ -92,12 +94,12 @@ class Login extends HTMLElement{
             authService.login(email, password)
                 .then(data => {
                     console.log('Login exitoso:', data);
-                    alert('Login exitoso. Bienvenido.');
+                    showSuccess('Login exitoso. Bienvenido.');
                     window.location.href = '../homePage.html';
                 })
                 .catch(error => {
                     console.error('Error en login:', error);
-                    alert(error.message);
+                    showError(error.message);
                 });
         });
 
@@ -111,13 +113,13 @@ class Login extends HTMLElement{
             authService.register({ email, password, nombre })
                 .then(data => {
                     console.log('Registro exitoso:', data);
-                    alert('Registro exitoso. Por favor, inicia sesión.');
+                    showSuccess('Registro exitoso. Por favor, inicia sesión.');
                     this.isLogin = true;
                     this.render();
                 })
                 .catch(error => {
                     console.error('Error en registro:', error);
-                    alert(error.message);
+                    showError(error.message);
                 });
         });
     }
