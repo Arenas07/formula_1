@@ -1,5 +1,6 @@
 import { PilotoService } from "../../services/piloto.service";
-import { hasPermission } from "../../utils/shared/tokenValidator";
+import { tokenValidator } from "../../utils/shared/tokenValidator";
+import { isAdmin } from "../../utils/shared/roleValidator";
 import { showError, showSuccess } from '../../utils/shared/notifications';
 
 class EditarPiloto extends HTMLElement {
@@ -11,7 +12,25 @@ class EditarPiloto extends HTMLElement {
     }
     
     async connectedCallback() {
-        if (!hasPermission('puedeGestionarPilotos')) {
+        // Verificar permisos al cargar la página
+        const existToken = tokenValidator();
+        console.log('🔑 Estado del token en editar piloto:', existToken ? 'Presente' : 'No presente');
+        
+        if (existToken) {
+            const isUserAdmin = await isAdmin();
+            console.log('🔐 Estado de permisos en editar piloto:', { existToken, isUserAdmin });
+            
+            if (!isUserAdmin) {
+                console.log('👤 Usuario no es administrador, mostrando mensaje de error');
+                this.shadowRoot.innerHTML = `
+                    <div style="padding: 2rem; text-align: center; font-size: 1.2rem;">
+                        No tienes permisos para editar pilotos.
+                    </div>
+                `;
+                return;
+            }
+        } else {
+            console.log('🔒 No hay token, mostrando mensaje de error');
             this.shadowRoot.innerHTML = `
                 <div style="padding: 2rem; text-align: center; font-size: 1.2rem;">
                     No tienes permisos para editar pilotos.
@@ -19,6 +38,7 @@ class EditarPiloto extends HTMLElement {
             `;
             return;
         }
+
         const urlParams = new URLSearchParams(window.location.search);
         this.pilotoId = urlParams.get("id");
         if (!this.pilotoId) {
@@ -26,18 +46,21 @@ class EditarPiloto extends HTMLElement {
             this.render();
             return;
         }
+
         try {
+            console.log('🔄 Obteniendo datos del piloto con ID:', this.pilotoId);
             const service = new PilotoService();
             const response = await service.getPilotoById(this.pilotoId);
             // Extraer datos correctamente
             this.pilotoData = response.data || response.piloto || response;
             if (!this.pilotoData) throw new Error('No se recibieron datos del piloto');
+            console.log('✅ Datos del piloto obtenidos:', this.pilotoData);
             this.render(this.pilotoData);
             this.setupEventListeners();
             this.updateFormValues();
             this.updatePreview();
         } catch (error) {
-            console.error("Error al obtener los datos del piloto:", error);
+            console.error("❌ Error al obtener los datos del piloto:", error);
             showError('Error al cargar los datos del piloto: ' + error.message);
             this.render();
         }
@@ -271,6 +294,14 @@ class EditarPiloto extends HTMLElement {
                             <p class="driver-sub-info-name_acronym">${acronym}</p>
                         </div>
                         <p class="driver-stats-link">Ver estadísticas &gt;</p>
+                        <div class="admin-actions" style="display: flex;">
+                            <div class="editar">
+                                <button class="btn-editar" disabled>Editar</button>
+                            </div>
+                            <div class="eliminar">
+                                <button class="btn-eliminar" disabled>Eliminar</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="flip-box-back">
                         <div class="back-top-section">

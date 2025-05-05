@@ -139,22 +139,23 @@ body {
 }
 
 /* Estilos del scrollbar */
-.flip-box-front::-webkit-scrollbar,
-.flip-box-back::-webkit-scrollbar {
-    width: 8px;
+.flip-box-front::-webkit-scrollbar {
+    width: 7px;
     background: transparent;
 }
 
-.flip-box-front::-webkit-scrollbar-thumb,
-.flip-box-back::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.15);
+.flip-box-front::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.18);
     border-radius: 8px;
     transition: background 0.3s;
 }
 
-.flip-box-front::-webkit-scrollbar-thumb:hover,
-.flip-box-back::-webkit-scrollbar-thumb:hover {
+.flip-box-front::-webkit-scrollbar-thumb:hover {
     background: rgba(255,255,255,0.35);
+}
+
+.flip-box-front::-webkit-scrollbar-track {
+    background: transparent;
 }
 
 /* Frente de la tarjeta */
@@ -162,7 +163,10 @@ body {
     background: linear-gradient(145deg, #424242, #212121);
     color: white;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.18) transparent;
 }
 
 .number-background {
@@ -577,5 +581,14 @@ body {
     justify-content: center;
     align-items: center;
     margin: 10px 0;
+}
+
+.flip-box-front::-webkit-scrollbar {
+    width: 8px;
+    background: #222;
+}
+.flip-box-front::-webkit-scrollbar-thumb {
+    background: #b81711;
+    border-radius: 8px;
 }
 

@@ -18,7 +18,7 @@ export class PilotoService {
             'Content-Type': 'application/json'
         };
 
-        const token = localStorage.getItem('auth_token');
+        const token = localStorage.getItem('token');
         if (token) {
             headers['Authorization'] = `Bearer ${token}`;
         }
@@ -92,6 +92,9 @@ export class PilotoService {
                 estrategia: pilotoData.estrategia,
                 biografia: pilotoData.biografia || ''
             };
+            if (pilotoData.estadisticas) {
+                body.estadisticas = pilotoData.estadisticas;
+            }
 
             console.log('Enviando body a backend:', body);
             const response = await fetch(`${this.API_BASE}/api/pilotos/nuevo`, {

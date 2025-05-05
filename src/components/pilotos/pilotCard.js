@@ -1,8 +1,9 @@
-import { tokenValidator, tokenValidatorAdmin, hasPermission } from "../../utils/shared/tokenValidator";
+import { tokenValidator } from "../../utils/shared/tokenValidator";
+import { isAdmin } from "../../utils/shared/roleValidator";
 import { PilotoService } from "../../services/piloto.service";
 import { showError, showSuccess } from "../../utils/shared/notifications";
 
-export const pilotCard = (shadowRoot, pilotos = []) => {
+export const pilotCard = async (shadowRoot, pilotos = []) => {
     const pilotoCardContainer = shadowRoot.querySelector("#piloto-card");
     const pilotoService = new PilotoService();
     
@@ -29,6 +30,7 @@ export const pilotCard = (shadowRoot, pilotos = []) => {
         // Color translúcido para fondo de país
         const countryBg = teamColor + '22';
         const countryBorder = teamColor + '99';
+        const pilotoId = piloto.id || piloto._id || '';
         return `
             <div class="piloto-card-item">
                 <div class="flip-box" style="--team-color: ${teamColor}; --text-color: ${textColor};">
@@ -48,12 +50,12 @@ export const pilotCard = (shadowRoot, pilotos = []) => {
                                 <p class="driver-sub-info-name_acronym">${acronym}</p>
                             </div>
                             <p class="driver-stats-link">Ver estadísticas &gt;</p>
-                            <div class="admin-actions">
+                            <div class="admin-actions" style="display: none;">
                                 <div class="editar">
-                                    <button class="btn-editar" data-piloto-id="${piloto.id}">Editar</button>
+                                    <button class="btn-editar" data-piloto-id="${pilotoId}">Editar</button>
                                 </div>
                                 <div class="eliminar">
-                                    <button class="btn-eliminar" data-piloto-id="${piloto.id}">Eliminar</button>
+                                    <button class="btn-eliminar" data-piloto-id="${pilotoId}">Eliminar</button>
                                 </div>
                             </div>
                         </div>
@@ -139,23 +141,28 @@ export const pilotCard = (shadowRoot, pilotos = []) => {
         });
     });
 
-    const btnsEditar = shadowRoot.querySelectorAll(".btn-editar");
-    const btnsEliminar = shadowRoot.querySelectorAll(".btn-eliminar");
-    
-
     // Verificar permisos al cargar la página
+    const adminActions = shadowRoot.querySelectorAll('.admin-actions');
     const existToken = tokenValidator();
+    console.log('🔑 Estado del token:', existToken ? 'Presente' : 'No presente');
+    
     if (existToken) {
-        // Verificar si el usuario tiene permisos de administrador
-        const canManagePilots = hasPermission('puedeGestionarPilotos');
-        if (!canManagePilots) {
-            btnsEditar.forEach(btn => btn.style.display = 'none');
-            btnsEliminar.forEach(btn => btn.style.display = 'none');
+        const isUserAdmin = await isAdmin();
+        console.log('🔐 Estado de permisos:', { existToken, isUserAdmin });
+        if (isUserAdmin) {
+            console.log('👑 Mostrando acciones de administrador');
+            adminActions.forEach(actions => {
+                actions.style.display = 'flex';
+            });
+        } else {
+            console.log('👤 Usuario no es administrador, ocultando acciones');
         }
     } else {
-        btnsEditar.forEach(btn => btn.style.display = 'none');
-        btnsEliminar.forEach(btn => btn.style.display = 'none');
+        console.log('🔒 No hay token, ocultando acciones de administrador');
     }
+
+    const btnsEditar = shadowRoot.querySelectorAll(".btn-editar");
+    const btnsEliminar = shadowRoot.querySelectorAll(".btn-eliminar");
 
     btnsEliminar.forEach(btn => {
         btn.addEventListener("click", async (event) => {

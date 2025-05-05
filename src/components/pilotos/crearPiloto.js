@@ -196,7 +196,7 @@ class CrearPiloto extends HTMLElement {
             try {
                 await service.createPilotoNuevo(data);
                 showSuccess(isCompetidor ? 'Piloto competidor creado exitosamente' : 'Piloto creado exitosamente');
-                window.location.href = '/src/modules/admin/pilotos/pilotosView.html';
+                window.location.href = '/src/modules/pilotos/pilotosView.html';
             } catch (err) {
                 showError('Error al crear el piloto: ' + err.message);
             }
@@ -258,6 +258,14 @@ class CrearPiloto extends HTMLElement {
                             <p class="driver-sub-info-name_acronym">${acronym}</p>
                         </div>
                         <p class="driver-stats-link">Ver estadísticas &gt;</p>
+                        <div class="admin-actions" style="display: flex;">
+                            <div class="editar">
+                                <button class="btn-editar" disabled>Editar</button>
+                            </div>
+                            <div class="eliminar">
+                                <button class="btn-eliminar" disabled>Eliminar</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="flip-box-back">
                         <div class="back-top-section">
